@@ -41,7 +41,7 @@ public class Principal {
 	// não entedemos o relatorio. por favor explicar.
 
 	// perguntar se o menu esta legal, porque a versão dele estava confuso para mexer.
-	
+	//Gabriel Garcia passou por aqui >:)
 	
 	public static Conexao con;
 	public static DadosConexao dadosCon = new DadosConexao();
