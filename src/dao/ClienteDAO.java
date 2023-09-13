@@ -129,6 +129,26 @@ public class ClienteDAO {
 		}
 	}
 	
+	
+	
+	public int buscarIdClienteMaisRecente () {
+		ResultSet tabela;
+		
+		String sql = "select idcliente from " + this.schema +".cliente order by idcliente desc limit 1";
+		
+		tabela = conexao.query(sql);
+		
+		try {
+			tabela.next() ;
+			return tabela.getInt("idcliente");
+			
+		} catch (SQLException e) {
+			System.out.println("não foi possivel buscar o idcliente mais recente");
+			e.printStackTrace();
+			return -1;
+		}
+	}
+	
 	public Cliente buscarCliente(int id) {
 		ResultSet tabela;
 		@SuppressWarnings("unused")

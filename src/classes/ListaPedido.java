@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 import conexao.Conexao;
 import dao.PedidoDAO;
+import dao.PedidoProdutoDAO;
 import principal.Principal;
 
 public class ListaPedido {
@@ -21,6 +22,9 @@ public class ListaPedido {
 		this.schema = schema;
 		
 		carregarListaPedido();
+		
+		
+		
 	}
 	
 	
@@ -75,6 +79,8 @@ public class ListaPedido {
 	
 	private Pedido dadosPedido(ResultSet tabela) { 
 		Pedido ped = new Pedido();
+		PedidoProdutoDAO peprodao = new PedidoProdutoDAO(con, schema);
+		ResultSet tabelaProdutos;
 		
 		try {
 			ped.setIdPedido(tabela.getInt("idpedido"));
@@ -83,7 +89,14 @@ public class ListaPedido {
 			ped.setQtdItens(tabela.getLong("qtditens"));
 			ped.setTotal(tabela.getDouble("total"));
 			
-			
+			tabelaProdutos = peprodao.buscarPedidosPorIdPedidos(ped.getIdPedido());
+			while (tabelaProdutos.next()) {
+				ped.getProdutos().add(
+						new ProdutoVendido(
+								principal.Principal.produtos.localizarProduto(tabela.getInt("idproduto")),
+								tabelaProdutos.getInt("qtdvendida")
+								));
+			}
 			
 			return ped;
 		} catch (SQLException e) {

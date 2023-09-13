@@ -136,6 +136,25 @@ public class ProdutoDAO {
 		}
 	}
 	
+	
+	public int buscarIdProdutoMaisRecente () {
+		ResultSet tabela;
+		
+		String sql = "select idproduto from " + this.schema +".produto order by idproduto desc limit 1";
+		
+		tabela = conexao.query(sql);
+		
+		try {
+			tabela.next();
+			return tabela.getInt("idproduto");
+			
+		} catch (SQLException e) {
+			System.out.println("não foi possivel buscar o idproduto mais recente");
+			e.printStackTrace();
+			return -1;
+		}
+	}
+	
 	public int excluirProduto(Produto produto) {
 		try {
 			pExclusao.setInt(1, produto.getIdProduto());

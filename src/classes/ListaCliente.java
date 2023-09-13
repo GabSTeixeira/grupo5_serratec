@@ -29,8 +29,6 @@ public class ListaCliente {
 	}
 	
 	public void adicionarClienteLista(Cliente c) {
-		c.setIdCliente(listaClientes.size()+1);
-		
 		this.listaClientes.add(c);
 		this.quantidadeCliente = listaClientes.size();
 	}
