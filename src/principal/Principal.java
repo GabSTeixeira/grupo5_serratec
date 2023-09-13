@@ -130,8 +130,8 @@ public class Principal {
 					"═════════════════════════════════════════════════════════════════════════════\n"+
 					"                        ♣ Menu Principal ♣\n"+
 					"═════════════════════════════════════════════════════════════════════════════\n"+
-					" 1) Menu Cliente\n"+			
-					" 2) Menu Produto\n"+
+					" 1) adasdasdsadsadsadsadsadsad\nasdsadsadsadasdsada\nawdsadsadasdsadasdsa\nasdsadddddadad\nasdadsadasdsadaMenu Cliente\n"+			
+					" 2) Menu Produto\n"+"\nasdsadsaedewadadasd"+
 					" 3) Menu Pedido\n"+
 					" 4) Sair\n"+
 					"═════════════════════════════════════════════════════════════════════════════\n"+
