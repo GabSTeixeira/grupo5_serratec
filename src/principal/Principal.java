@@ -1045,8 +1045,7 @@ public class Principal {
 		int estoqueAtual;
 		try {
 			tabela.next();
-			
-			
+		
 			estoqueAtual = tabela.getInt("estoque");
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -1070,9 +1069,7 @@ public class Principal {
 			do {	
 				System.out.print("▸ ");
 				int opcao = Util.validarInteiro(in.nextLine());
-				
-				
-				
+					
 				switch (opcao) {
 					case 1:
 						int novaQtdVendida;
@@ -1102,7 +1099,7 @@ public class Principal {
 						
 						imprimirMenu = false;
 						break;
-					case 2: 
+					case 2:
 						
 						imprimirMenu = false;
 						break;
