@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import conexao.Conexao;
 import dao.PedidoDAO;
 import dao.PedidoProdutoDAO;
-import dao.ProdutoDAO;
 import principal.Principal;
 
 public class ListaPedido {
@@ -77,8 +76,7 @@ public class ListaPedido {
 	}
 	
 	private Pedido dadosPedido(ResultSet tabela) { 
-		Pedido ped = new Pedido();
-		PedidoProdutoDAO peprodao = new PedidoProdutoDAO(con, schema);
+		Pedido ped = new Pedido();	
 
 		try {
 			ped.setIdPedido(tabela.getInt("idpedido"));

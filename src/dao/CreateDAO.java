@@ -167,7 +167,7 @@ public class CreateDAO {
 			criarCampo(con, schema, entidade, "idcliente", "serial"	 	 , true , false, null, null);
 			criarCampo(con, schema, entidade, "nome"	 , "varchar(100)", false, false, null, null);
 			criarCampo(con, schema, entidade, "cpf"		 , "varchar(11)" , false, false, null, null);
-			criarCampo(con, schema, entidade, "telefone" , "varchar(20)" , false, false, null, null);
+			criarCampo(con, schema, entidade, "telefone" , "varchar(11)" , false, false, null, null);
 			criarCampo(con, schema, entidade, "endereco" , "varchar(150)", false, false, null, null);
 			criarCampo(con, schema, entidade, "sexo"	 , "varchar(1)"  , false, false, null, null);			
 			criarCampo(con, schema, entidade, "dtnasc"	 , "date"	 	 , false, false, null, null);
