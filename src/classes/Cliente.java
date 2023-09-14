@@ -48,13 +48,8 @@ public class Cliente {
 		this.nome = opcao;
 	}	
 	private boolean validarNome (String nome) {
-<<<<<<< HEAD
-		if(nome == "") {
-			return false;
-		}else if(nome.length() <= 100) {
-=======
 		if(nome.length() <= 100 && !nome.isBlank()) {
->>>>>>> Garcia
+
 			return true;
 		}
 		return false;
@@ -75,11 +70,9 @@ public class Cliente {
 		this.cpf = opcao.replaceAll("\\D", "");
 	}
 	private boolean validarCpf (String cpf) {
-<<<<<<< HEAD
-		if(cpf.length() == 11) {
-=======
+
 		if(cpf.length() <= 11 && !cpf.isBlank()) {
->>>>>>> Garcia
+
 			return true;
 		}
 		return false;
@@ -101,11 +94,8 @@ public class Cliente {
 		
 	}	
 	private boolean validarTelefone (String telefone) {
-<<<<<<< HEAD
-		if(telefone.length() == 11) {
-=======
+
 		if(telefone.length() <= 20 && !telefone.isBlank()) {
->>>>>>> Garcia
 			return true;
 		}
 		return false;
@@ -132,13 +122,8 @@ public class Cliente {
 		this.endereco = opcao;
 	}	
 	private boolean validarEndereco (String endereco) {
-<<<<<<< HEAD
-		if(endereco == "") {
-			return false;
-		}else if(endereco.length() <= 150) {
-=======
+
 		if(endereco.length() <= 150 && !endereco.isBlank()) {
->>>>>>> Garcia
 			return true;
 		}
 		return false;
@@ -147,18 +132,12 @@ public class Cliente {
 		if(!sexo.isBlank()) {
 			char letraValida = sexo.toUpperCase().charAt(0);
 		
-<<<<<<< HEAD
-		if(sexo == "") {
-			return false;
-		}else if(letraValida == 'M' || letraValida == 'F' || letraValida == 'I') {
-			return true;	
-		}
-=======
+
 			if(letraValida == 'M' || letraValida == 'F' || letraValida == 'I') {
 				return true;	
 			}	
 		}	
->>>>>>> Garcia
+
 		return false;
 	}
 	public char getSexo() {
