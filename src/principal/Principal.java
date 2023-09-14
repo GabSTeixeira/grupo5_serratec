@@ -136,7 +136,7 @@ public class Principal {
 					" 3) Menu Pedido\n"+
 					" 4) Sair\n"+
 					"═════════════════════════════════════════════════════════════════════════════\n"+
-					" ♦ Informe uma opção ♦ \n"
+					" ♦ Informe uma opção ♦"
 					);		
 			System.out.print("▸ ");
 			
@@ -168,7 +168,7 @@ public class Principal {
 					" 4) Listar\n"+
 					" 5) voltar Menu Principal\n"+
 					"═════════════════════════════════════════════════════════════════════════════\n"+
-					" ♦ Informe uma opção ♦ \n"
+					" ♦ Informe uma opção ♦"
 					);
 			System.out.print("▸ ");
 			
@@ -204,7 +204,7 @@ public class Principal {
 					" 4) Listar\n"+
 					" 5) voltar Menu Principal\n"+
 					"═════════════════════════════════════════════════════════════════════════════\n"+
-					" ♦ Informe uma opção ♦ \n"
+					" ♦ Informe uma opção ♦"
 					);
 			System.out.print("▸ ");
 			
@@ -244,7 +244,7 @@ public class Principal {
 						" 4) Listar\n"+
 						" 5) voltar Menu Principal\n"+
 						"═════════════════════════════════════════════════════════════════════════════\n"+
-						" ♦ Informe uma opção ♦ \n"
+						" ♦ Informe uma opção ♦"
 						);
 				System.out.print("▸ ");
 				
@@ -329,7 +329,7 @@ public class Principal {
 		int idInputValido;
 		
 		System.out.println("═════════════════════════════════════════════════════════════════════════════");
-		System.out.println("                        ♣ ALterar cliente ♣");
+		System.out.println("                        ♣ Alterar cliente ♣");
 		System.out.println("═════════════════════════════════════════════════════════════════════════════\n");
 		
 		listarClientes();
@@ -379,7 +379,7 @@ public class Principal {
 					" 7) Alterar tudo\n"+
 					" 8) Voltar e salvar\n"+
 					"═════════════════════════════════════════════════════════════════════════════\n"+
-					" ♦ Informe uma opção ♦\n"
+					" ♦ Informe uma opção ♦"
 					);
 			System.out.print("▸ ");
 			
@@ -834,11 +834,12 @@ public class Principal {
 			if (idInputValido > 0) {
 				Produto produto = produtos.localizarProduto(idInputValido);
 				
+					
 				if (produto.getEstoque() <= 0) { 
 					System.out.println(" ♦ Selecione produtos com estoque ♦ ");
 					System.out.print("▸ ");
 				} else {
-					
+				
 					System.out.println(" ♦ Este Produto possui Estoque Disponivel de ("+produto.getEstoque()+") ♦ "
 							+ "\n ♦ Informe a quantidade a ser vendida ♦ ");
 					int qtdVendida = in.nextInt();
@@ -848,7 +849,22 @@ public class Principal {
 						
 						pd = new ProdutoVendido (produto, qtdVendida);
 						pd.setIdProduto(idInputValido);
-						ped.adicionarProdutoLista(pd);
+						
+						boolean produtoJaCadastrado = false;
+						int produtoLocalizado = -1;
+						
+						for (ProdutoVendido pv: ped.getProdutos()) {
+							if(pv.getIdProduto()==idInputValido) {
+								produtoJaCadastrado = true;
+								produtoLocalizado = ped.getProdutos().indexOf(pv);
+							}
+						}
+						
+						if (produtoJaCadastrado) {
+							ped.getProdutos().get(produtoLocalizado).setEstoque(qtdVendida);
+						} else {
+							ped.adicionarProdutoLista(pd);							
+						}
 					} else {
 						System.out.println("\n ♦ Pedido invalido!! estoque insuficiente para esta venda ♦ ");
 					}
