@@ -536,8 +536,7 @@ public class Principal {
 		//listarProduto();
 		System.out.println(" ♦ Informe o preço ♦ ");
 		System.out.print("▸ ");
-		double d = in.nextDouble();
-		in.nextLine();
+		String d = in.nextLine();
 		p.setPreco(d);
 		
 		System.out.println(" ♦ Informe o descrição do produto ♦ ");
@@ -547,8 +546,7 @@ public class Principal {
 		
 		System.out.println(" ♦ Informe o estoque ♦ ");
 		System.out.print("▸ ");
-		int e = in.nextInt();
-		in.nextLine();
+		String e = in.nextLine();
 		p.setEstoque(e);
 		
 		produtos.adicionarProdutoLista(p);
@@ -626,7 +624,7 @@ public class Principal {
 				case 2: 
 					System.out.println(" ♦ Informe o novo Preço ♦ ");
 					System.out.print("▸ ");
-					pd.setPreco(in.nextDouble());
+					pd.setPreco(in.nextLine());
 					break;
 				case 3: 
 					System.out.println(" ♦ Informe o novo Descrição ♦ ");
@@ -636,7 +634,7 @@ public class Principal {
 				case 4:
 					System.out.println(" ♦ Informe o novo estoque ♦ ");
 					System.out.print("▸ ");
-					pd.setEstoque(in.nextInt());
+					pd.setEstoque(in.nextLine());
 					break;								
 				case 5:	
 					System.out.println("═════════════════════════════════════════════════════════════════════════════");
@@ -651,9 +649,8 @@ public class Principal {
 
 			        System.out.println(" ♦ Preço ♦ ");
 			        System.out.print("▸ ");
-			        double pr;
-			        pr = in.nextDouble();
-			        in.nextLine();
+			        String pr;
+			        pr = in.nextLine();
 
 			        if (!s.isEmpty() && !s.isBlank() && s != null)
 			        	pd.setPreco(pr);
@@ -667,9 +664,8 @@ public class Principal {
 
 			        System.out.println(" ♦ Estoque ♦ ");
 			        System.out.print("▸ ");
-			        int est;
-			        est = in.nextInt();
-			        in.nextLine();
+			        String est;
+			        est = in.nextLine();
 			        
 			        if (!s.isEmpty() && !s.isBlank() && s != null)
 			        	pd.setEstoque(est);
@@ -815,9 +811,9 @@ public class Principal {
 				} else {
 					
 					System.out.println("Este Produto possui Estoque Disponivel de ("+produto.getEstoque()+")"
-							+ "\nInforme a quantidade a ser vendida:");
-					int qtdVendida = in.nextInt();
-					in.nextLine();
+							+ "\nInforme a quantidade a ser vendida:");				
+					String st = in.nextLine();
+					int qtdVendida = Util.validarInteiro(st);
 					
 					if (qtdVendida <= produto.getEstoque()) {
 						
@@ -898,7 +894,6 @@ public class Principal {
 		}	
 	}
 	
-
 }
 	
 	

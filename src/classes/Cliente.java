@@ -47,7 +47,7 @@ public class Cliente {
 		this.nome = opcao;
 	}	
 	private boolean validarNome (String nome) {
-		if(nome.length() <= 100) {
+		if(nome.length() <= 100 && !nome.isBlank()) {
 			return true;
 		}
 		return false;
@@ -67,7 +67,7 @@ public class Cliente {
 		this.cpf = opcao;
 	}	
 	private boolean validarCpf (String cpf) {
-		if(cpf.length() <= 11) {
+		if(cpf.length() <= 11 && !cpf.isBlank()) {
 			return true;
 		}
 		return false;
@@ -87,7 +87,7 @@ public class Cliente {
 		this.telefone = opcao;
 	}	
 	private boolean validarTelefone (String telefone) {
-		if(telefone.length() <= 20) {
+		if(telefone.length() <= 20 && !telefone.isBlank()) {
 			return true;
 		}
 		return false;
@@ -113,17 +113,19 @@ public class Cliente {
 		this.endereco = opcao;
 	}	
 	private boolean validarEndereco (String endereco) {
-		if(endereco.length() <= 150) {
+		if(endereco.length() <= 150 && !endereco.isBlank()) {
 			return true;
 		}
 		return false;
 	}
 	private boolean validarSexo (String sexo) {
-		char letraValida = sexo.toUpperCase().charAt(0);
+		if(!sexo.isBlank()) {
+			char letraValida = sexo.toUpperCase().charAt(0);
 		
-		if(letraValida == 'M' || letraValida == 'F' || letraValida == 'I') {
-			return true;	
-		}
+			if(letraValida == 'M' || letraValida == 'F' || letraValida == 'I') {
+				return true;	
+			}	
+		}	
 		return false;
 	}
 	public char getSexo() {
