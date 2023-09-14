@@ -134,6 +134,8 @@ public class Principal {
 					" 1) Menu Cliente\n"+			
 					" 2) Menu Produto\n"+
 					" 3) Menu Pedido\n"+
+					"sdsadas"+
+					"sdadsad"+
 					" 4) Sair\n"+
 					"═════════════════════════════════════════════════════════════════════════════\n"+
 					" ♦ Informe uma opção ♦ \n"
