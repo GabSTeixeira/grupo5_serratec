@@ -41,7 +41,7 @@ public class Principal {
 	// não entedemos o relatorio. por favor explicar.
 
 	// perguntar se o menu esta legal, porque a versão dele estava confuso para mexer.
-	
+	//Gabriel Garcia passou por aqui >:)
 	
 	public static Conexao con;
 	public static DadosConexao dadosCon = new DadosConexao();
@@ -552,8 +552,7 @@ public class Principal {
 		//listarProduto();
 		System.out.println(" ♦ Informe o preço ♦ ");
 		System.out.print("▸ ");
-		double d = in.nextDouble();
-		in.nextLine();
+		String d = in.nextLine();
 		p.setPreco(d);
 		
 		System.out.println(" ♦ Informe a descrição do produto ♦ ");
@@ -563,8 +562,7 @@ public class Principal {
 		
 		System.out.println(" ♦ Informe o estoque ♦ ");
 		System.out.print("▸ ");
-		int e = in.nextInt();
-		in.nextLine();
+		String e = in.nextLine();
 		p.setEstoque(e);
 		
 		pdao.incluirProduto(p);
@@ -645,7 +643,7 @@ public class Principal {
 				case 2: 
 					System.out.println(" ♦ Informe o novo Preço ♦ ");
 					System.out.print("▸ ");
-					pd.setPreco(in.nextDouble());
+					pd.setPreco(in.nextLine());
 					break;
 				case 3: 
 					System.out.println(" ♦ Informe o novo Descrição ♦ ");
@@ -655,7 +653,7 @@ public class Principal {
 				case 4:
 					System.out.println(" ♦ Informe o novo estoque ♦ ");
 					System.out.print("▸ ");
-					pd.setEstoque(in.nextInt());
+					pd.setEstoque(in.nextLine());
 					break;								
 				case 5:	
 					System.out.println("═════════════════════════════════════════════════════════════════════════════");
@@ -670,9 +668,8 @@ public class Principal {
 
 			        System.out.println(" ♦ Preço ♦ ");
 			        System.out.print("▸ ");
-			        double pr;
-			        pr = in.nextDouble();
-			        in.nextLine();
+			        String pr;
+			        pr = in.nextLine();
 
 			        if (!s.isEmpty() && !s.isBlank() && s != null)
 			        	pd.setPreco(pr);
@@ -686,9 +683,8 @@ public class Principal {
 
 			        System.out.println(" ♦ Estoque ♦ ");
 			        System.out.print("▸ ");
-			        int est;
-			        est = in.nextInt();
-			        in.nextLine();
+			        String est;
+			        est = in.nextLine();
 			        
 			        if (!s.isEmpty() && !s.isBlank() && s != null)
 			        	pd.setEstoque(est);
@@ -838,12 +834,12 @@ public class Principal {
 					System.out.println(" ♦ Selecione produtos com estoque ♦ ");
 					System.out.print("▸ ");
 				} else {
-					
-					System.out.println(" ♦ Este Produto possui Estoque Disponivel de ("+produto.getEstoque()+") ♦ "
-							+ "\n ♦ Informe a quantidade a ser vendida ♦ ");
-					int qtdVendida = in.nextInt();
-					in.nextLine();
-					
+				
+					System.out.println("Este Produto possui Estoque Disponivel de ("+produto.getEstoque()+")"
+							+ "\nInforme a quantidade a ser vendida:");				
+					String st = in.nextLine();
+					int qtdVendida = Util.validarInteiro(st);
+
 					if (qtdVendida <= produto.getEstoque()) {
 						
 						pd = new ProdutoVendido (produto, qtdVendida);
@@ -926,6 +922,7 @@ public class Principal {
 		pedidos.atualizarListaPedido();
 	}
 	
+
 	public static void listarPedidos() {	
 		
 		System.out.printf("══════════════════════════════════════════════════════════════════════════════════════════════════════════════%n");
@@ -961,7 +958,6 @@ public class Principal {
 			}	
 		 System.out.printf("══════════════════════════════════════════════════════════════════════════════════════════════════════════════%n");	
 	}	
-
 }
 	
 	
