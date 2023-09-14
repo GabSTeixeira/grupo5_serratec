@@ -479,11 +479,11 @@ public class Principal {
 	public static void excluirCliente() {
 		Cliente cl = new Cliente();
 		ClienteDAO cdao = new ClienteDAO(con, SCHEMA);
-		ListaPedido pd = new ListaPedido(con, SCHEMA);
 		
 		@SuppressWarnings("resource")
 		Scanner sc = new Scanner(System.in);
 		int idInputValido;
+		boolean encontrado = false;
 		
 		System.out.println("═════════════════════════════════════════════════════════════════════════════");
 		System.out.println("                        ♣ Deletar cliente ♣ ");
@@ -492,6 +492,7 @@ public class Principal {
 		listarClientes();	
 		
 		do {
+			encontrado = false;
 			System.out.println(" ♦ Informe o id do cliente que deve ser excluido(0 para voltar) ♦");
 			System.out.print("▸ ");
 			int id = Util.validarInteiro(sc.nextLine());
@@ -502,10 +503,24 @@ public class Principal {
 			   .count()) {
 				
 				idInputValido = id;
-				break;
+				
+				for(Pedido p:pedidos.getListaPedido()) {
+				
+					if(p.getCliente().getIdCliente() == idInputValido) {
+						encontrado = true;
+						break;
+					}
+				}				
+				if(encontrado) {
+					System.out.println(" ♦ Não é possivel excluir pois já está cadastrado em um pedido! ♦ ");
+				}else{
+					break;
+				}
+			}
+			if(!encontrado) {
+				System.out.println(" ♦ Informe um ID valido!! ♦ ");
 			}
 			
-			System.out.println(" ♦ Informe um ID valido!! ♦ ");
 		} while(true);
 		
 		if(idInputValido == 0) return;
@@ -525,12 +540,13 @@ public class Principal {
 			System.out.printf("══════════════════════════════════════════════════════════════════════════════════════════════════════════════%n");
 			System.out.printf("                                   ♣ Lista de Clientes ♣ %n");
 			System.out.printf("══════════════════════════════════════════════════════════════════════════════════════════════════════════════%n");
-			System.out.printf("══════════════════════════════════════════════════════════════════════════════════════════════════════════════%n");
-			System.out.printf(" ║ %-20s ║ %-15s ║ %-15s ║ %-15s ║%n","IdCliente" ,"Primeiro Nome","Sexo","Telefone");
+			System.out.printf("═╦═════════════════╦══════════════════════╦═════════════════╦═════════════════╦═══════════════════════════════%n");
+			System.out.printf(" ║ %-15s ║ %-20s ║ %-15s ║ %-15s ║%n","IdCliente" ,"Primeiro Nome","Sexo","Telefone");
 			
 			for (Cliente c : clientes.getListaClientes()) {
-				System.out.printf(" ║ %15d ║ %15s ║ %15s ║ %15s ║%n",c.getIdCliente(),c.getNome(),c.getSexo(),c.getTelefone());
+				System.out.printf(" ║ %15d ║ %20s ║ %15s ║ %15s ║%n",c.getIdCliente(),c.getNome(),c.getSexo(),c.getTelefone());
 			}
+			System.out.printf("═╩═════════════════╩══════════════════════╩═════════════════╩═════════════════╩═══════════════════════════════%n");	
 		}
 	}	
 	//--------------------------------metodos-Produto-------------------------------
@@ -746,19 +762,19 @@ public class Principal {
     }
 	
 	public static void listarProdutos() {
-		System.out.println("═════════════════════════════════════════════════════════════════════════════\n"+
-						   "                       ♣ Todos os produtos ♣ \n"+
-				           "═════════════════════════════════════════════════════════════════════════════");
 		
+		System.out.printf("══════════════════════════════════════════════════════════════════════════════════════════════════════════════%n");
+		System.out.printf("                                   ♣ Lista de produtos ♣ %n");
+		System.out.printf("══════════════════════════════════════════════════════════════════════════════════════════════════════════════%n");
+		System.out.printf("═╦═════════════════╦══════════════════════╦═════════════════╦═════════════════╦═══════════════════════════════%n");
+		System.out.printf(" ║ %-15s ║ %-20s ║ %-15s ║ %-15s ║%n","IdProduto" ,"Nome do Produto","Valor: R$","QtdEstoque: UN","Descrição");
 		
 		for (Produto prod : produtos.getProdutos()) {	
-				System.out.println(	
-					"\n ♦ idProduto ♦ "+prod.getIdProduto()+" ♦"+
-					" "+prod.getNomeProduto()+" ♦"+
-					" R$"+prod.getPreco()+" ♦"+
-					" "+prod.getEstoque()+" ♦"+
-					" "+prod.getDesc()+" ♦");
+				System.out.printf(" ║ %15d ║ %20s ║ %15s ║ %15s ║%n",prod.getIdProduto(),prod.getNomeProduto(),prod.getPreco(),
+					prod.getEstoque(),prod.getDesc());
+				
 		}		
+		System.out.printf("═╩═════════════════╩══════════════════════╩═════════════════╩═════════════════╩═══════════════════════════════%n");
 	}
 	//--------------------------------metodos-Pedido--------------------------------
 	public static void cadastrarPedido() {
@@ -936,12 +952,12 @@ public class Principal {
 		System.out.printf("                                   ♣ Lista de pedidos ♣ %n");
 		System.out.printf("══════════════════════════════════════════════════════════════════════════════════════════════════════════════%n");
 		System.out.printf("══════════════════════════════════════════════════════════════════════════════════════════════════════════════%n");
-		System.out.printf(" ║ %-15s ║ %-15s ║ %-15s ║ %-15s ║ %-15s ║ %-15s ║ %n","IdPedido", "IdCliente" ,"Nome Cliente","QtdItens","Valor Total", "Data");
+		System.out.printf(" ║ %-15s ║ %-15s ║ %-20s ║ %-15s ║ %-15s ║ %-15s ║ %n","IdPedido", "IdCliente" ,"Primeiro Nome","QtdItens: UN",
+		"Valor Total", "Data");
 			for (Pedido p : pedidos.getListaPedido()) {
 				
-				//1ª Método			
-				
-				System.out.printf(" ║ %15d ║ %15d ║ %15s ║ %15d ║ %15f ║ %15s ║ %n",p.getIdPedido(),p.getCliente().getIdCliente(),
+				//1ª Método							
+				System.out.printf(" ║ %15d ║ %15d ║ %20s ║ %15d ║ %15f ║ %15s ║ %n",p.getIdPedido(),p.getCliente().getIdCliente(),
 				p.getCliente().getNome(),p.getQtdItens(),p.getTotal(),p.getData());
 			
 				/*2ª Método
