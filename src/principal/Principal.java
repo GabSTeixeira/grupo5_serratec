@@ -310,7 +310,7 @@ public class Principal {
 		System.out.print("▸ ");
 		String ch = in.nextLine();
 		c.setTelefone(ch);
-		
+		// teste
 		
 		cdao.incluirCliente(c);
 		
