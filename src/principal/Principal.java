@@ -511,15 +511,17 @@ public class Principal {
 
 	public static void listarClientes() {
 		if (clientes.getListaClientes().size() <= 0) {
-			System.out.println(" ♦ tem cliente não mano ♦ ");
-		}
-		for (Cliente c : clientes.getListaClientes()) {
-			System.out.println(
-					"═════════════════════════════════════════════════════════════════════════════\n"+
-					" ♦ idcliente ♦ "+c.getIdCliente()+" ♦"+
-					" "+c.getNome()+" ♦"+
-					" "+c.getSexo()+" ♦"+
-					" "+c.getTelefone()+" ♦");
+			System.out.println(" ♦ Tem cliente não mano ♦ ");
+		}else {
+			System.out.printf("══════════════════════════════════════════════════════════════════════════════════════════════════════════════%n");
+			System.out.printf("                                   ♣ Lista de Clientes ♣ %n");
+			System.out.printf("══════════════════════════════════════════════════════════════════════════════════════════════════════════════%n");
+			System.out.printf("══════════════════════════════════════════════════════════════════════════════════════════════════════════════%n");
+			System.out.printf(" ║ %-20s ║ %-15s ║ %-15s ║ %-15s ║%n","IdCliente" ,"Primeiro Nome","Sexo","Telefone");
+			
+			for (Cliente c : clientes.getListaClientes()) {
+				System.out.printf(" ║ %15d ║ %15s ║ %15s ║ %15s ║%n",c.getIdCliente(),c.getNome(),c.getSexo(),c.getTelefone());
+			}
 		}
 	}	
 	//--------------------------------metodos-Produto-------------------------------
@@ -916,9 +918,9 @@ public class Principal {
 				
 				//1ª Método			
 				
-					System.out.printf(" ║ %15d ║ %15d ║ %15s ║ %15d ║ %15f ║ %15s ║ %n",p.getIdPedido(),p.getCliente().getIdCliente(),
-					p.getCliente().getNome(),p.getQtdItens(),p.getTotal(),p.getData());
-				
+				System.out.printf(" ║ %15d ║ %15d ║ %15s ║ %15d ║ %15f ║ %15s ║ %n",p.getIdPedido(),p.getCliente().getIdCliente(),
+				p.getCliente().getNome(),p.getQtdItens(),p.getTotal(),p.getData());
+			
 				/*2ª Método
 				System.out.printf("═╦════════════════╦═════════════════╦══════════════════════════════════════════%n");
 				System.out.printf(" ║%-15s ║ %-15d ║%n ║%-15s ║ %-15d ║%n ║%-15s ║ %-15s ║%n ║%-15s ║ %-15d ║%n ║%-15s ║ %-15f ║%n ║%-15s ║ %-15s ║%n%n",
