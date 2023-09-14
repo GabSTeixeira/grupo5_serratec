@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import conexao.Conexao;
 import dao.PedidoDAO;
 import dao.PedidoProdutoDAO;
+import dao.ProdutoDAO;
 import principal.Principal;
 
 public class ListaPedido {
@@ -22,9 +23,7 @@ public class ListaPedido {
 		this.schema = schema;
 		
 		carregarListaPedido();
-		
-		
-		
+		carregarProdutosPedido();
 	}
 	
 	
@@ -64,7 +63,7 @@ public class ListaPedido {
 		try {
 			tabela.beforeFirst();
 			
-			while (tabela.next()) {	
+			while (tabela.next()) {
 				this.pedidos.add(dadosPedido(tabela));
 			}
 			
@@ -80,26 +79,49 @@ public class ListaPedido {
 	private Pedido dadosPedido(ResultSet tabela) { 
 		Pedido ped = new Pedido();
 		PedidoProdutoDAO peprodao = new PedidoProdutoDAO(con, schema);
-		ResultSet tabelaProdutos;
-		
+
 		try {
 			ped.setIdPedido(tabela.getInt("idpedido"));
 			ped.setCliente(Principal.clientes.localizarCliente(tabela.getInt("idcliente")));
 			ped.setData(LocalDate.parse(tabela.getString("datapedido")));
 			ped.setQtdItens(tabela.getLong("qtditens"));
-			ped.setTotal(tabela.getDouble("total"));
-			
-			tabelaProdutos = peprodao.buscarPedidosPorIdPedidos(ped.getIdPedido());
+			ped.setTotal(tabela.getDouble("total"));		
+			return ped;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
+	private void carregarProdutosPedido () {
+		
+		for (Pedido p: this.pedidos) {
+			p.setProdutos(carregarProdutos(p.getIdPedido()));
+		}
+	}
+	
+	
+	private ArrayList<ProdutoVendido> carregarProdutos(int id) {
+		ResultSet tabelaProdutos;
+		PedidoProdutoDAO peprodao = new PedidoProdutoDAO(con, schema);
+		
+		ArrayList<ProdutoVendido> produtos = new ArrayList<>();
+		
+		tabelaProdutos = peprodao.buscarPedidosPorIdPedidos(id);
+		
+		try {
 			while (tabelaProdutos.next()) {
-				ped.getProdutos().add(
+				produtos.add(
 						new ProdutoVendido(
-								principal.Principal.produtos.localizarProduto(tabela.getInt("idproduto")),
+								//prodao.buscarProduto(tabelaProdutos.getInt("idproduto")),
+								principal.Principal.produtos.localizarProduto(tabelaProdutos.getInt("idproduto")),
 								tabelaProdutos.getInt("qtdvendida")
 								));
 			}
+			return produtos;
 			
-			return ped;
 		} catch (SQLException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return null;
 		}

@@ -7,7 +7,7 @@ public class ProdutoVendido extends Produto {
 	public ProdutoVendido (){}
 	
 	public ProdutoVendido (Produto p, int qtdVendido) {
-		super(p.getNomeProduto(), p.getPreco(), p.getNomeProduto(), p.getEstoque());
+		super(p.getIdProduto(), p.getNomeProduto(), p.getPreco(), p.getNomeProduto(), p.getEstoque());
 		this.qtdVendida = qtdVendido;
 		
 		this.total = this.qtdVendida * super.getPreco();

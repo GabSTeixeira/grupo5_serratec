@@ -170,8 +170,7 @@ public class PedidoProdutoDAO {
 	
 	public ResultSet buscarPedidosPorIdPedidos(int idPedido) {
 		ResultSet tabela;
-		String sql = "select * from " + this.schema + ".pedidoproduto where idpedido = "+idPedido+" "
-				+ "order by idpedidoproduto";
+		String sql = "select * from " + this.schema + ".pedidoproduto where idpedido = "+idPedido+" order by idpedidoproduto";
 		
 		tabela = conexao.query(sql);
 		

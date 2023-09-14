@@ -180,11 +180,14 @@ public class ProdutoDAO {
 		tabela = conexao.query(sql);
 		
 		try {
+			
+			tabela.next();
 			produto = new Produto(tabela.getString("nome"), tabela.getDouble("preco"),
 					tabela.getString("descricao"), tabela.getInt("estoque"));
 			produto.setIdProduto(id);
 			
 			return produto;
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return null;

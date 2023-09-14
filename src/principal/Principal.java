@@ -547,7 +547,7 @@ public class Principal {
 		in.nextLine();
 		p.setPreco(d);
 		
-		System.out.println(" ♦ Informe o descrição do produto ♦ ");
+		System.out.println(" ♦ Informe a descrição do produto ♦ ");
 		System.out.print("▸ ");
 		s = in.nextLine();
 		p.setDesc(s);
@@ -848,7 +848,6 @@ public class Principal {
 		//inclusão no banco não precisa de id
 		pedao.incluirPedido(ped);
 	
-		//id do pedido atual é igual a o tamanho da lista de pedidos +1.
 		ped.setIdPedido(pedao.buscarIdPedidoMaisRecente());
 		produtos.decrementarEstoqueProdutos(ped.getProdutos());
 		pedidos.adicionarPedidoLista(ped);
@@ -912,10 +911,20 @@ public class Principal {
 	}
 	
 	public static void listarPedidos() {
+		
+		System.out.println("Quantidade de pedidos: "+pedidos.getQuantidadePedido());
+		
+		
 		for (Pedido p : pedidos.getListaPedido()) {
 			System.out.println("idPedido: "+p.getIdPedido()+"|idCliente"+p.getCliente().getIdCliente()+
 		"nome cliente: "+p.getCliente().getNome()+"|qtdItens: "+p.getQtdItens()+"|total: "+p.getTotal()+
 		"data: "+p.getData());
+			
+			
+			Util.br();
+			for (ProdutoVendido pv: p.getProdutos()) {
+				System.out.println(pv.getNomeProduto());
+			}
 		}	
 	}
 	
@@ -927,3 +936,5 @@ public class Principal {
 	
 	
 
+
+	
