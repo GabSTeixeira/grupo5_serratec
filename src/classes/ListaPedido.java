@@ -106,7 +106,7 @@ public class ListaPedido {
 		
 		ArrayList<ProdutoVendido> produtos = new ArrayList<>();
 		
-		tabelaProdutos = peprodao.buscarPedidosPorIdPedidos(id);
+		tabelaProdutos = peprodao.buscarInfoPorIdPedidos(id);
 		
 		try {
 			while (tabelaProdutos.next()) {

@@ -65,11 +65,9 @@ public class PedidoProdutoDAO {
 	
 	private void prepararSqlAlteracao() {
 		String sql = "update "+ this.schema + ".pedidoproduto";	
-		sql += " set idproduto = ?,";
-		sql += " idpedido = ?,";
-		sql += " qtdvendida = ?,";
+		sql += " set qtdvendida = ?,";
 		sql += " subtotalitem = ?";
-		sql += " where idpedidoproduto = ?";
+		sql += " where idpedido = ? and idproduto = ?";
 		
 		try {
 			this.pAlteracao =  conexao.getC().prepareStatement(sql);
@@ -79,16 +77,15 @@ public class PedidoProdutoDAO {
 		}
 	}
 	
-	public int alterarPedidoProduto(Pedido p, int idProduto, int novaQtdVendida) {
-		ProdutoVendido localizado = p.localizarProduto(idProduto);
+	public int alterarPedidoProduto(Pedido p, ProdutoVendido prod) {
+		int indiceProduto = p.getProdutos().indexOf(prod);
 		
 		try {
-			pAlteracao.setInt(1, localizado.getIdProduto());
-			pAlteracao.setInt(2, p.getIdPedido());
-			localizado.setQtdVendida(novaQtdVendida);
-			pAlteracao.setLong(3, novaQtdVendida);
-			pAlteracao.setDouble(4, localizado.calcularTotal());
-			pAlteracao.setInt(5, p.getIdPedido());
+			
+			pAlteracao.setInt(1, p.getProdutos().get(indiceProduto).getQtdVendida());
+			pAlteracao.setDouble(2, p.getProdutos().get(indiceProduto).getTotal());
+			pAlteracao.setLong(3, p.getIdPedido());
+			pAlteracao.setInt(4, p.getProdutos().get(indiceProduto).getIdProduto());
 			
 			return pAlteracao.executeUpdate();
 		} catch (Exception e) {
@@ -168,7 +165,7 @@ public class PedidoProdutoDAO {
 		return tabela;
 	}
 	
-	public ResultSet buscarPedidosPorIdPedidos(int idPedido) {
+	public ResultSet buscarInfoPorIdPedidos(int idPedido) {
 		ResultSet tabela;
 		String sql = "select * from " + this.schema + ".pedidoproduto where idpedido = "+idPedido+" order by idpedidoproduto";
 		

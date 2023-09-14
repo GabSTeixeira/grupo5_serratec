@@ -159,7 +159,7 @@ public class PedidoDAO {
 		
 		ArrayList<ProdutoVendido> produtos = new ArrayList<>();
 		
-		tabelaProdutos = peprodao.buscarPedidosPorIdPedidos(id);
+		tabelaProdutos = peprodao.buscarInfoPorIdPedidos(id);
 		
 		
 		try {

@@ -253,7 +253,7 @@ public class Principal {
 				
 				switch (opcao) {
 					case 1: cadastrarPedido(); break;
-					//case 2: alterarPedido(); break;
+					case 2: alterarPedido(); break;
 					case 3: excluirPedido(); break;
 					case 4: listarPedidos(); break;
 					case 5: imprimirMenu = false; break;
@@ -360,7 +360,7 @@ public class Principal {
 		cdao.alterarCliente(cl);
 	}
 	
-	public static Cliente menuAlterarCliente(Cliente cl) {
+	private static Cliente menuAlterarCliente(Cliente cl) {
         @SuppressWarnings("resource")
         Scanner in = new Scanner(System.in);
 
@@ -613,7 +613,7 @@ public class Principal {
 		produtos.atualizarListaProduto();
 	}
 	
-    public static Produto menuAlterarProduto(Produto pd) {
+    private static Produto menuAlterarProduto(Produto pd) {
 		@SuppressWarnings("resource")
 		Scanner in = new Scanner(System.in);
 
@@ -777,7 +777,6 @@ public class Principal {
 		Util.br();
 		
 		//Informar clientes disponiveis
-		clientes.atualizarListaCliente();
 		listarClientes();
 		
 		
@@ -890,7 +889,202 @@ public class Principal {
 
 	public static void alterarPedido() {
 		
+		if (pedidos.getListaPedido().isEmpty()) {
+			System.out.println(" ♦ Não existe nenhum pedido cadastrado!! ♦ ");
+		} else {
+		
+			@SuppressWarnings("resource")
+			Scanner sc = new Scanner(System.in);
+			int idInputValido;
+			
+			
+			
+			System.out.println("═════════════════════════════════════════════════════════════════════════════");
+			System.out.println("                        ♣ Alterar Pedido ♣ ");
+			System.out.println("═════════════════════════════════════════════════════════════════════════════");
+			
+			listarPedidos();
+			
+			do {
+				System.out.println("\n ♦ Informe o id do pedido que deve ser alterado(0 para cancelar) ♦ ");
+				int id = Util.validarInteiro(sc.nextLine());
+				
+				if(id == 0||1 == pedidos.getListaPedido()
+				   .stream()
+				   .filter(pd -> id == pd.getIdPedido())
+				   .count()) {
+					
+					idInputValido = id;
+					break;
+				}
+				
+				System.out.println(" ♦ Informe um ID valido!! ♦ ");
+			} while(true);
+			
+			if(idInputValido == 0) return;
+			
+			
+			Pedido p = pedidos.localizarPedido(idInputValido);
+			
+			menuAlterarPedido(p);
+		}
 	}
+	
+	private static Pedido menuAlterarPedido (Pedido ped) {
+		PedidoDAO pedao = new PedidoDAO(con, SCHEMA);
+		PedidoProdutoDAO peprodao = new PedidoProdutoDAO(con, SCHEMA);
+		
+		@SuppressWarnings("resource")
+		Scanner in = new Scanner(System.in);
+
+        boolean imprimirMenu = true;
+		do {
+			System.out.println(
+				"═════════════════════════════════════════════════════════════════════════════\n"+
+				"                       ♣ Menu de Alteração de Pedido ♣  "+ ped.getIdPedido()+
+				"\n═════════════════════════════════════════════════════════════════════════════\n"+
+				" 1) Cliente\n"+
+				" 2) Produtos\n"+
+				" 3) Data\n"+
+				" 4) Voltar e salvar\n"+
+				"═════════════════════════════════════════════════════════════════════════════\n"+
+				" ♦ Informe uma opção ♦"
+				);
+			System.out.print("▸ ");
+			
+			int opcao = Util.validarInteiro(in.nextLine());
+		
+			switch (opcao) {
+				case 1: 
+					listarClientes();
+					int idInputValido;
+					do {
+						System.out.println(" ♦ Informe o id do novo cliente(0 para cancelar) ♦ ");
+						System.out.print("▸ ");
+						int id = Util.validarInteiro(in.nextLine());
+						
+						if(id == 0||1 == clientes.getListaClientes()
+						   .stream()
+						   .filter(c -> id == c.getIdCliente())
+						   .count()) {
+							
+							idInputValido = id;
+							break;
+						}
+						
+						System.out.println(" ♦ Informe um ID valido!! ♦ ");
+					} while(true);
+					
+					if(idInputValido == 0) break;
+					
+					ped.setCliente(clientes.localizarCliente(idInputValido));
+								
+					break;
+				case 2: 
+					for (ProdutoVendido pv : ped.getProdutos()) {
+
+						System.out.println(	
+							"\n ♦ idProduto ♦ "+pv.getIdProduto()+" ♦"+
+							" nome: "+pv.getNomeProduto()+" ♦"+
+							" qtdVendida: "+pv.getQtdVendida()+" ♦");
+				
+					}
+					
+					do {
+						System.out.println("\n ♦ Informe o id do produto que deve ser alterado(0 para cancelar) ♦ ");
+						int id = Util.validarInteiro(in.nextLine());
+						
+						if(id == 0||1 == pedidos.getListaPedido()
+						   .stream()
+						   .filter(pd -> id == pd.getIdPedido())
+						   .count()) {
+							
+							idInputValido = id;
+							break;
+						}
+						
+						System.out.println(" ♦ Informe um ID valido!! ♦ ");
+					} while(true);
+					
+					if(idInputValido == 0) break;
+					
+					ProdutoVendido p = ped.localizarProduto(idInputValido);
+					
+					ped = menuAlterarProdutosPedido(ped, p);
+					
+					
+					pedao.alterarPedido(ped);
+					peprodao.alterarPedidoProduto(ped, p);
+					
+					pedidos.atualizarListaPedido();
+							
+					break;
+				case 3:
+					System.out.println("═════════════════════════════════════════════════════════════════════════════");
+					ped.setData(Util.validarData(" ♦ Informe a nova data deste pedido(dd/MM/yyyy) ♦ \n▸ "));
+					
+					break;								
+				case 4: imprimirMenu = false; break;
+				default: System.out.println(" ♦ Opção inválida ♦ ");
+			}
+		
+		} while (imprimirMenu);
+        
+       return ped;
+	}
+	
+	
+	private static Pedido menuAlterarProdutosPedido (Pedido ped, ProdutoVendido p) {
+		@SuppressWarnings("resource")
+		Scanner in = new Scanner(System.in);
+		boolean imprimirMenu = true;
+		
+		System.out.println(
+				"═════════════════════════════════════════════════════════════════════════════\n"+
+				"                       idPedido: "+ped.getIdPedido()+ " idProduto: "+p.getIdProduto()+
+				"\n═════════════════════════════════════════════════════════════════════════════\n"+
+				" 1) alterar Produto\n"+
+				" 2) excluir Produto\n"+
+				"═════════════════════════════════════════════════════════════════════════════\n"+
+				" ♦ Informe uma opção ♦"
+				);
+				
+			do {	
+				System.out.print("▸ ");
+				int opcao = Util.validarInteiro(in.nextLine());
+				
+				switch (opcao) {
+					case 1:
+						int novaQtdVendida;
+						do {
+							System.out.println(" ♦ Informe a nova quantidade vendida ♦ ");
+							novaQtdVendida = Util.validarInteiro(in.nextLine());
+							
+							if(novaQtdVendida <= 0) {
+								System.out.println(" ♦ A nova quantidade vendida deve ser maior que zero ♦ ");
+							}
+						} while(novaQtdVendida <= 0 && novaQtdVendida <= (p.getEstoque()+p.getQtdVendida()));
+						
+						int indice = ped.getProdutos().indexOf(p);
+						
+						ped.getProdutos().get(indice).setQtdVendida(novaQtdVendida);
+						ped.getProdutos().get(indice).calcularTotal();
+						
+						imprimirMenu = false;
+						break;
+					case 2: 
+						
+						imprimirMenu = false;
+						break;
+					default: System.out.println(" ♦ Opção inválida ♦ ");
+				}
+				
+			}while(imprimirMenu);
+			
+			return ped;
+			
+	}
+	
 	
 	public static void excluirPedido() {
 		PedidoDAO pedao = new PedidoDAO(con, SCHEMA);
