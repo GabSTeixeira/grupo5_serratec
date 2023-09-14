@@ -1013,11 +1013,15 @@ public class Principal {
 					
 					ped = menuAlterarProdutosPedido(ped, p);
 					
+					ped.calcularQtdItens();
+					ped.calcularTotal();
+					
 					pedao.alterarPedido(ped);
 					peprodao.alterarPedidoProduto(ped, p);
 					
 					pedidos.atualizarListaPedido();
-							
+					produtos.atualizarListaProduto();
+					
 					break;
 				case 3:
 					System.out.println("═════════════════════════════════════════════════════════════════════════════");
@@ -1032,11 +1036,10 @@ public class Principal {
         
        return ped;
 	}
-	
-	
+		
 	private static Pedido menuAlterarProdutosPedido (Pedido ped, ProdutoVendido p) {
 		ProdutoDAO pdao = new ProdutoDAO(con, SCHEMA);
-		
+		PedidoProdutoDAO peprodao = new PedidoProdutoDAO(con, SCHEMA);
 		@SuppressWarnings("resource")
 		Scanner in = new Scanner(System.in);
 		boolean imprimirMenu = true;
@@ -1101,10 +1104,17 @@ public class Principal {
 						break;
 					case 2:
 						
-						ped.getProdutos().get(indice).setEstoque(estoqueTotal);
-						pdao.alterarProdutoEstoque(ped.getProdutos().get(indice));
 						
-						pedidos.atualizarListaPedido();
+						Produto produto = ped.getProdutos().get(indice);
+						
+						produto.setEstoque(estoqueTotal);
+						
+						pdao.alterarProdutoEstoque(produto);
+						System.out.println(ped.getIdPedido());
+						
+						peprodao.excluirPedidoProduto(ped, ped.getProdutos().get(indice).getIdProduto());
+						
+						
 						imprimirMenu = false;
 						break;
 					default: System.out.println(" ♦ Opção inválida ♦ ");
@@ -1113,8 +1123,7 @@ public class Principal {
 			
 			return ped;
 	}
-	
-	
+		
 	public static void excluirPedido() {
 		PedidoDAO pedao = new PedidoDAO(con, SCHEMA);
 		ProdutoDAO pdao = new ProdutoDAO(con, SCHEMA);
@@ -1144,7 +1153,6 @@ public class Principal {
 				idInputValido = id;
 				break;
 			}
-			
 			System.out.println(" ♦ Informe um ID valido!! ♦ ");
 		} while(true);
 		

@@ -30,13 +30,13 @@ public class PedidoProdutoDAO {
 		sql += " where idpedido = ? and idproduto = ?";
 		
 		try {
-			this.pExclusaoTodos = conexao.getC().prepareStatement(sql);
+			this.pExclusao = conexao.getC().prepareStatement(sql);
 		} catch (Exception e) {
 			System.err.println(e);
 			e.printStackTrace();
 		}
 	}
-	
+
 	private void prepararSqlExclusaoTodos() {
 		String sql = "delete from "+ this.schema + ".pedidoProduto";
 		sql += " where idpedido = ?";
@@ -138,16 +138,15 @@ public class PedidoProdutoDAO {
 		}
 	}
 	
-	// fazer decrementação na tabela pedido no campo total e na quantidade de intens = fazer.
  	public int excluirPedidoProduto(Pedido p, int idProduto) {
 		try {
-			pExclusao.setInt(1, p.getIdPedido());
+ 			pExclusao.setInt(1, p.getIdPedido());
 			pExclusao.setInt(2, p.localizarProduto(idProduto).getIdProduto());
 			
 			return pExclusao.executeUpdate();
 		} catch  (Exception e) {
 			if (e.getLocalizedMessage().contains("is null")) {
-				System.err.println("\nProduto nao incluido.\nVerifique se foi chamado o conect:\n" + e);				
+				System.err.println("\nExclusão não realizada.\nVerifique se foi chamado o conect:\n" + e);				
 			} else {				
 				System.err.println(e);
 				e.printStackTrace();
