@@ -50,6 +50,7 @@ public class ListaPedido {
 	
 	public void atualizarListaPedido() {
 		carregarListaPedido();
+		carregarProdutosPedido();
 	}
 	
 	

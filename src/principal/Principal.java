@@ -582,7 +582,7 @@ public class Principal {
 		int idInputValido;
 		
 		System.out.println("═════════════════════════════════════════════════════════════════════════════");
-		System.out.println("                        ♣ ALterar produto ♣ ");
+		System.out.println("                        ♣ Alterar produto ♣ ");
 		System.out.println("═════════════════════════════════════════════════════════════════════════════");
 		
 		listarProdutos();
@@ -630,7 +630,7 @@ public class Principal {
 				" 5) Alterar Tudo\n"+
 				" 6) Voltar e salvar\n"+
 				"═════════════════════════════════════════════════════════════════════════════\n"+
-				" ♦ Informe uma opção ♦ "
+				" ♦ Informe uma opção ♦"
 				);
 			System.out.print("▸ ");
 			
@@ -641,7 +641,7 @@ public class Principal {
 					System.out.println(" ♦ Informe o novo nome ♦ ");
 					System.out.print("▸ ");
 					pd.setNomeProduto(in.nextLine());								
-					 break;
+					break;
 				case 2: 
 					System.out.println(" ♦ Informe o novo Preço ♦ ");
 					System.out.print("▸ ");
@@ -692,7 +692,8 @@ public class Principal {
 			        
 			        if (!s.isEmpty() && !s.isBlank() && s != null)
 			        	pd.setEstoque(est);
-				       
+				    
+			        break;
 				case 6: imprimirMenu = false; break;
 				default: System.out.println(" ♦ Opção inválida ♦ ");
 			}
@@ -925,7 +926,6 @@ public class Principal {
 		} while(true);
 		
 		if(idInputValido == 0) return;
-		
 		
 		
 		ped = pedidos.localizarPedido(idInputValido);
