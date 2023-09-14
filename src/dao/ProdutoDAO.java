@@ -193,6 +193,14 @@ public class ProdutoDAO {
 			return null;
 		}
 	}
+	
+	public ResultSet buscarEstoqueIdProduto (int idProduto) {
+		ResultSet tabela;
+		String sql = "select estoque from " + this.schema + ".produto where idproduto = "+idProduto;
+		
+		tabela = conexao.query(sql);
+		return tabela;
+	}
 
 	public ResultSet carregarProdutos() {
 		ResultSet tabela;				

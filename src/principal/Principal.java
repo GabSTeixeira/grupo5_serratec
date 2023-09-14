@@ -1,7 +1,8 @@
 package principal;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.time.LocalDate;
-
 import java.util.Scanner;
 
 import arquivo.ArquivoTxt;
@@ -1012,7 +1013,6 @@ public class Principal {
 					
 					ped = menuAlterarProdutosPedido(ped, p);
 					
-					
 					pedao.alterarPedido(ped);
 					peprodao.alterarPedidoProduto(ped, p);
 					
@@ -1035,9 +1035,28 @@ public class Principal {
 	
 	
 	private static Pedido menuAlterarProdutosPedido (Pedido ped, ProdutoVendido p) {
+		ProdutoDAO pdao = new ProdutoDAO(con, SCHEMA);
+		
 		@SuppressWarnings("resource")
 		Scanner in = new Scanner(System.in);
 		boolean imprimirMenu = true;
+		
+		ResultSet tabela = pdao.buscarEstoqueIdProduto(p.getIdProduto());
+		int estoqueAtual;
+		try {
+			tabela.next();
+			
+			
+			estoqueAtual = tabela.getInt("estoque");
+		} catch (SQLException e) {
+			e.printStackTrace();
+			estoqueAtual = -1;
+			return null;
+		}
+		
+		int indice = ped.getProdutos().indexOf(p);
+		int qtdVendida = ped.getProdutos().get(indice).getQtdVendida();
+		int estoqueTotal = estoqueAtual + qtdVendida;
 		
 		System.out.println(
 				"═════════════════════════════════════════════════════════════════════════════\n"+
@@ -1048,10 +1067,11 @@ public class Principal {
 				"═════════════════════════════════════════════════════════════════════════════\n"+
 				" ♦ Informe uma opção ♦"
 				);
-				
 			do {	
 				System.out.print("▸ ");
 				int opcao = Util.validarInteiro(in.nextLine());
+				
+				
 				
 				switch (opcao) {
 					case 1:
@@ -1063,11 +1083,21 @@ public class Principal {
 							if(novaQtdVendida <= 0) {
 								System.out.println(" ♦ A nova quantidade vendida deve ser maior que zero ♦ ");
 							}
-						} while(novaQtdVendida <= 0 && novaQtdVendida <= (p.getEstoque()+p.getQtdVendida()));
-						
-						int indice = ped.getProdutos().indexOf(p);
+							
+							if(novaQtdVendida > estoqueTotal) {
+								System.out.println(" ♦ Não é possivel passar uma quantidade maior que ("+estoqueTotal+") ♦ ");
+							}
+						} while(novaQtdVendida <= 0 || novaQtdVendida > estoqueTotal);
 						
 						ped.getProdutos().get(indice).setQtdVendida(novaQtdVendida);
+						
+						if (novaQtdVendida != qtdVendida) {
+							ped.getProdutos().get(indice).setEstoque(estoqueTotal);
+							ped.getProdutos().get(indice).decrementarEstoque(novaQtdVendida);
+							
+							pdao.alterarProdutoEstoque(ped.getProdutos().get(indice));
+						}
+						
 						ped.getProdutos().get(indice).calcularTotal();
 						
 						imprimirMenu = false;
