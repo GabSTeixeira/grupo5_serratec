@@ -18,6 +18,15 @@ public class Produto {
 		this.estoque = estoque;
 	}
 	
+	
+	public Produto (int id, String nome, double preco, String desc, int estoque) {
+		this.idProduto = id;
+		this.nome = nome;
+		this.preco = preco;
+		this.desc = desc;
+		this.estoque = estoque;
+	}
+	
 	public void decrementarEstoque(int qtd) {
 		this.estoque -= qtd;
 	}

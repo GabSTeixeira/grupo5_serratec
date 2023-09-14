@@ -76,7 +76,7 @@ public class ListaProduto {
     }
 	
 	private Produto dadosProduto(ResultSet tabela) { 
-		Produto prod = new Produto(); 
+		Produto prod = new Produto();
 		
 		try {
 			prod.setNomeProduto(tabela.getString("nome"));

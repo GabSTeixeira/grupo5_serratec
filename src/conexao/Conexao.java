@@ -62,7 +62,7 @@ public class Conexao {
 		try {
 			return getStatment().executeQuery(query);
 		}catch (NullPointerException | SQLException ex) {
-			if (!ex.getLocalizedMessage().contentEquals("No results were returned by the query.")||
+			if (!ex.getLocalizedMessage().contentEquals("No results were returned by the query.") &&
 					!ex.getLocalizedMessage().contentEquals("Nenhum resultado foi retornado pela consulta.")) {
 				//System.out.println(ex.getMessage());
 				//System.out.println(ex.getErrorCode());

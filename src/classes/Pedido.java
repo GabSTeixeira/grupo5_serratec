@@ -44,6 +44,10 @@ public class Pedido {
 	public ArrayList<ProdutoVendido> getProdutos() {
 		return produtos;
 	}
+	
+	public void setProdutos (ArrayList<ProdutoVendido> produtos) {
+		this.produtos = produtos;
+	}
 	public void adicionarProdutoLista(ProdutoVendido produtos) {
 		this.produtos.add(produtos);
 	}

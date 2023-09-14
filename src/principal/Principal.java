@@ -63,6 +63,7 @@ public class Principal {
                 con.conect();
                 clientes = new ListaCliente(con, SCHEMA);
                 produtos = new ListaProduto(con, SCHEMA);
+                
                 pedidos = new ListaPedido(con, SCHEMA);
             	
             	menu();
@@ -309,9 +310,13 @@ public class Principal {
 		System.out.print("▸ ");
 		String ch = in.nextLine();
 		c.setTelefone(ch);
+		// teste
+		
+		cdao.incluirCliente(c);
+		
+		c.setIdCliente(cdao.buscarIdClienteMaisRecente());
 		
 		clientes.adicionarClienteLista(c);
-		cdao.incluirCliente(c);	
 	}
 
 	public static void alterarCliente() {
@@ -506,6 +511,8 @@ public class Principal {
 		cl.setIdCliente(idInputValido);
 		
 		cdao.excluirCliente(cl);
+		
+		
 		clientes.atualizarListaCliente();
 	}
 
@@ -551,7 +558,7 @@ public class Principal {
 		in.nextLine();
 		p.setPreco(d);
 		
-		System.out.println(" ♦ Informe o descrição do produto ♦ ");
+		System.out.println(" ♦ Informe a descrição do produto ♦ ");
 		System.out.print("▸ ");
 		s = in.nextLine();
 		p.setDesc(s);
@@ -562,8 +569,10 @@ public class Principal {
 		in.nextLine();
 		p.setEstoque(e);
 		
-		produtos.adicionarProdutoLista(p);
 		pdao.incluirProduto(p);
+		p.setIdProduto(pdao.buscarIdProdutoMaisRecente());
+		
+		produtos.adicionarProdutoLista(p);
 	}
 	
 	public static void alterarProduto() {
@@ -772,6 +781,7 @@ public class Principal {
 		clientes.atualizarListaCliente();
 		listarClientes();
 		
+		
 		//verificar se existe um cliente com o id informado
 		do {
 			System.out.println("\n ♦ Informe o id do cliente(0 para cancelar) ♦ ");
@@ -855,7 +865,6 @@ public class Principal {
 		//inclusão no banco não precisa de id
 		pedao.incluirPedido(ped);
 	
-		//id do pedido atual é igual a o tamanho da lista de pedidos +1.
 		ped.setIdPedido(pedao.buscarIdPedidoMaisRecente());
 		produtos.decrementarEstoqueProdutos(ped.getProdutos());
 		pedidos.adicionarPedidoLista(ped);
@@ -870,6 +879,7 @@ public class Principal {
 	
 	public static void excluirPedido() {
 		PedidoDAO pedao = new PedidoDAO(con, SCHEMA);
+		ProdutoDAO pdao = new ProdutoDAO(con, SCHEMA);
 		
 		Pedido ped = new Pedido();
 		
@@ -902,13 +912,24 @@ public class Principal {
 		
 		if(idInputValido == 0) return;
 		
-		ped.setIdPedido(idInputValido);
+		
+		
+		ped = pedidos.localizarPedido(idInputValido);
+		
+		for(ProdutoVendido p : ped.getProdutos()){
+			p.setEstoque(p.getEstoque()+p.getQtdVendida());
+			
+			
+			pdao.alterarProdutoEstoque(p);
+		}
+		
 		
 		pedao.excluirPedido(ped);
 		pedidos.atualizarListaPedido();
 	}
 	
-	public static void listarPedidos() {
+	public static void listarPedidos() {	
+		
 		System.out.printf("══════════════════════════════════════════════════════════════════════════════════════════════════════════════%n");
 		System.out.printf("                                   ♣ Lista de pedidos ♣ %n");
 		System.out.printf("══════════════════════════════════════════════════════════════════════════════════════════════════════════════%n");
@@ -950,3 +971,5 @@ public class Principal {
 	
 	
 
+
+	
