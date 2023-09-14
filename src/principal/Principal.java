@@ -133,9 +133,7 @@ public class Principal {
 					"═════════════════════════════════════════════════════════════════════════════\n"+
 					" 1) Menu Cliente\n"+			
 					" 2) Menu Produto\n"+
-					" 3) Menu Pedido\n"+
-					"sdsadas"+
-					"sdadsad"+
+					" 3) Menu Pedido\n"+					
 					" 4) Sair\n"+
 					"═════════════════════════════════════════════════════════════════════════════\n"+
 					" ♦ Informe uma opção ♦ \n"
@@ -443,7 +441,7 @@ public class Principal {
 		        	cl.setCpf(s);
 
 		        System.out.println("═════════════════════════════════════════════════════════════════════════════");
-		        System.out.println(" ♦ Sexo ♦ ");
+		        System.out.println(" ♦ Informe o novo Sexo ♦ ");
 		        System.out.print("▸ ");
 		        s = in.nextLine();
 
@@ -451,7 +449,7 @@ public class Principal {
 		            cl.setSexo(s);
 
 		        System.out.println("═════════════════════════════════════════════════════════════════════════════");
-		        System.out.println(" ♦ Informe o novo sexo ♦ ");
+		        System.out.println(" ♦ Informe o novo endereço ♦ ");
 		        System.out.print("▸ ");
 		        s = in.nextLine();
 		        
@@ -481,6 +479,7 @@ public class Principal {
 	public static void excluirCliente() {
 		Cliente cl = new Cliente();
 		ClienteDAO cdao = new ClienteDAO(con, SCHEMA);
+		ListaPedido pd = new ListaPedido(con, SCHEMA);
 		
 		@SuppressWarnings("resource")
 		Scanner sc = new Scanner(System.in);
@@ -494,6 +493,7 @@ public class Principal {
 		
 		do {
 			System.out.println(" ♦ Informe o id do cliente que deve ser excluido(0 para voltar) ♦");
+			System.out.print("▸ ");
 			int id = Util.validarInteiro(sc.nextLine());
 			
 			if(id == 0||1 == clientes.getListaClientes()
