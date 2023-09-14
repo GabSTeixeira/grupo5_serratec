@@ -1101,15 +1101,17 @@ public class Principal {
 						break;
 					case 2:
 						
+						ped.getProdutos().get(indice).setEstoque(estoqueTotal);
+						pdao.alterarProdutoEstoque(ped.getProdutos().get(indice));
+						
+						pedidos.atualizarListaPedido();
 						imprimirMenu = false;
 						break;
 					default: System.out.println(" ♦ Opção inválida ♦ ");
 				}
-				
 			}while(imprimirMenu);
 			
 			return ped;
-			
 	}
 	
 	
@@ -1127,7 +1129,7 @@ public class Principal {
 		System.out.println("                       ♣ Deletar pedido ♣ ");
 		System.out.println("═════════════════════════════════════════════════════════════════════════════");
 		
-		listarPedidos();	
+		listarPedidos();
 		
 		do {
 			System.out.println("\n ♦ Informe o id do pedido que deve ser excluido(0 para voltar) ♦ ");
@@ -1171,31 +1173,11 @@ public class Principal {
 		System.out.printf("══════════════════════════════════════════════════════════════════════════════════════════════════════════════%n");
 		System.out.printf(" ║ %-15s ║ %-15s ║ %-15s ║ %-15s ║ %-15s ║ %-15s ║ %n","IdPedido", "IdCliente" ,"Nome Cliente","QtdItens","Valor Total", "Data");
 			for (Pedido p : pedidos.getListaPedido()) {
-				
-				//1ª Método			
-				
+
 					System.out.printf(" ║ %15d ║ %15d ║ %15s ║ %15d ║ %15f ║ %15s ║ %n",p.getIdPedido(),p.getCliente().getIdCliente(),
 					p.getCliente().getNome(),p.getQtdItens(),p.getTotal(),p.getData());
-				
-				/*2ª Método
-				System.out.printf("═╦════════════════╦═════════════════╦══════════════════════════════════════════%n");
-				System.out.printf(" ║%-15s ║ %-15d ║%n ║%-15s ║ %-15d ║%n ║%-15s ║ %-15s ║%n ║%-15s ║ %-15d ║%n ║%-15s ║ %-15f ║%n ║%-15s ║ %-15s ║%n%n",
-						"IdPedido",	p.getIdPedido(),
-						"IdCliente",p.getCliente().getIdCliente(),
-						"Nome Cliente",p.getCliente().getNome(),
-						"QtdItens",p.getQtdItens(),
-						"Valor Total",p.getTotal(),
-						"Data",p.getData());
-				//3ª Método
-				System.out.printf(" ♦ IdPedido: %-5d ♦ IdCliente: %-5d ♦ Nome Cliente: %-20s\n ♦ QtdItens: %-4d ♦ Total: %-1f ♦ Data: ♦\n\n",
-						p.getIdPedido(),
-						p.getCliente().getIdCliente(),
-						p.getCliente().getNome(),
-						p.getQtdItens(),
-						p.getTotal(),
-						p.getData());
-				*/
-			}	
+		
+			}
 		 System.out.printf("══════════════════════════════════════════════════════════════════════════════════════════════════════════════%n");	
 	}	
 
