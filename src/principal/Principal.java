@@ -546,7 +546,7 @@ public class Principal {
 		
 		System.out.println(" ♦ Informe o estoque ♦ ");
 		System.out.print("▸ ");
-		String e = in.nextLine();
+		String e  = in.nextLine();
 		p.setEstoque(e);
 		
 		produtos.adicionarProdutoLista(p);
