@@ -41,13 +41,16 @@ public class Cliente {
 		String opcao = nome;
 		
 		while(!validarNome(opcao)) {
-			System.out.println("\nErro nome invalido. Digite um nome com at� 100 caracteres.");
+			System.out.println("\n ♦ Erro - Digite um nome válido ♦ ");
+			System.out.print("▸ ");
 			opcao = sc.nextLine();
 		}
 		this.nome = opcao;
 	}	
 	private boolean validarNome (String nome) {
-		if(nome.length() <= 100) {
+		if(nome == "") {
+			return false;
+		}else if(nome.length() <= 100) {
 			return true;
 		}
 		return false;
@@ -61,13 +64,14 @@ public class Cliente {
 		String opcao = cpf;
 		
 		while(!validarCpf(opcao)) {
-			System.out.println("\nErro CPF invalido. Digite um CPF com at� 11 caracteres.");
+			System.out.println("\n ♦ Erro - Digite um CPF válido ♦ ");
+			System.out.print("▸ ");
 			opcao = sc.nextLine();
 		}
-		this.cpf = opcao;
-	}	
+		this.cpf = opcao.replaceAll("\\D", "");
+	}
 	private boolean validarCpf (String cpf) {
-		if(cpf.length() <= 11) {
+		if(cpf.length() == 11) {
 			return true;
 		}
 		return false;
@@ -81,13 +85,15 @@ public class Cliente {
 		String opcao = telefone;
 		
 		while(!validarTelefone(opcao)) {
-			System.out.println("\nErro telefone invalido. Digite um telefone com at� 20 caracteres.");
+			System.out.println("\n ♦ Erro - Digite um telefone válido ♦ ");
+			System.out.print("▸ ");
 			opcao = sc.nextLine();
 		}
-		this.telefone = opcao;
+		this.telefone = opcao.replaceAll("\\D", "");
+		
 	}	
 	private boolean validarTelefone (String telefone) {
-		if(telefone.length() <= 20) {
+		if(telefone.length() == 11) {
 			return true;
 		}
 		return false;
@@ -107,13 +113,16 @@ public class Cliente {
 		String opcao = endereco;
 		
 		while(!validarEndereco(opcao)) {
-			System.out.println("\nErro endere�o invalido. Digite um endere�o com at� 150 caracteres.");
+			System.out.println("\n ♦ Erro endereço invalido. Digite um endereço com até 150 caracteres ♦ ");
+			System.out.print("▸ ");
 			opcao = sc.nextLine();
 		}
 		this.endereco = opcao;
 	}	
 	private boolean validarEndereco (String endereco) {
-		if(endereco.length() <= 150) {
+		if(endereco == "") {
+			return false;
+		}else if(endereco.length() <= 150) {
 			return true;
 		}
 		return false;
@@ -121,7 +130,9 @@ public class Cliente {
 	private boolean validarSexo (String sexo) {
 		char letraValida = sexo.toUpperCase().charAt(0);
 		
-		if(letraValida == 'M' || letraValida == 'F' || letraValida == 'I') {
+		if(sexo == "") {
+			return false;
+		}else if(letraValida == 'M' || letraValida == 'F' || letraValida == 'I') {
 			return true;	
 		}
 		return false;
@@ -135,7 +146,8 @@ public class Cliente {
 		String opcao = sexo;
 		
 		while (!validarSexo(opcao)) {
-			System.out.println("\nErro sexo invalido. DIGITE M, F OU I para indefinido");
+			System.out.println("\n ♦ Erro sexo invalido. DIGITE M, F OU I para indefinido ♦ ");
+			System.out.print("▸ ");
 			opcao = sc.nextLine();
 		};
 		

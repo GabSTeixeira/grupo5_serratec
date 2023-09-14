@@ -135,8 +135,9 @@ public class Principal {
 					" 3) Menu Pedido\n"+
 					" 4) Sair\n"+
 					"═════════════════════════════════════════════════════════════════════════════\n"+
-					" ♦ Informe uma opção ♦ \n▸ "
+					" ♦ Informe uma opção ♦ \n"
 					);		
+			System.out.print("▸ ");
 			
 			int opcao = Util.validarInteiro(in.nextLine());
 		
@@ -166,8 +167,9 @@ public class Principal {
 					" 4) Listar\n"+
 					" 5) voltar Menu Principal\n"+
 					"═════════════════════════════════════════════════════════════════════════════\n"+
-					" ♦ Informe uma opção ♦ \n▸ "
+					" ♦ Informe uma opção ♦ \n"
 					);
+			System.out.print("▸ ");
 			
 			int opcao = Util.validarInteiro(in.nextLine());
 		
@@ -201,8 +203,9 @@ public class Principal {
 					" 4) Listar\n"+
 					" 5) voltar Menu Principal\n"+
 					"═════════════════════════════════════════════════════════════════════════════\n"+
-					" ♦ Informe uma opção ♦ \n▸ "
+					" ♦ Informe uma opção ♦ \n"
 					);
+			System.out.print("▸ ");
 			
 			int opcao = Util.validarInteiro(in.nextLine());
 		
@@ -225,34 +228,39 @@ public class Principal {
 		boolean imprimirMenu = true;
 		@SuppressWarnings("resource")
 		Scanner in = new Scanner(System.in);
-		do {
-			System.out.println(
-					"═════════════════════════════════════════════════════════════════════════════\n"+
-					"                        ♣ Menu de Pedido ♣\n"+
-					"═════════════════════════════════════════════════════════════════════════════\n"+
-					" 1) Cadastrar\n"+			
-					" 2) Alterar\n"+
-					" 3) Excluir\n"+
-					" 4) Listar\n"+
-					" 5) voltar Menu Principal\n"+
-					"═════════════════════════════════════════════════════════════════════════════\n"+
-					" ♦ Informe uma opção ♦ \n▸ "
-					);
+		if(clientes.getListaClientes().isEmpty() || produtos.getProdutos().isEmpty()) {
+			System.out.println(" ♦ Não existe nenhum cliente ou produto cadastrado!! ♦ ");
 			
-			int opcao = Util.validarInteiro(in.nextLine());
-		
+		}else {
+			do {
+				System.out.println(
+						"═════════════════════════════════════════════════════════════════════════════\n"+
+						"                        ♣ Menu de Pedido ♣\n"+
+						"═════════════════════════════════════════════════════════════════════════════\n"+
+						" 1) Cadastrar\n"+			
+						" 2) Alterar\n"+
+						" 3) Excluir\n"+
+						" 4) Listar\n"+
+						" 5) voltar Menu Principal\n"+
+						"═════════════════════════════════════════════════════════════════════════════\n"+
+						" ♦ Informe uma opção ♦ \n"
+						);
+				System.out.print("▸ ");
+				
+				int opcao = Util.validarInteiro(in.nextLine());
 			
-			switch (opcao) {
-				case 1: cadastrarPedido(); break;
-				//case 2: alterarPedido(); break;
-				case 3: excluirPedido(); break;
-				case 4: listarPedidos(); break;
-				case 5: imprimirMenu = false; break;
-				default: System.out.println(" ♦ Opção inválida ♦ ");
-			}
-		
-		} while (imprimirMenu);
-		
+				
+				switch (opcao) {
+					case 1: cadastrarPedido(); break;
+					//case 2: alterarPedido(); break;
+					case 3: excluirPedido(); break;
+					case 4: listarPedidos(); break;
+					case 5: imprimirMenu = false; break;
+					default: System.out.println(" ♦ Opção inválida ♦ ");
+				}
+			
+			} while (imprimirMenu);
+		}			
 		
 	}
 	//--------------------------------metodos-Cliente-------------------------------
@@ -265,7 +273,7 @@ public class Principal {
 		
 		System.out.println("═════════════════════════════════════════════════════════════════════════════");
 		System.out.println("                        ♣ Cadastro de cliente ♣ ");
-		System.out.println("═════════════════════════════════════════════════════════════════════════════\n");
+		System.out.println("═════════════════════════════════════════════════════════════════════════════");
 		
 		Util.br();
 		
@@ -291,7 +299,7 @@ public class Principal {
 		c.setCpf(s);
 		
 		System.out.println("═════════════════════════════════════════════════════════════════════════════");
-		System.out.println(" ♦ Informe o sexo ♦ ");
+		System.out.println(" ♦ Informe o sexo com ( M - F - I ) ♦ ");
 		System.out.print("▸ ");
 		s = in.nextLine();
 		c.setSexo(s);
@@ -366,8 +374,9 @@ public class Principal {
 					" 7) Alterar tudo\n"+
 					" 8) Voltar e salvar\n"+
 					"═════════════════════════════════════════════════════════════════════════════\n"+
-					" ♦ Informe uma opção ♦\n▸ "
+					" ♦ Informe uma opção ♦\n"
 					);
+			System.out.print("▸ ");
 			
 			int opcao = Util.validarInteiro(in.nextLine());
 		
@@ -502,7 +511,7 @@ public class Principal {
 
 	public static void listarClientes() {
 		if (clientes.getListaClientes().size() <= 0) {
-			System.out.println("tem cliente não mano");
+			System.out.println(" ♦ tem cliente não mano ♦ ");
 		}
 		for (Cliente c : clientes.getListaClientes()) {
 			System.out.println(
@@ -614,6 +623,7 @@ public class Principal {
 				"═════════════════════════════════════════════════════════════════════════════\n"+
 				" ♦ Informe uma opção ♦ "
 				);
+			System.out.print("▸ ");
 			
 			int opcao = Util.validarInteiro(in.nextLine());
 		
@@ -699,6 +709,7 @@ public class Principal {
 		
 		do {
 			System.out.println("\n ♦ Informe o id do produto que deve ser excluido(0 para voltar) ♦ ");
+			System.out.print("▸ ");
 			int id = Util.validarInteiro(sc.nextLine());
 			
 			if(id == 0||1 == produtos.getProdutos()
@@ -749,18 +760,20 @@ public class Principal {
 		Scanner in = new Scanner(System.in);
 		int idInputValido;
 		
-		System.out.println(Util.LINHA);
-		System.out.println("Cadastro de pedido ");
-		System.out.println(Util.LINHA);
+		System.out.println("═════════════════════════════════════════════════════════════════════════════");
+		System.out.println("                       ♣ Cadastro de pedido ♣ ");
+		System.out.println("═════════════════════════════════════════════════════════════════════════════");
 		
 		Util.br();
 		
 		//Informar clientes disponiveis
+		clientes.atualizarListaCliente();
 		listarClientes();
 		
 		//verificar se existe um cliente com o id informado
 		do {
-			System.out.println("\nInforme o id do cliente(0 para cancelar): ");
+			System.out.println("\n ♦ Informe o id do cliente(0 para cancelar) ♦ ");
+			System.out.print("▸ ");
 			int id = Util.validarInteiro(in.nextLine());
 			
 			if(id == 0||1 == clientes.getListaClientes()
@@ -772,7 +785,7 @@ public class Principal {
 				break;
 			}
 			
-			System.out.println("Informe um ID valido!!");
+			System.out.println(" ♦ Informe um ID valido!! ♦ ");
 		} while(true);
 		
 		if(idInputValido == 0) return;
@@ -786,7 +799,8 @@ public class Principal {
 			listarProdutos();
 	
 			do {
-				System.out.println("\nInforme o id do produto(0 para voltar|-1 para confirmar pedido): ");
+				System.out.println("\n ♦ Informe o id do produto(0 para voltar|-1 para confirmar pedido) ♦ ");
+				System.out.print("▸ ");
 				int id = Util.validarInteiro(in.nextLine());
 				
 				if(id == -1 || id == 0||1 == produtos.getProdutos()
@@ -798,7 +812,7 @@ public class Principal {
 					break;
 				}
 				
-				System.out.println("Informe um ID valido!!");
+				System.out.println(" ♦ Informe um ID valido!! ♦ ");
 			} while(true);
 			
 			if (idInputValido == 0) {
@@ -811,11 +825,12 @@ public class Principal {
 				Produto produto = produtos.localizarProduto(idInputValido);
 				
 				if (produto.getEstoque() <= 0) { 
-					System.out.println("Selecione produtos com estoque");
+					System.out.println(" ♦ Selecione produtos com estoque ♦ ");
+					System.out.print("▸ ");
 				} else {
 					
-					System.out.println("Este Produto possui Estoque Disponivel de ("+produto.getEstoque()+")"
-							+ "\nInforme a quantidade a ser vendida:");
+					System.out.println(" ♦ Este Produto possui Estoque Disponivel de ("+produto.getEstoque()+") ♦ "
+							+ "\n ♦ Informe a quantidade a ser vendida ♦ ");
 					int qtdVendida = in.nextInt();
 					in.nextLine();
 					
@@ -825,7 +840,7 @@ public class Principal {
 						pd.setIdProduto(idInputValido);
 						ped.adicionarProdutoLista(pd);
 					} else {
-						System.out.println("\nPedido invalido!! estoque insuficiente para esta venda");
+						System.out.println("\n ♦ Pedido invalido!! estoque insuficiente para esta venda ♦ ");
 					}
 				}
 			}
@@ -860,14 +875,15 @@ public class Principal {
 		Scanner sc = new Scanner(System.in);
 		int idInputValido;
 		
-		System.out.println(Util.LINHA);
-		System.out.println("Deletar pedido");
-		System.out.println(Util.LINHA);
+		System.out.println("═════════════════════════════════════════════════════════════════════════════");
+		System.out.println("                       ♣ Deletar pedido ♣ ");
+		System.out.println("═════════════════════════════════════════════════════════════════════════════");
 		
 		listarPedidos();	
 		
 		do {
-			System.out.println("\nInforme o id do pedido que deve ser excluido(0 para voltar): ");
+			System.out.println("\n ♦ Informe o id do pedido que deve ser excluido(0 para voltar) ♦ ");
+			System.out.print("▸ ");
 			int id = Util.validarInteiro(sc.nextLine());
 			
 			if(id == 0||1 == pedidos.getListaPedido()
@@ -879,7 +895,7 @@ public class Principal {
 				break;
 			}
 			
-			System.out.println("Informe um ID valido!!");
+			System.out.println(" ♦ Informe um ID valido!! ♦ ");
 		} while(true);
 		
 		if(idInputValido == 0) return;
@@ -891,13 +907,39 @@ public class Principal {
 	}
 	
 	public static void listarPedidos() {
-		for (Pedido p : pedidos.getListaPedido()) {
-			System.out.println("idPedido: "+p.getIdPedido()+"|idCliente"+p.getCliente().getIdCliente()+
-		"nome cliente: "+p.getCliente().getNome()+"|qtdItens: "+p.getQtdItens()+"|total: "+p.getTotal()+
-		"data: "+p.getData());
-		}	
-	}
-	
+		System.out.printf("══════════════════════════════════════════════════════════════════════════════════════════════════════════════%n");
+		System.out.printf("                                   ♣ Lista de pedidos ♣ %n");
+		System.out.printf("══════════════════════════════════════════════════════════════════════════════════════════════════════════════%n");
+		System.out.printf("══════════════════════════════════════════════════════════════════════════════════════════════════════════════%n");
+		System.out.printf(" ║ %-15s ║ %-15s ║ %-15s ║ %-15s ║ %-15s ║ %-15s ║ %n","IdPedido", "IdCliente" ,"Nome Cliente","QtdItens","Valor Total", "Data");
+			for (Pedido p : pedidos.getListaPedido()) {
+				
+				//1ª Método			
+				
+					System.out.printf(" ║ %15d ║ %15d ║ %15s ║ %15d ║ %15f ║ %15s ║ %n",p.getIdPedido(),p.getCliente().getIdCliente(),
+					p.getCliente().getNome(),p.getQtdItens(),p.getTotal(),p.getData());
+				
+				/*2ª Método
+				System.out.printf("═╦════════════════╦═════════════════╦══════════════════════════════════════════%n");
+				System.out.printf(" ║%-15s ║ %-15d ║%n ║%-15s ║ %-15d ║%n ║%-15s ║ %-15s ║%n ║%-15s ║ %-15d ║%n ║%-15s ║ %-15f ║%n ║%-15s ║ %-15s ║%n%n",
+						"IdPedido",	p.getIdPedido(),
+						"IdCliente",p.getCliente().getIdCliente(),
+						"Nome Cliente",p.getCliente().getNome(),
+						"QtdItens",p.getQtdItens(),
+						"Valor Total",p.getTotal(),
+						"Data",p.getData());
+				//3ª Método
+				System.out.printf(" ♦ IdPedido: %-5d ♦ IdCliente: %-5d ♦ Nome Cliente: %-20s\n ♦ QtdItens: %-4d ♦ Total: %-1f ♦ Data: ♦\n\n",
+						p.getIdPedido(),
+						p.getCliente().getIdCliente(),
+						p.getCliente().getNome(),
+						p.getQtdItens(),
+						p.getTotal(),
+						p.getData());
+				*/
+			}	
+		 System.out.printf("══════════════════════════════════════════════════════════════════════════════════════════════════════════════%n");	
+	}	
 
 }
 	

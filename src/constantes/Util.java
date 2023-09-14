@@ -41,7 +41,7 @@ public class Util {
 				dataValidada = true;
 				return dataConvertida;
 			} catch (Exception e) {
-				System.out.println("Data invalida");
+				System.out.println(" ♦ Data invalida!! ♦ \n");
 			}
 		} while (!dataValidada);
 		
@@ -57,7 +57,7 @@ public class Util {
 				numero = Integer.parseInt(StringNumero);
 				validado = true;
 			} catch (Exception e) {
-				System.out.println("Informe um Numero valido!!");
+				System.out.println(" ♦ Informe um Numero valido!! ♦ \n");
 				StringNumero = in.nextLine();
 				
 			}
@@ -79,7 +79,7 @@ public class Util {
 				numero = Double.parseDouble(s);
 				validado = true;
 			} catch (Exception e) {
-				System.out.println("Informe um numero valido - " + e.getMessage());
+				System.out.println(" ♦ Informe um numero valido ♦ \n" + e.getMessage());
 			}
 		} while (!validado);
 		
