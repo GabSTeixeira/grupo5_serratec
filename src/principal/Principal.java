@@ -306,6 +306,12 @@ public class Principal {
 
 	public static void alterarCliente() {
 		
+		if (clientes.getListaClientes().size() <= 0) {
+			System.out.println(" ♦ Não há clientes cadastrados ♦ ");
+			return;
+			
+		}
+		
 		Cliente cl = new Cliente();
 		ClienteDAO cdao = new ClienteDAO(con, SCHEMA);
 		
@@ -463,6 +469,13 @@ public class Principal {
 	}
 
 	public static void excluirCliente() {
+		
+		if (clientes.getListaClientes().size() <= 0) {
+			System.out.println(" ♦ Não há clientes cadastrados ♦ ");
+			return;
+			
+		}
+		
 		Cliente cl = new Cliente();
 		ClienteDAO cdao = new ClienteDAO(con, SCHEMA);
 		
@@ -522,7 +535,9 @@ public class Principal {
 	public static void listarClientes() {
 		if (clientes.getListaClientes().size() <= 0) {
 			System.out.println(" ♦ Não há clientes cadastrados ♦ ");
-		}else {
+			return;
+			
+		}
 			System.out.printf("════════════════════════════════════════════════════════════════════════════════════════════════════════════════════%n");
 			System.out.printf("                                           ♣ Lista de Clientes ♣ %n");
 			System.out.printf("════════════════════════════════════════════════════════════════════════════════════════════════════════════════════%n");
@@ -533,10 +548,16 @@ public class Principal {
 				System.out.printf(" ║ %15d ║ %20s ║ %15s ║ %15s ║%n",c.getIdCliente(),c.getNome(),c.getSexo(),c.getTelefone());
 			}
 			System.out.printf("═╩═════════════════╩══════════════════════╩═════════════════╩═════════════════╩═%n");	
-		}
+		
 	}
 	
 	public static void localizarCliente() {
+		
+		if (clientes.getListaClientes().size() <= 0) {
+			System.out.println(" ♦ Não há clientes cadastrados! ♦ ");
+			
+			return;
+		}
 		
 		@SuppressWarnings("resource")
 		Scanner in = new Scanner(System.in);
