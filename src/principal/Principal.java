@@ -306,6 +306,12 @@ public class Principal {
 
 	public static void alterarCliente() {
 		
+		if (clientes.getListaClientes().size() <= 0) {
+			System.out.println(" ♦ Não há clientes cadastrados ♦ ");
+			return;
+			
+		}
+		
 		Cliente cl = new Cliente();
 		ClienteDAO cdao = new ClienteDAO(con, SCHEMA);
 		
@@ -463,6 +469,13 @@ public class Principal {
 	}
 
 	public static void excluirCliente() {
+		
+		if (clientes.getListaClientes().size() <= 0) {
+			System.out.println(" ♦ Não há clientes cadastrados ♦ ");
+			return;
+			
+		}
+		
 		Cliente cl = new Cliente();
 		ClienteDAO cdao = new ClienteDAO(con, SCHEMA);
 		
@@ -522,7 +535,9 @@ public class Principal {
 	public static void listarClientes() {
 		if (clientes.getListaClientes().size() <= 0) {
 			System.out.println(" ♦ Não há clientes cadastrados ♦ ");
-		}else {
+			return;
+			
+		}
 			System.out.printf("════════════════════════════════════════════════════════════════════════════════════════════════════════════════════%n");
 			System.out.printf("                                           ♣ Lista de Clientes ♣ %n");
 			System.out.printf("════════════════════════════════════════════════════════════════════════════════════════════════════════════════════%n");
@@ -533,10 +548,16 @@ public class Principal {
 				System.out.printf(" ║ %15d ║ %20s ║ %15s ║ %15s ║%n",c.getIdCliente(),c.getNome(),c.getSexo(),c.getTelefone());
 			}
 			System.out.printf("═╩═════════════════╩══════════════════════╩═════════════════╩═════════════════╩═%n");	
-		}
+		
 	}
 	
 	public static void localizarCliente() {
+		
+		if (clientes.getListaClientes().size() <= 0) {
+			System.out.println(" ♦ Não há clientes cadastrados! ♦ ");
+			
+			return;
+		}
 		
 		@SuppressWarnings("resource")
 		Scanner in = new Scanner(System.in);
@@ -749,6 +770,12 @@ public class Principal {
 	}
 
 	public static void excluirProduto() {
+		if(produtos.getProdutos().size() <= 0) {
+			System.out.println(" ♦ Não há produtos cadastrados! ♦ ");
+			
+			return;
+		}
+		
 		Produto pd = new Produto();
 		ProdutoDAO pdao = new ProdutoDAO(con, SCHEMA);
 		
@@ -784,6 +811,11 @@ public class Principal {
     }
 	
 	public static void listarProdutos() {
+		if(produtos.getProdutos().size() <= 0) {
+			System.out.println(" ♦ Não há produtos cadastrados! ♦ ");
+			
+			return;
+		}
 		
 		System.out.printf("════════════════════════════════════════════════════════════════════════════════════════════════════════════════════%n");
 		System.out.printf("                                           ♣ Lista de produtos ♣ %n");
@@ -800,6 +832,12 @@ public class Principal {
 	}	
 	
 	public static void localizarProduto() {
+		if(produtos.getProdutos().size() <= 0) {
+			System.out.println(" ♦ Não há produtos cadastrados! ♦ ");
+			
+			return;
+		}
+		
 		@SuppressWarnings("resource")
 		Scanner in = new Scanner(System.in);
 		Produto pr;
@@ -1295,6 +1333,12 @@ public class Principal {
 	}
 		
 	public static void excluirPedido() {
+		if(pedidos.getListaPedido().size() <= 0) {
+			System.out.println(" ♦ Não há pedidos cadastrados! ♦ ");
+			
+			return;
+		}
+		
 		PedidoDAO pedao = new PedidoDAO(con, SCHEMA);
 		ProdutoDAO pdao = new ProdutoDAO(con, SCHEMA);
 		
@@ -1343,7 +1387,12 @@ public class Principal {
 		pedidos.atualizarListaPedido();
 	}
 
-	public static void listarPedidos() {	
+	public static void listarPedidos() {
+		if(pedidos.getListaPedido().size() <= 0) {
+			System.out.println(" ♦ Não há pedidos cadastrados! ♦ ");
+			
+			return;
+		}
 		
 		System.out.printf("════════════════════════════════════════════════════════════════════════════════════════════════════════════════════%n");
 		System.out.printf("                                           ♣ Lista de pedidos ♣ %n");
@@ -1363,6 +1412,12 @@ public class Principal {
 	}	
 	
 	public static void localizarPedido() {
+		if(pedidos.getListaPedido().size() <= 0) {
+			System.out.println(" ♦ Não há pedidos cadastrados! ♦ ");
+			
+			return;
+		}
+		
 		@SuppressWarnings("resource")
 		Scanner in = new Scanner(System.in);
 		ArrayList <Pedido> localizado = new ArrayList<>();
@@ -1421,11 +1476,5 @@ public class Principal {
 		System.out.println("Produtos vendidos por: GroupFive LTDA CNPJ: 34.126.361/0003-62 Rua Não sei oque, nº 2");						
 	}
 }
-	
-	
-	
-	
-	
-
 
 	
