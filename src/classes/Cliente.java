@@ -6,7 +6,7 @@ import java.util.Scanner;
 public class Cliente {
 	
 	private int idCliente;
-	private String nome;
+	private String nome;	
 	private String cpf;
 	private LocalDate dataNascimento;
 	private char sexo;
@@ -46,7 +46,7 @@ public class Cliente {
 			opcao = sc.nextLine();
 		}
 		this.nome = opcao;
-	}	
+	}		
 	private boolean validarNome (String nome) {
 		if(nome == "") {
 			return false;

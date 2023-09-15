@@ -35,8 +35,7 @@ public class ListaCliente {
 	
 	public void atualizarListaCliente () {
 		carregarListaClientes();
-	}
-	
+	}	
 	public Cliente localizarCliente(int idCliente) {
 		Cliente localizado = null;
 		
@@ -46,8 +45,18 @@ public class ListaCliente {
 				break;
 			}
 		}		
-	
 		return localizado;
+	}
+	public ArrayList <Cliente> localizarCliente(String NomeCliente) {
+		
+		ArrayList <Cliente> clienteEncontrados = new ArrayList<>();
+		
+		for (Cliente c : listaClientes) {
+			if (c.getNome().equals(NomeCliente)){
+				clienteEncontrados.add(c);
+			}
+		}			
+		return clienteEncontrados ;
 	}
 	
  	private void carregarListaClientes() {

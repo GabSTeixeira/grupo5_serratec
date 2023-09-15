@@ -1,7 +1,7 @@
 package principal;
 
 import java.time.LocalDate;
-
+import java.util.ArrayList;
 import java.util.Scanner;
 
 import arquivo.ArquivoTxt;
@@ -62,8 +62,7 @@ public class Principal {
                 con = new Conexao(dadosCon); 
                 con.conect();
                 clientes = new ListaCliente(con, SCHEMA);
-                produtos = new ListaProduto(con, SCHEMA);
-                
+                produtos = new ListaProduto(con, SCHEMA);                
                 pedidos = new ListaPedido(con, SCHEMA);
             	
             	menu();
@@ -166,7 +165,8 @@ public class Principal {
 					" 2) Alterar\n"+
 					" 3) Excluir\n"+
 					" 4) Listar\n"+
-					" 5) voltar Menu Principal\n"+
+					" 5) Localizar Cliente\n"+
+					" 6) voltar Menu Principal\n"+
 					"════════════════════════════════════════════════════════════════════════════════════════════════════════════════════\n"+
 					" ♦ Informe uma opção ♦ \n"
 					);
@@ -180,7 +180,8 @@ public class Principal {
 				case 2: alterarCliente(); break;
 				case 3: excluirCliente(); break;
 				case 4: listarClientes(); break;
-				case 5: imprimirMenu = false; break;
+				case 5: localizarCliente(); break;
+				case 6: imprimirMenu = false; break;
 				default: System.out.println(" ♦ Opção inválida ♦ ");
 			}
 		
@@ -279,7 +280,7 @@ public class Principal {
 		Util.br();
 		
 		System.out.println("════════════════════════════════════════════════════════════════════════════════════════════════════════════════════");
-		System.out.println(" ♦ Informe o nome ♦ ");
+		System.out.println(" ♦ Informe o primeiro nome ♦ ");
 		System.out.print("▸ ");
 		String s = in.nextLine();
 		c.setNome(s);
@@ -548,7 +549,30 @@ public class Principal {
 			}
 			System.out.printf("═╩═════════════════╩══════════════════════╩═════════════════╩═════════════════╩═%n");	
 		}
-	}	
+	}
+	public static void localizarCliente() {
+		
+		Scanner in = new Scanner(System.in);
+		ArrayList <Cliente> localizado;
+		
+		System.out.println("Informe o id ou nome para localizar o cliente!");
+		System.out.print("▸ ");
+		String s = in.nextLine();
+		
+		if(Util.isInteger(s)) {	
+			localizado = new ArrayList<>();
+			Cliente c;
+			int id = Integer.parseInt(s);
+			c = clientes.localizarCliente(id);		
+			localizado.add(c);		
+			
+		}else if(s.length() > 1){			
+			localizado = clientes.localizarCliente(s);
+		}else {	
+			System.out.println("Erro");
+			return;
+		}		
+	}
 	//--------------------------------metodos-Produto-------------------------------
 	public static void cadastrarProduto() {
 		
