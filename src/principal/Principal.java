@@ -805,7 +805,7 @@ public class Principal {
 		Produto pr;
 
 		
-		System.out.println("Informe o id ou nome para localizar o produto!");
+		System.out.println(" ♦ Informe o id ou nome para localizar o produto! ♦ ");
 		System.out.print("▸ ");
 		String s = in.nextLine();
 		
@@ -816,7 +816,7 @@ public class Principal {
 		}else if(s.length() > 1){			
 			pr = produtos.localizarProduto(s);
 		}else {	
-			System.out.println("Erro");
+			System.out.println(" ♦ Erro ♦ ");
 			return;
 		}
 		
