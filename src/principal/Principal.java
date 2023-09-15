@@ -1193,8 +1193,14 @@ public class Principal {
 						estoqueAtual = -1;
 					}
 					
+					if (estoqueAtual == 0) {
+						System.out.println(" ♦ Este produto não possui Estoque ♦ ");
+						break;
+					}
+					
 					int novaQtdVendida;
 					do {
+						
 						System.out.println(" ♦ Informe quantidade deste item a ser vendida ♦ ");
 						novaQtdVendida = Util.validarInteiro(in.nextLine());
 						
