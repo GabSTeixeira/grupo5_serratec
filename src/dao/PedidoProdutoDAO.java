@@ -147,10 +147,10 @@ public class PedidoProdutoDAO {
 		
 		try {				
 			
-			pInclusao.setInt(1, p.getIdProduto());
-			pInclusao.setInt(2, idPedido);
-			pInclusao.setInt(3, p.getQtdVendida());
-			pInclusao.setDouble(4, p.getTotal());
+			pInclusaoUnicoProduto.setInt(1, p.getIdProduto());
+			pInclusaoUnicoProduto.setInt(2, idPedido);
+			pInclusaoUnicoProduto.setInt(3, p.getQtdVendida());
+			pInclusaoUnicoProduto.setDouble(4, p.getTotal());
 			
 			pInclusaoUnicoProduto.executeUpdate();
 		} catch (Exception e) {

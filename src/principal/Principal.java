@@ -945,7 +945,8 @@ public class Principal {
 		if (pedidos.getListaPedido().isEmpty()) {
 			System.out.println(" ♦ Não existe nenhum pedido cadastrado!! ♦ ");
 		} else {
-		
+			PedidoDAO pedao = new PedidoDAO(con, SCHEMA);
+			
 			@SuppressWarnings("resource")
 			Scanner sc = new Scanner(System.in);
 			int idInputValido;
@@ -979,12 +980,16 @@ public class Principal {
 			
 			Pedido p = pedidos.localizarPedido(idInputValido);
 			
-			menuAlterarPedido(p);
+			p = menuAlterarPedido(p);
+			
+			pedao.alterarPedido(p);
+			
+			pedidos.atualizarListaPedido();
+			produtos.atualizarListaProduto();
 		}
 	}
 	
 	private static Pedido menuAlterarPedido (Pedido ped) {
-		PedidoDAO pedao = new PedidoDAO(con, SCHEMA);
 		PedidoProdutoDAO peprodao = new PedidoProdutoDAO(con, SCHEMA);
 		ProdutoDAO pdao = new ProdutoDAO(con, SCHEMA);
 		
@@ -1039,8 +1044,10 @@ public class Principal {
 					
 					listarProdutos();
 					int idProdutoValido;
+					boolean produtoJaCadastrado = false;
 					do {
-						System.out.println(" ♦ Informe o id do novo cliente(0 para cancelar) ♦ ");
+						produtoJaCadastrado = false;
+						System.out.println(" ♦ Informe o id do novo produto a ser incluido(0 para cancelar) ♦ ");
 						System.out.print("▸ ");
 						int id = Util.validarInteiro(in.nextLine());
 						
@@ -1049,11 +1056,24 @@ public class Principal {
 						   .filter(prod -> id == prod.getIdProduto())
 						   .count()) {
 							
-							idProdutoValido = id;
-							break;
+							
+							for (ProdutoVendido pv: ped.getProdutos()) {
+								if (id == pv.getIdProduto()) {
+									produtoJaCadastrado = true;
+									break;
+								}
+							}
+							
+							if (!produtoJaCadastrado) {
+								idProdutoValido = id;
+								break;								
+							} else {
+								System.out.println(" ♦ Este produto já está cadastrado neste pedido, vá para alterar produtos ♦");
+							}
+							
+						} else {
+							System.out.println(" ♦ Informe um ID valido!! ♦ ");
 						}
-						
-						System.out.println(" ♦ Informe um ID valido!! ♦ ");
 					} while(true);
 					
 					if(idProdutoValido == 0) break;
@@ -1090,11 +1110,16 @@ public class Principal {
 					ProdutoVendido p = new ProdutoVendido (prod, novaQtdVendida);
 					
 					peprodao.incluirProdutoUnico(p , ped.getIdPedido());
-					pedao.alterarPedido(ped);
 					
-					pedidos.atualizarListaPedido();
+					ped.adicionarProdutoLista(p);
 					
-				
+					ped.calcularQtdItens();
+					ped.calcularTotal();
+					
+					p.setEstoque(estoqueAtual - novaQtdVendida);
+					
+					pdao.alterarProdutoEstoque(p);
+					break;
 				case 3: 
 					for (ProdutoVendido pv : ped.getProdutos()) {
 
@@ -1130,7 +1155,6 @@ public class Principal {
 					ped.calcularQtdItens();
 					ped.calcularTotal();
 					
-					pedao.alterarPedido(ped);
 					peprodao.alterarPedidoProduto(ped, produtoVendido);
 					
 					pedidos.atualizarListaPedido();
