@@ -1037,14 +1037,17 @@ public class Principal {
 		ped.calcularTotal();
 		
 		//inclusão no banco não precisa de id
+		
+		if (ped.getProdutos().size() > 0) {
 		pedao.incluirPedido(ped);
+		
 	
 		ped.setIdPedido(pedao.buscarIdPedidoMaisRecente());
 		produtos.decrementarEstoqueProdutos(ped.getProdutos());
 		pedidos.adicionarPedidoLista(ped);
 		
 		peProdao.incluirPedidoProduto(ped);
-		
+		}
 	}
 
 	public static void alterarPedido() {
@@ -1467,7 +1470,7 @@ public class Principal {
 			System.out.println(" ♦ Informe o id ou a data (dd/mm/yyyy) para localizar o pedido!(0 para cancelar) ♦ ");
 			data = sc.nextLine();
 			
-			if(Util.isInteger(data)) {
+			if(!Util.isInteger(data)) {
 				pesquisaPorData = true;
 				break;
 			}
