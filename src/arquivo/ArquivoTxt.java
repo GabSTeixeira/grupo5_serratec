@@ -8,7 +8,7 @@ import java.io.IOException;
 import java.util.Scanner;
 import conexao.DadosConexao;
 
-
+ 
 public class ArquivoTxt {
 	private String nmArquivo;
 	File Arquivo;
@@ -17,7 +17,7 @@ public class ArquivoTxt {
 	/**
 	 * 
 	 * @author Ricardo de Jesus Oliveira
-	 * @return Retorna os dados de conex„o
+	 * @return Retorna os dados de conex√£o
 	 */
 	public DadosConexao getData() {
 		return data;
@@ -36,11 +36,11 @@ public class ArquivoTxt {
 	}
 	
 	/**
-	 * Cria um novo arquivo, se n„o existir.
+	 * Cria um novo arquivo, se n√£o existir.
 	 * 
 	 * 
 	 * @author Ricardo de Jesus Oliveira
-	 * @return Retorna verdadeiro se o arquivo for criado ou se j· existir.
+	 * @return Retorna verdadeiro se o arquivo for criado ou se j√° existir.
 	 */
 	public boolean criarArquivo() {
 		try {
@@ -77,7 +77,7 @@ public class ArquivoTxt {
 		
 				Linhas.close();
 			} else
-				System.out.println("Arquivo n„o existe.");
+				System.out.println("Arquivo n√£o existe.");
 		
 		} catch (FileNotFoundException e) {
 		      System.out.println("Ocorreu um erro na leitura.");
@@ -147,7 +147,7 @@ public class ArquivoTxt {
 	 * Exclui um arquivo existente
 	 * 
 	 * @author Ricardo de Jesus Oliveira
-	 * @return Retorna verdadeiro se a exclus„o for realizada.
+	 * @return Retorna verdadeiro se a exclus√£o for realizada.
 	 */
 	public boolean apagarArquivo() {
 		return Arquivo.delete();
