@@ -3,6 +3,7 @@ package principal;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 import arquivo.ArquivoTxt;
@@ -63,8 +64,7 @@ public class Principal {
                 con = new Conexao(dadosCon); 
                 con.conect();
                 clientes = new ListaCliente(con, SCHEMA);
-                produtos = new ListaProduto(con, SCHEMA);
-                
+                produtos = new ListaProduto(con, SCHEMA);                
                 pedidos = new ListaPedido(con, SCHEMA);
             	
             	menu();
@@ -129,14 +129,14 @@ public class Principal {
 		do {
 			
 			System.out.println(
-					"═════════════════════════════════════════════════════════════════════════════\n"+
-					"                        ♣ Menu Principal ♣\n"+
-					"═════════════════════════════════════════════════════════════════════════════\n"+
+					"════════════════════════════════════════════════════════════════════════════════════════════════════════════════════\n"+
+					"                                           ♣ Menu Principal ♣\n"+
+					"════════════════════════════════════════════════════════════════════════════════════════════════════════════════════\n"+
 					" 1) Menu Cliente\n"+			
 					" 2) Menu Produto\n"+
-					" 3) Menu Pedido\n"+
+					" 3) Menu Pedido\n"+					
 					" 4) Sair\n"+
-					"═════════════════════════════════════════════════════════════════════════════\n"+
+					"════════════════════════════════════════════════════════════════════════════════════════════════════════════════════\n"+
 					" ♦ Informe uma opção ♦"
 					);		
 			System.out.print("▸ ");
@@ -160,15 +160,16 @@ public class Principal {
 		Scanner in = new Scanner(System.in);
 		do {
 			System.out.println(
-					"═════════════════════════════════════════════════════════════════════════════\n"+
-					"                        ♣ Menu de Cliente ♣\n"+
-					"═════════════════════════════════════════════════════════════════════════════\n"+
+					"════════════════════════════════════════════════════════════════════════════════════════════════════════════════════\n"+
+					"                                           ♣ Menu de Cliente ♣\n"+
+					"════════════════════════════════════════════════════════════════════════════════════════════════════════════════════\n"+
 					" 1) Cadastrar\n"+			
 					" 2) Alterar\n"+
 					" 3) Excluir\n"+
 					" 4) Listar\n"+
-					" 5) voltar Menu Principal\n"+
-					"═════════════════════════════════════════════════════════════════════════════\n"+
+					" 5) Localizar Cliente\n"+
+					" 6) voltar Menu Principal\n"+
+					"════════════════════════════════════════════════════════════════════════════════════════════════════════════════════\n"+
 					" ♦ Informe uma opção ♦"
 					);
 			System.out.print("▸ ");
@@ -181,7 +182,8 @@ public class Principal {
 				case 2: alterarCliente(); break;
 				case 3: excluirCliente(); break;
 				case 4: listarClientes(); break;
-				case 5: imprimirMenu = false; break;
+				case 5: localizarCliente(); break;
+				case 6: imprimirMenu = false; break;
 				default: System.out.println(" ♦ Opção inválida ♦ ");
 			}
 		
@@ -196,15 +198,15 @@ public class Principal {
 		Scanner in = new Scanner(System.in);
 		do {
 			System.out.println(
-					"═════════════════════════════════════════════════════════════════════════════\n"+
-					"                        ♣ Menu de Produto ♣\n"+
-					"═════════════════════════════════════════════════════════════════════════════\n"+
+					"════════════════════════════════════════════════════════════════════════════════════════════════════════════════════\n"+
+					"                                           ♣ Menu de Produto ♣\n"+
+					"════════════════════════════════════════════════════════════════════════════════════════════════════════════════════\n"+
 					" 1) Cadastrar\n"+			
 					" 2) Alterar\n"+
 					" 3) Excluir\n"+
 					" 4) Listar\n"+
 					" 5) voltar Menu Principal\n"+
-					"═════════════════════════════════════════════════════════════════════════════\n"+
+					"════════════════════════════════════════════════════════════════════════════════════════════════════════════════════\n"+
 					" ♦ Informe uma opção ♦"
 					);
 			System.out.print("▸ ");
@@ -236,15 +238,15 @@ public class Principal {
 		}else {
 			do {
 				System.out.println(
-						"═════════════════════════════════════════════════════════════════════════════\n"+
-						"                        ♣ Menu de Pedido ♣\n"+
-						"═════════════════════════════════════════════════════════════════════════════\n"+
+						"════════════════════════════════════════════════════════════════════════════════════════════════════════════════════\n"+
+						"                                           ♣ Menu de Pedido ♣\n"+
+						"════════════════════════════════════════════════════════════════════════════════════════════════════════════════════\n"+
 						" 1) Cadastrar\n"+			
 						" 2) Alterar\n"+
 						" 3) Excluir\n"+
 						" 4) Listar\n"+
 						" 5) voltar Menu Principal\n"+
-						"═════════════════════════════════════════════════════════════════════════════\n"+
+						"════════════════════════════════════════════════════════════════════════════════════════════════════════════════════\n"+
 						" ♦ Informe uma opção ♦"
 						);
 				System.out.print("▸ ");
@@ -273,40 +275,40 @@ public class Principal {
 		@SuppressWarnings("resource")
 		Scanner in = new Scanner(System.in);
 		
-		System.out.println("═════════════════════════════════════════════════════════════════════════════");
-		System.out.println("                        ♣ Cadastro de cliente ♣ ");
-		System.out.println("═════════════════════════════════════════════════════════════════════════════");
+		System.out.println("════════════════════════════════════════════════════════════════════════════════════════════════════════════════════");
+		System.out.println("                                           ♣ Cadastro de cliente ♣ ");
+		System.out.println("════════════════════════════════════════════════════════════════════════════════════════════════════════════════════");
 		
 		Util.br();
 		
-		System.out.println("═════════════════════════════════════════════════════════════════════════════");
-		System.out.println(" ♦ Informe o nome ♦ ");
+		System.out.println("════════════════════════════════════════════════════════════════════════════════════════════════════════════════════");
+		System.out.println(" ♦ Informe o primeiro nome ♦ ");
 		System.out.print("▸ ");
 		String s = in.nextLine();
 		c.setNome(s);
 	
-		System.out.println("═════════════════════════════════════════════════════════════════════════════");
+		System.out.println("════════════════════════════════════════════════════════════════════════════════════════════════════════════════════");
 		System.out.println(" ♦ Informe o endereco ♦ ");
 		System.out.print("▸ ");
 		s = in.nextLine();
 		c.setEndereco(s);
 		
-		System.out.println("═════════════════════════════════════════════════════════════════════════════");
+		System.out.println("════════════════════════════════════════════════════════════════════════════════════════════════════════════════════");
 		c.setDataNascimento(Util.validarData(" ♦ Informe a data de nascimento (dd/MM/yyyy) ♦  \n▸ "));
 		
-		System.out.println("═════════════════════════════════════════════════════════════════════════════");
+		System.out.println("════════════════════════════════════════════════════════════════════════════════════════════════════════════════════");
 		System.out.println(" ♦ Informe o CPF ♦ ");
 		System.out.print("▸ ");
 		s = in.nextLine();
 		c.setCpf(s);
 		
-		System.out.println("═════════════════════════════════════════════════════════════════════════════");
+		System.out.println("════════════════════════════════════════════════════════════════════════════════════════════════════════════════════");
 		System.out.println(" ♦ Informe o sexo com ( M - F - I ) ♦ ");
 		System.out.print("▸ ");
 		s = in.nextLine();
 		c.setSexo(s);
 		
-		System.out.println("═════════════════════════════════════════════════════════════════════════════");
+		System.out.println("════════════════════════════════════════════════════════════════════════════════════════════════════════════════════");
 		System.out.println(" ♦ Informe o telefone ♦ ");
 		System.out.print("▸ ");
 		String ch = in.nextLine();
@@ -329,10 +331,11 @@ public class Principal {
 		Scanner sc = new Scanner(System.in);
 		int idInputValido;
 		
-		System.out.println("═════════════════════════════════════════════════════════════════════════════");
-		System.out.println("                        ♣ Alterar cliente ♣");
-		System.out.println("═════════════════════════════════════════════════════════════════════════════\n");
-		
+
+		System.out.println("════════════════════════════════════════════════════════════════════════════════════════════════════════════════════");
+		System.out.println("                                           ♣ Alterar cliente ♣");
+		System.out.println("════════════════════════════════════════════════════════════════════════════════════════════════════════════════════\n");
+	
 		listarClientes();
 		
 		do {
@@ -368,9 +371,9 @@ public class Principal {
         boolean imprimirMenu = true;
 		do {
 			System.out.println(
-					"═════════════════════════════════════════════════════════════════════════════\n"+
-					"                        ♣ Menu de alteração de Cliente ♣\n"+
-					"═════════════════════════════════════════════════════════════════════════════\n"+
+					"════════════════════════════════════════════════════════════════════════════════════════════════════════════════════\n"+
+					"                                           ♣ Menu de alteração de Cliente ♣\n"+
+					"════════════════════════════════════════════════════════════════════════════════════════════════════════════════════\n"+
 					" 1) Nome\n"+			
 					" 2) CPF\n"+
 					" 3) Endereço\n"+
@@ -379,7 +382,7 @@ public class Principal {
 					" 6) Telefone\n"+
 					" 7) Alterar tudo\n"+
 					" 8) Voltar e salvar\n"+
-					"═════════════════════════════════════════════════════════════════════════════\n"+
+					"════════════════════════════════════════════════════════════════════════════════════════════════════════════════════\n"+
 					" ♦ Informe uma opção ♦"
 					);
 			System.out.print("▸ ");
@@ -388,44 +391,44 @@ public class Principal {
 		
 			switch (opcao) {
 			case 1:
-				System.out.println("═════════════════════════════════════════════════════════════════════════════");
+				System.out.println("════════════════════════════════════════════════════════════════════════════════════════════════════════════════════");
 				System.out.println(" ♦ Informe o novo nome ♦ ");
 				System.out.print("▸ ");
 				cl.setNome(in.nextLine());								
 				 break;
 			case 2: 
-				System.out.println("═════════════════════════════════════════════════════════════════════════════");
+				System.out.println("════════════════════════════════════════════════════════════════════════════════════════════════════════════════════");
 				System.out.println(" ♦ Informe o novo CPF ♦");
 				System.out.print("▸ ");
 				cl.setCpf(in.nextLine());
 				break;
 			case 3: 
-				System.out.println("═════════════════════════════════════════════════════════════════════════════");
+				System.out.println("════════════════════════════════════════════════════════════════════════════════════════════════════════════════════");
 				System.out.println(" ♦ Informe o novo endereço ♦");
 				System.out.print("▸ ");
 				cl.setEndereco(in.nextLine());
 				break;
 			case 4:
-				System.out.println("═════════════════════════════════════════════════════════════════════════════");
+				System.out.println("════════════════════════════════════════════════════════════════════════════════════════════════════════════════════");
 				cl.setDataNascimento(Util.validarData(" ♦ Informe a nova data de nascimento (dd/MM/yyyy) ♦\n▸ "));
 				break;			
 			case 5:	
-				System.out.println("═════════════════════════════════════════════════════════════════════════════");
+				System.out.println("════════════════════════════════════════════════════════════════════════════════════════════════════════════════════");
 				System.out.println(" ♦ Informe o novo sexo ♦");
 				System.out.print("▸ ");
 				cl.setSexo(in.nextLine());
 				break;
 			case 6:	
-				System.out.println("═════════════════════════════════════════════════════════════════════════════");
+				System.out.println("════════════════════════════════════════════════════════════════════════════════════════════════════════════════════");
 				System.out.println(" ♦ Informe o novo telefone ♦");
 				System.out.print("▸ ");
 				cl.setTelefone(in.nextLine());
 				break;
 			case 7:	
-				System.out.println("═════════════════════════════════════════════════════════════════════════════");
-				System.out.println("                        ♣ Alteração de dados ♣ ");
-				System.out.println("═════════════════════════════════════════════════════════════════════════════");
-				System.out.println("═════════════════════════════════════════════════════════════════════════════");
+				System.out.println("════════════════════════════════════════════════════════════════════════════════════════════════════════════════════");
+				System.out.println("                                           ♣ Alteração de dados ♣ ");
+				System.out.println("════════════════════════════════════════════════════════════════════════════════════════════════════════════════════");
+				System.out.println("════════════════════════════════════════════════════════════════════════════════════════════════════════════════════");
 		        System.out.println(" ♦ Informe o novo nome ♦ ");
 		        System.out.print("▸ ");
 		        String s = in.nextLine();
@@ -433,7 +436,7 @@ public class Principal {
 		        if (!s.isEmpty() && !s.isBlank() && s != null)
 		            cl.setNome(s);
 
-		        System.out.println("═════════════════════════════════════════════════════════════════════════════");
+		        System.out.println("════════════════════════════════════════════════════════════════════════════════════════════════════════════════════");
 		        System.out.println(" ♦ Informe o novo CPF ♦ ");
 		        System.out.print("▸ ");
 		        s = in.nextLine();
@@ -441,23 +444,23 @@ public class Principal {
 		        if (!s.isEmpty() && !s.isBlank() && s != null)
 		        	cl.setCpf(s);
 
-		        System.out.println("═════════════════════════════════════════════════════════════════════════════");
-		        System.out.println(" ♦ Sexo ♦ ");
+		        System.out.println("════════════════════════════════════════════════════════════════════════════════════════════════════════════════════");
+		        System.out.println(" ♦ Informe o novo Sexo ♦ ");
 		        System.out.print("▸ ");
 		        s = in.nextLine();
 
 		        if (!s.isEmpty() && !s.isBlank() && s != null)
 		            cl.setSexo(s);
 
-		        System.out.println("═════════════════════════════════════════════════════════════════════════════");
-		        System.out.println(" ♦ Informe o novo sexo ♦ ");
+		        System.out.println("════════════════════════════════════════════════════════════════════════════════════════════════════════════════════");
+		        System.out.println(" ♦ Informe o novo endereço ♦ ");
 		        System.out.print("▸ ");
 		        s = in.nextLine();
 		        
 		        if (!s.isEmpty() && !s.isBlank() && s != null)
 		        	cl.setEndereco(s);
 		        
-		        System.out.println("═════════════════════════════════════════════════════════════════════════════");
+		        System.out.println("════════════════════════════════════════════════════════════════════════════════════════════════════════════════════");
 		        System.out.println(" ♦ Informe o novo telefone ♦ ");
 		        System.out.print("▸ ");
 		        s = in.nextLine();
@@ -465,7 +468,7 @@ public class Principal {
 		        if (!s.isEmpty() && !s.isBlank() && s != null)
 		        	cl.setTelefone(s);
 
-		        System.out.println("═════════════════════════════════════════════════════════════════════════════");
+		        System.out.println("════════════════════════════════════════════════════════════════════════════════════════════════════════════════════");
 		        cl.setDataNascimento(Util.validarData(" ♦ Informe a nova data de nascimento (dd/MM/yyyy) ♦\n▸ "));
 		        break;
 			case 8: imprimirMenu = false; break;
@@ -484,15 +487,18 @@ public class Principal {
 		@SuppressWarnings("resource")
 		Scanner sc = new Scanner(System.in);
 		int idInputValido;
+		boolean encontrado = false;
 		
-		System.out.println("═════════════════════════════════════════════════════════════════════════════");
-		System.out.println("                        ♣ Deletar cliente ♣ ");
-		System.out.println("═════════════════════════════════════════════════════════════════════════════");
+		System.out.println("════════════════════════════════════════════════════════════════════════════════════════════════════════════════════");
+		System.out.println("                                           ♣ Deletar cliente ♣ ");
+		System.out.println("════════════════════════════════════════════════════════════════════════════════════════════════════════════════════");
 		
 		listarClientes();	
 		
 		do {
+			encontrado = false;
 			System.out.println(" ♦ Informe o id do cliente que deve ser excluido(0 para voltar) ♦");
+			System.out.print("▸ ");
 			int id = Util.validarInteiro(sc.nextLine());
 			
 			if(id == 0||1 == clientes.getListaClientes()
@@ -501,10 +507,24 @@ public class Principal {
 			   .count()) {
 				
 				idInputValido = id;
-				break;
+				
+				for(Pedido p:pedidos.getListaPedido()) {
+				
+					if(p.getCliente().getIdCliente() == idInputValido) {
+						encontrado = true;
+						break;
+					}
+				}				
+				if(encontrado) {
+					System.out.println(" ♦ Não é possivel excluir pois já está cadastrado em um pedido! ♦ ");
+				}else{
+					break;
+				}
+			}
+			if(!encontrado) {
+				System.out.println(" ♦ Informe um ID valido!! ♦ ");
 			}
 			
-			System.out.println(" ♦ Informe um ID valido!! ♦ ");
 		} while(true);
 		
 		if(idInputValido == 0) return;
@@ -519,17 +539,44 @@ public class Principal {
 
 	public static void listarClientes() {
 		if (clientes.getListaClientes().size() <= 0) {
-			System.out.println(" ♦ tem cliente não mano ♦ ");
+			System.out.println(" ♦ Tem cliente não mano ♦ ");
+		}else {
+			System.out.printf("════════════════════════════════════════════════════════════════════════════════════════════════════════════════════%n");
+			System.out.printf("                                           ♣ Lista de Clientes ♣ %n");
+			System.out.printf("════════════════════════════════════════════════════════════════════════════════════════════════════════════════════%n");
+			System.out.printf("═╦═════════════════╦══════════════════════╦═════════════════╦═════════════════╦═%n");
+			System.out.printf(" ║ %-15s ║ %-20s ║ %-15s ║ %-15s ║%n","IdCliente" ,"Primeiro Nome","Sexo","Telefone");
+			
+			for (Cliente c : clientes.getListaClientes()) {
+				System.out.printf(" ║ %15d ║ %20s ║ %15s ║ %15s ║%n",c.getIdCliente(),c.getNome(),c.getSexo(),c.getTelefone());
+			}
+			System.out.printf("═╩═════════════════╩══════════════════════╩═════════════════╩═════════════════╩═%n");	
 		}
-		for (Cliente c : clientes.getListaClientes()) {
-			System.out.println(
-					"═════════════════════════════════════════════════════════════════════════════\n"+
-					" ♦ idcliente ♦ "+c.getIdCliente()+" ♦"+
-					" "+c.getNome()+" ♦"+
-					" "+c.getSexo()+" ♦"+
-					" "+c.getTelefone()+" ♦");
-		}
-	}	
+	}
+	public static void localizarCliente() {
+		
+		@SuppressWarnings("resource")
+		Scanner in = new Scanner(System.in);
+		ArrayList <Cliente> localizado;
+		
+		System.out.println("Informe o id ou nome para localizar o cliente!");
+		System.out.print("▸ ");
+		String s = in.nextLine();
+		
+		if(Util.isInteger(s)) {	
+			localizado = new ArrayList<>();
+			Cliente c;
+			int id = Integer.parseInt(s);
+			c = clientes.localizarCliente(id);		
+			localizado.add(c);		
+			
+		}else if(s.length() > 1){			
+			localizado = clientes.localizarCliente(s);
+		}else {	
+			System.out.println("Erro");
+			return;
+		}		
+	}
 	//--------------------------------metodos-Produto-------------------------------
 	public static void cadastrarProduto() {
 		
@@ -539,9 +586,9 @@ public class Principal {
 		@SuppressWarnings("resource")
 		Scanner in = new Scanner(System.in);
 		
-		System.out.println("═════════════════════════════════════════════════════════════════════════════");
-		System.out.println("                        ♣ Cadastro de produto ♣ ");
-		System.out.println("═════════════════════════════════════════════════════════════════════════════");
+		System.out.println("════════════════════════════════════════════════════════════════════════════════════════════════════════════════════");
+		System.out.println("                                           ♣ Cadastro de produto ♣ ");
+		System.out.println("════════════════════════════════════════════════════════════════════════════════════════════════════════════════════");
 		
 		Util.br();
 		
@@ -582,9 +629,10 @@ public class Principal {
 		Scanner sc = new Scanner(System.in);
 		int idInputValido;
 		
-		System.out.println("═════════════════════════════════════════════════════════════════════════════");
-		System.out.println("                        ♣ Alterar produto ♣ ");
-		System.out.println("═════════════════════════════════════════════════════════════════════════════");
+
+		System.out.println("════════════════════════════════════════════════════════════════════════════════════════════════════════════════════");
+		System.out.println("                                           ♣ Alterar produto ♣ ");
+		System.out.println("════════════════════════════════════════════════════════════════════════════════════════════════════════════════════");
 		
 		listarProdutos();
 		
@@ -621,16 +669,17 @@ public class Principal {
         boolean imprimirMenu = true;
 		do {
 			System.out.println(
-				"═════════════════════════════════════════════════════════════════════════════\n"+
-				"                       ♣ Menu de Alteração de Produto ♣  "+ pd.getNomeProduto()+
-				"\n═════════════════════════════════════════════════════════════════════════════\n"+
+				"════════════════════════════════════════════════════════════════════════════════════════════════════════════════════\n"+
+				"                            ♣ Menu de Alteração de Produto ♣  "+ pd.getNomeProduto()+
+				"\n════════════════════════════════════════════════════════════════════════════════════════════════════════════════════\n"+
 				" 1) Nome\n"+
 				" 2) Preço\n"+
 				" 3) Descrição\n"+
 				" 4) Estoque\n"+
 				" 5) Alterar Tudo\n"+
 				" 6) Voltar e salvar\n"+
-				"═════════════════════════════════════════════════════════════════════════════\n"+
+
+				"════════════════════════════════════════════════════════════════════════════════════════════════════════════════════\n"+
 				" ♦ Informe uma opção ♦"
 				);
 			System.out.print("▸ ");
@@ -659,9 +708,9 @@ public class Principal {
 					pd.setEstoque(in.nextInt());
 					break;								
 				case 5:	
-					System.out.println("═════════════════════════════════════════════════════════════════════════════");
-				 	System.out.println("                      ♣ Alteração de dados do produto ♣ ");
-				 	System.out.println("═════════════════════════════════════════════════════════════════════════════");
+					System.out.println("════════════════════════════════════════════════════════════════════════════════════════════════════════════════════");
+				 	System.out.println("                                           ♣ Alteração de dados do produto ♣ ");
+				 	System.out.println("════════════════════════════════════════════════════════════════════════════════════════════════════════════════════");
 			        System.out.println(" ♦ Nome ♦ ");
 			        System.out.print("▸ ");
 			        String s = in.nextLine();
@@ -712,9 +761,9 @@ public class Principal {
 		Scanner sc = new Scanner(System.in);
 		int idInputValido;
 		
-		System.out.println("═════════════════════════════════════════════════════════════════════════════");
-		System.out.println("                       ♣ Deletar produto ♣ ");
-		System.out.println("═════════════════════════════════════════════════════════════════════════════");
+		System.out.println("════════════════════════════════════════════════════════════════════════════════════════════════════════════════════");
+		System.out.println("                                           ♣ Deletar produto ♣ ");
+		System.out.println("════════════════════════════════════════════════════════════════════════════════════════════════════════════════════");
 		
 		listarProdutos();	
 		
@@ -744,19 +793,19 @@ public class Principal {
     }
 	
 	public static void listarProdutos() {
-		System.out.println("═════════════════════════════════════════════════════════════════════════════\n"+
-						   "                       ♣ Todos os produtos ♣ \n"+
-				           "═════════════════════════════════════════════════════════════════════════════");
 		
+		System.out.printf("════════════════════════════════════════════════════════════════════════════════════════════════════════════════════%n");
+		System.out.printf("                                           ♣ Lista de produtos ♣ %n");
+		System.out.printf("════════════════════════════════════════════════════════════════════════════════════════════════════════════════════%n");
+		System.out.printf("═╦═════════════════╦══════════════════════╦═════════════════╦═════════════════╦═%n");
+		System.out.printf(" ║ %-15s ║ %-20s ║ %-15s ║ %-15s ║%n","IdProduto" ,"Nome do Produto","Valor: R$","QtdEstoque: UN","Descrição");
 		
 		for (Produto prod : produtos.getProdutos()) {	
-				System.out.println(	
-					"\n ♦ idProduto ♦ "+prod.getIdProduto()+" ♦"+
-					" "+prod.getNomeProduto()+" ♦"+
-					" R$"+prod.getPreco()+" ♦"+
-					" "+prod.getEstoque()+" ♦"+
-					" "+prod.getDesc()+" ♦");
+				System.out.printf(" ║ %15d ║ %20s ║ %15s ║ %15s ║%n",prod.getIdProduto(),prod.getNomeProduto(),prod.getPreco(),
+					prod.getEstoque(),prod.getDesc());
+				
 		}		
+		System.out.printf("═╩═════════════════╩══════════════════════╩═════════════════╩═════════════════╩═%n");
 	}
 	//--------------------------------metodos-Pedido--------------------------------
 	public static void cadastrarPedido() {
@@ -771,9 +820,9 @@ public class Principal {
 		Scanner in = new Scanner(System.in);
 		int idInputValido;
 		
-		System.out.println("═════════════════════════════════════════════════════════════════════════════");
-		System.out.println("                       ♣ Cadastro de pedido ♣ ");
-		System.out.println("═════════════════════════════════════════════════════════════════════════════");
+		System.out.println("════════════════════════════════════════════════════════════════════════════════════════════════════════════════════");
+		System.out.println("                                           ♣ Cadastro de pedido ♣ ");
+		System.out.println("════════════════════════════════════════════════════════════════════════════════════════════════════════════════════");
 		
 		Util.br();
 		
@@ -1134,9 +1183,9 @@ public class Principal {
 		Scanner sc = new Scanner(System.in);
 		int idInputValido;
 		
-		System.out.println("═════════════════════════════════════════════════════════════════════════════");
-		System.out.println("                       ♣ Deletar pedido ♣ ");
-		System.out.println("═════════════════════════════════════════════════════════════════════════════");
+		System.out.println("════════════════════════════════════════════════════════════════════════════════════════════════════════════════════");
+		System.out.println("                                           ♣ Deletar pedido ♣ ");
+		System.out.println("════════════════════════════════════════════════════════════════════════════════════════════════════════════════════");
 		
 		listarPedidos();
 		
@@ -1175,18 +1224,20 @@ public class Principal {
 	
 	public static void listarPedidos() {	
 		
-		System.out.printf("══════════════════════════════════════════════════════════════════════════════════════════════════════════════%n");
-		System.out.printf("                                   ♣ Lista de pedidos ♣ %n");
-		System.out.printf("══════════════════════════════════════════════════════════════════════════════════════════════════════════════%n");
-		System.out.printf("══════════════════════════════════════════════════════════════════════════════════════════════════════════════%n");
-		System.out.printf(" ║ %-15s ║ %-15s ║ %-15s ║ %-15s ║ %-15s ║ %-15s ║ %n","IdPedido", "IdCliente" ,"Nome Cliente","QtdItens","Valor Total", "Data");
+		System.out.printf("════════════════════════════════════════════════════════════════════════════════════════════════════════════════════%n");
+		System.out.printf("                                           ♣ Lista de pedidos ♣ %n");
+		System.out.printf("════════════════════════════════════════════════════════════════════════════════════════════════════════════════════%n");
+		System.out.printf("═╦═════════════════╦═════════════════╦══════════════════════╦═════════════════╦═════════════════╦═════════════════╦═%n");
+		System.out.printf(" ║ %-15s ║ %-15s ║ %-20s ║ %-15s ║ %-15s ║ %-15s ║ %n","IdPedido", "IdCliente" ,"Primeiro Nome","QtdItens: UN",
+		"Valor Total", "Data");
 			for (Pedido p : pedidos.getListaPedido()) {
+
 
 					System.out.printf(" ║ %15d ║ %15d ║ %15s ║ %15d ║ %15f ║ %15s ║ %n",p.getIdPedido(),p.getCliente().getIdCliente(),
 					p.getCliente().getNome(),p.getQtdItens(),p.getTotal(),p.getData());
 		
 			}
-		 System.out.printf("══════════════════════════════════════════════════════════════════════════════════════════════════════════════%n");	
+			System.out.printf("═╩═════════════════╩═════════════════╩══════════════════════╩═════════════════╩═════════════════╩═════════════════╩═%n");	
 	}	
 
 }

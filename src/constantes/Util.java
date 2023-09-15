@@ -16,7 +16,14 @@ public class Util {
 		EXCLUIR,
 		IMPRIMIR
 	}
-	
+	public static boolean isInteger(String str) {
+        try {
+            Integer.parseInt(str);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
+    }
 	public static void br() {
 		System.out.println("");
 	}

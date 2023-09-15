@@ -1,4 +1,7 @@
-/principal/
-/constantes/
 /classes/
+/conexao/
+/constantes/
 /dao/
+/principal/
+
+.gitignore
