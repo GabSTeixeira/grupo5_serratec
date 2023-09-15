@@ -597,21 +597,7 @@ public class Principal {
 					System.out.printf("═╩═════════════════╩══════════════════════╩═%n");
 				}
 			}	
-		}		
-		for(Cliente cl : localizado) {
-			System.out.printf("═╦══════════════════════╦══════════════════════╦═════════════════╦═════════════════╦═%n");
-			System.out.printf(" ║ %-15s ║ %-20s ║ %-15s ║%n","Id do Cliente","Primeiro Nome","CPF");
-			System.out.printf(" ║ %15d ║ %20s ║ %15s ║ %n",cl.getIdCliente(),cl.getNome(),cl.getCpf());
-			System.out.printf("═╩══════════════════════╩══════════════════════╩═════════════════╩═════════════════╩═%n");
-			for(Pedido p : pedidos.getListaPedido()) {
-				if(cl.getIdCliente() == p.getCliente().getIdCliente()) {
-					System.out.printf("═╦══════════════════════╦══════════════════════╦═════════════════╦═════════════════╦═%n");
-					System.out.printf(" ║ %-15s ║ %-20s ║%n","Id do Pedido","Data");
-					System.out.printf(" ║ %15d ║ %20s ║ %n",p.getIdPedido(),p.getData());
-					System.out.printf("═╩══════════════════════╩══════════════════════╩═════════════════╩═════════════════╩═%n");
-				}
-			}
-		}		
+		}				
 	}
 	//--------------------------------metodos-Produto-------------------------------
 	public static void cadastrarProduto() {
