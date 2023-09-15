@@ -768,7 +768,10 @@ public class Principal {
 		
 		listarProdutos();	
 		
+		boolean encontrado = false;
+		
 		do {
+			encontrado = false;
 			System.out.println("\n ♦ Informe o id do produto que deve ser excluido(0 para voltar) ♦ ");
 			System.out.print("▸ ");
 			int id = Util.validarInteiro(sc.nextLine());
@@ -778,11 +781,27 @@ public class Principal {
 			   .filter(p -> id == p.getIdProduto())
 			   .count()) {
 				
-				idInputValido = id;
-				break;
+				for(Pedido p:pedidos.getListaPedido()) {
+					for (ProdutoVendido pv: p.getProdutos()) {
+						
+						if(pv.getIdProduto() == id) {
+							encontrado = true;
+							break;
+						}
+					}
+				}				
+				if(encontrado) {
+					System.out.println(" ♦ Não é possivel excluir pois já está cadastrado em um pedido! ♦ ");
+				}else{
+					idInputValido = id;
+					break;
+				}
 			}
 			
-			System.out.println(" ♦ Informe um ID valido!! ♦ ");
+			if(!encontrado) {
+				System.out.println(" ♦ Informe um ID valido!! ♦ ");
+			}
+			
 		} while(true);
 		
 		if(idInputValido == 0) return;
