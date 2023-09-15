@@ -577,6 +577,27 @@ public class Principal {
 		}else {	
 			System.out.println("Erro");
 			return;
+		}	
+		
+		pedidos.atualizarListaPedido();
+		
+		for(Cliente cl : localizado) {
+			System.out.printf("════════════════════════════════════════════════════════════════════════════════════════════════════════════════════%n");
+			System.out.printf("                                           ♣ Lista de clientes ♣ %n");
+			System.out.printf("════════════════════════════════════════════════════════════════════════════════════════════════════════════════════%n");
+			System.out.printf("═╦═════════════════╦══════════════════════╦═%n");
+			System.out.printf(" ║ %-15s ║ %-20s ║%n","IdCliente" ,"Nome do Cliente");	
+			System.out.printf(" ║ %15d ║ %20s ║%n",cl.getIdCliente(),cl.getNome());						
+			System.out.printf("═╩═════════════════╩══════════════════════╩═%n");
+		
+			for(Pedido pd : pedidos.getListaPedido()) {
+				if(cl.getIdCliente() == pd.getCliente().getIdCliente()) {									
+					System.out.printf("═╦═════════════════╦══════════════════════╦═%n");
+					System.out.printf(" ║ %-15s ║ %-20s ║%n","IdPedido" ,"Data do Pedido");	
+					System.out.printf(" ║ %15d ║ %20s ║%n",pd.getIdPedido(),pd.getData());						
+					System.out.printf("═╩═════════════════╩══════════════════════╩═%n");
+				}
+			}	
 		}		
 	}
 	//--------------------------------metodos-Produto-------------------------------
@@ -825,6 +846,7 @@ public class Principal {
 			System.out.println("Erro");
 			return;
 		}
+		
 		pedidos.atualizarListaPedido();
 		
 		System.out.printf("════════════════════════════════════════════════════════════════════════════════════════════════════════════════════%n");
