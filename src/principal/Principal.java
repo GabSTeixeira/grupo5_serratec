@@ -635,6 +635,7 @@ public class Principal {
 		
 		do {
 			System.out.println("\n ♦ Informe o id do produto que deve ser alterado(0 para cancelar) ♦ ");
+			System.out.print("▸ ");
 			int id = Util.validarInteiro(sc.nextLine());
 			
 			if(id == 0||1 == produtos.getProdutos()
@@ -675,7 +676,6 @@ public class Principal {
 				" 4) Estoque\n"+
 				" 5) Alterar Tudo\n"+
 				" 6) Voltar e salvar\n"+
-
 				"════════════════════════════════════════════════════════════════════════════════════════════════════════════════════\n"+
 				" ♦ Informe uma opção ♦"
 				);
@@ -755,10 +755,6 @@ public class Principal {
 		@SuppressWarnings("resource")
 		Scanner sc = new Scanner(System.in);
 		int idInputValido;
-		
-		System.out.println("════════════════════════════════════════════════════════════════════════════════════════════════════════════════════");
-		System.out.println("                                           ♣ Deletar produto ♣ ");
-		System.out.println("════════════════════════════════════════════════════════════════════════════════════════════════════════════════════");
 		
 		listarProdutos();	
 		
