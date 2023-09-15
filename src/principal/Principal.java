@@ -209,6 +209,7 @@ public class Principal {
 					" 6) voltar Menu Principal\n"+
 					"═════════════════════════════════════════════════════════════════════════════\n"+
 					" ♦ Informe uma opção ♦"
+
 					);
 			System.out.print("▸ ");
 			
@@ -224,9 +225,7 @@ public class Principal {
 				case 6: imprimirMenu = false; break;
 				default: System.out.println(" ♦ Opção inválida ♦ ");
 			}
-		
-		} while (imprimirMenu);	
-		
+		} while (imprimirMenu);		
 	}
 	
 	public static void menuPedido() {
@@ -570,7 +569,7 @@ public class Principal {
 			Cliente c;
 			int id = Integer.parseInt(s);
 			c = clientes.localizarCliente(id);		
-			localizado.add(c);		
+			localizado.add(c);	
 			
 		}else if(s.length() > 1){			
 			localizado = clientes.localizarCliente(s);
@@ -598,6 +597,20 @@ public class Principal {
 					System.out.printf("═╩═════════════════╩══════════════════════╩═%n");
 				}
 			}	
+		}		
+		for(Cliente cl : localizado) {
+			System.out.printf("═╦══════════════════════╦══════════════════════╦═════════════════╦═════════════════╦═%n");
+			System.out.printf(" ║ %-15s ║ %-20s ║ %-15s ║%n","Id do Cliente","Primeiro Nome","CPF");
+			System.out.printf(" ║ %15d ║ %20s ║ %15s ║ %n",cl.getIdCliente(),cl.getNome(),cl.getCpf());
+			System.out.printf("═╩══════════════════════╩══════════════════════╩═════════════════╩═════════════════╩═%n");
+			for(Pedido p : pedidos.getListaPedido()) {
+				if(cl.getIdCliente() == p.getCliente().getIdCliente()) {
+					System.out.printf("═╦══════════════════════╦══════════════════════╦═════════════════╦═════════════════╦═%n");
+					System.out.printf(" ║ %-15s ║ %-20s ║%n","Id do Pedido","Data");
+					System.out.printf(" ║ %15d ║ %20s ║ %n",p.getIdPedido(),p.getData());
+					System.out.printf("═╩══════════════════════╩══════════════════════╩═════════════════╩═════════════════╩═%n");
+				}
+			}
 		}		
 	}
 	//--------------------------------metodos-Produto-------------------------------
@@ -648,13 +661,8 @@ public class Principal {
 		
 		@SuppressWarnings("resource")
 		Scanner sc = new Scanner(System.in);
-		int idInputValido;
-		
+		int idInputValido;		
 
-		System.out.println("════════════════════════════════════════════════════════════════════════════════════════════════════════════════════");
-		System.out.println("                                           ♣ Alterar produto ♣ ");
-		System.out.println("════════════════════════════════════════════════════════════════════════════════════════════════════════════════════");
-		
 		listarProdutos();
 		
 		do {
@@ -825,12 +833,12 @@ public class Principal {
 				
 		}		
 		System.out.printf("═╩═════════════════╩══════════════════════╩═════════════════╩═════════════════╩═%n");
-	}
-	
+	}	
 	public static void localizarProduto() {
 		@SuppressWarnings("resource")
 		Scanner in = new Scanner(System.in);
 		Produto pr;
+
 		
 		System.out.println("Informe o id ou nome para localizar o produto!");
 		System.out.print("▸ ");
@@ -871,6 +879,7 @@ public class Principal {
 				}
 			}	
 		}				
+
 	}
 	//--------------------------------metodos-Pedido--------------------------------
 	public static void cadastrarPedido() {
@@ -955,8 +964,9 @@ public class Principal {
 					System.out.print("▸ ");
 				} else {
 				
-					System.out.println("Este Produto possui Estoque Disponivel de ("+produto.getEstoque()+")"
-							+ "\nInforme a quantidade a ser vendida:");				
+					System.out.println(" ♦ Este Produto possui Estoque Disponivel de ("+produto.getEstoque()+") ♦ "
+							+ "\n ♦ Informe a quantidade a ser vendida ♦ ");	
+					System.out.print("▸ ");
 					String st = in.nextLine();
 					int qtdVendida = Util.validarInteiro(st);
 
@@ -1012,12 +1022,6 @@ public class Principal {
 			@SuppressWarnings("resource")
 			Scanner sc = new Scanner(System.in);
 			int idInputValido;
-			
-			
-			
-			System.out.println("═════════════════════════════════════════════════════════════════════════════");
-			System.out.println("                        ♣ Alterar Pedido ♣ ");
-			System.out.println("═════════════════════════════════════════════════════════════════════════════");
 			
 			listarPedidos();
 			
@@ -1194,6 +1198,7 @@ public class Principal {
 					
 					do {
 						System.out.println("\n ♦ Informe o id do produto que deve ser alterado(0 para cancelar) ♦ ");
+						System.out.print("▸ ");
 						int id = Util.validarInteiro(in.nextLine());
 						
 						if(id == 0||1 == ped.getProdutos()
