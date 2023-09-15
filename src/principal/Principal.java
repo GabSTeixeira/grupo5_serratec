@@ -1156,7 +1156,7 @@ public class Principal {
 						break;
 					case 2:
 						
-						System.out.println("sflkdjfslkdfjlsdlkfj");
+						System.out.println("sflkdsdfsdfsdfsdfsfdjfslkdfjlsdlkfj");
 						Produto produto = ped.getProdutos().get(indice);
 						
 						produto.setEstoque(estoqueTotal);
