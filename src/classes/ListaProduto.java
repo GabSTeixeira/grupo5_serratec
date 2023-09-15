@@ -71,19 +71,19 @@ public class ListaProduto {
                 break;
             }
         }
-
         return localizado;
     }
 	
-	public ArrayList <Produto> localizarProduto(String nomeProduto) {
-		 ArrayList <Produto> produtosEncontrados = new ArrayList<>();
+	public Produto localizarProduto(String nomeProduto) {
+		 Produto localizado = null;
 
         for (Produto p : produtos) {
             if (p.getNomeProduto().equals(nomeProduto)) {
-                produtosEncontrados.add(p);
+                localizado = p;
+                break;
             }
         }
-        return produtosEncontrados;
+        return localizado;
 	        
 	}
 	
