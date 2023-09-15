@@ -57,7 +57,8 @@ public class Util {
 				numero = Integer.parseInt(StringNumero);
 				validado = true;
 			} catch (Exception e) {
-				System.out.println(" ♦ Informe um Numero valido!! ♦ \n");
+				System.out.println(" ♦ Informe um Numero valido!! ♦ ");
+				System.out.print("▸ ");
 				StringNumero = in.nextLine();
 				
 			}

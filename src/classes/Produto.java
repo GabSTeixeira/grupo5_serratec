@@ -52,7 +52,8 @@ public class Produto {
 				this.preco = precod;
 				sair = true;	
 			} else {
-				System.out.println("\nInforme um valor v�lido!\n");
+				System.out.println("\n ♦ Informe um valor válido! ♦ ");
+				System.out.print("▸ ");
 				preco = sc.nextLine();
 			}
 		
@@ -82,7 +83,8 @@ public class Produto {
 				this.estoque = estoqueint;
 				sair = true;	
 			} else {
-				System.out.println("\nInforme um valor v�lido!\n");
+				System.out.println("\n ♦ Informe um valor válido! ♦ ");
+				System.out.print("▸ ");
 				estoque = sc.nextLine();
 			}
 		
@@ -100,7 +102,8 @@ public class Produto {
 		String opcao = nome;
 		
 		while(!validarNomeProduto(opcao)) {
-			System.out.println("\nErro nome do produto invalido. Digite um nome com at� 100 caracteres.");
+			System.out.println("\n ♦ Erro nome do produto invalido. Digite um nome com até 100 caracteres ♦ ");
+			System.out.print("▸ ");
 			opcao = sc.nextLine();
 		}
 		this.nome = opcao;
