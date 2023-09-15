@@ -542,7 +542,7 @@ public class Principal {
 		Scanner in = new Scanner(System.in);
 		ArrayList <Cliente> localizado;
 		
-		System.out.println("Informe o id ou nome para localizar o cliente!");
+		System.out.println(" ♦ Informe o id ou nome para localizar o cliente! ♦ ");
 		System.out.print("▸ ");
 		String s = in.nextLine();
 		
@@ -556,7 +556,7 @@ public class Principal {
 		}else if(s.length() > 1){			
 			localizado = clientes.localizarCliente(s);
 		}else {	
-			System.out.println("Erro");
+			System.out.println(" ♦ Erro ♦ ");
 			return;
 		}	
 		
