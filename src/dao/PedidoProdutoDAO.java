@@ -12,6 +12,7 @@ public class PedidoProdutoDAO {
 	private String schema;
 	
 	PreparedStatement pInclusao;
+	PreparedStatement pInclusaoUnicoProduto;
 	PreparedStatement pAlteracao;
 	PreparedStatement pExclusao;
 	PreparedStatement pExclusaoTodos;
@@ -20,13 +21,14 @@ public class PedidoProdutoDAO {
 		this.conexao = conexao;
 		this.schema = schema;
 		prepararSqlInclusao();
+		prepararSqlInclusaoUnico();
 		prepararSqlAlteracao();
 		prepararSqlExclusao();
 		prepararSqlExclusaoTodos();
 	}
 	
 	private void prepararSqlExclusao() {
-		String sql = "delete from "+ this.schema + ".pedidoProduto";
+		String sql = "delete from "+ this.schema + ".pedidoproduto";
 		sql += " where idpedido = ? and idproduto = ?";
 		
 		try {
@@ -38,7 +40,7 @@ public class PedidoProdutoDAO {
 	}
 
 	private void prepararSqlExclusaoTodos() {
-		String sql = "delete from "+ this.schema + ".pedidoProduto";
+		String sql = "delete from "+ this.schema + ".pedidoproduto";
 		sql += " where idpedido = ?";
 		
 		try {
@@ -49,8 +51,27 @@ public class PedidoProdutoDAO {
 		}
 	}
 	
+	private void prepararSqlInclusaoUnico() {
+		String sql = "insert into "+ this.schema +".pedidoproduto";
+		sql += " (idproduto, idpedido, qtdvendida, subtotalitem)";
+		sql += " values ";
+		sql += " (?, ?, ?, ?)";
+		
+		try {
+			this.pInclusaoUnicoProduto = conexao.getC().prepareStatement(sql);
+		} catch (Exception e) {
+			if (e.getLocalizedMessage().contains("is null")) {
+				System.err.println("\nProduto nao incluido.\nVerifique se foi chamado o conect:\n" + e);				
+			} else {				
+				System.err.println(e);
+				e.printStackTrace();
+			}
+		}
+		
+	}
+	
 	private void prepararSqlInclusao() {
-		String sql = "insert into "+ this.schema + ".pedidoProduto";	
+		String sql = "insert into "+ this.schema + ".pedidoproduto";	
 		sql += " (idproduto, idpedido, qtdvendida, subtotalitem)";
 		sql += " values ";
 		sql += " (?, ?, ?, ?)";
@@ -121,6 +142,30 @@ public class PedidoProdutoDAO {
 			}
 		}
 	}
+	
+	public void incluirProdutoUnico(ProdutoVendido p, int idPedido) {
+		
+		try {				
+			
+			pInclusaoUnicoProduto.setInt(1, p.getIdProduto());
+			pInclusaoUnicoProduto.setInt(2, idPedido);
+			pInclusaoUnicoProduto.setInt(3, p.getQtdVendida());
+			pInclusaoUnicoProduto.setDouble(4, p.getTotal());
+			
+			pInclusaoUnicoProduto.executeUpdate();
+		} catch (Exception e) {
+			if (e.getLocalizedMessage().contains("is null")) {
+				System.err.println("\nProduto nao incluido.\nVerifique se foi chamado o conect:\n" + e);				
+			} else {				
+				System.err.println(e);
+				e.printStackTrace();
+			}
+
+			
+		}
+	}
+	
+	
 	
 	public int excluirTodosPorPedido (Pedido p) {
 		try {

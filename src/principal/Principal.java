@@ -945,7 +945,8 @@ public class Principal {
 		if (pedidos.getListaPedido().isEmpty()) {
 			System.out.println(" ♦ Não existe nenhum pedido cadastrado!! ♦ ");
 		} else {
-		
+			PedidoDAO pedao = new PedidoDAO(con, SCHEMA);
+			
 			@SuppressWarnings("resource")
 			Scanner sc = new Scanner(System.in);
 			int idInputValido;
@@ -979,13 +980,18 @@ public class Principal {
 			
 			Pedido p = pedidos.localizarPedido(idInputValido);
 			
-			menuAlterarPedido(p);
+			p = menuAlterarPedido(p);
+			
+			pedao.alterarPedido(p);
+			
+			pedidos.atualizarListaPedido();
+			produtos.atualizarListaProduto();
 		}
 	}
 	
 	private static Pedido menuAlterarPedido (Pedido ped) {
-		PedidoDAO pedao = new PedidoDAO(con, SCHEMA);
 		PedidoProdutoDAO peprodao = new PedidoProdutoDAO(con, SCHEMA);
+		ProdutoDAO pdao = new ProdutoDAO(con, SCHEMA);
 		
 		@SuppressWarnings("resource")
 		Scanner in = new Scanner(System.in);
@@ -994,12 +1000,13 @@ public class Principal {
 		do {
 			System.out.println(
 				"═════════════════════════════════════════════════════════════════════════════\n"+
-				"                       ♣ Menu de Alteração de Pedido ♣  "+ ped.getIdPedido()+
+				"                       ♣ Menu de Alteração de Pedido ♣ id:"+ ped.getIdPedido()+
 				"\n═════════════════════════════════════════════════════════════════════════════\n"+
 				" 1) Cliente\n"+
-				" 2) Produtos\n"+
-				" 3) Data\n"+
-				" 4) Voltar e salvar\n"+
+				" 2) Incluir Produto\n"+
+				" 3) Alterar Produto\n"+
+				" 4) Data\n"+
+				" 5) Voltar e salvar\n"+
 				"═════════════════════════════════════════════════════════════════════════════\n"+
 				" ♦ Informe uma opção ♦"
 				);
@@ -1033,7 +1040,87 @@ public class Principal {
 					ped.setCliente(clientes.localizarCliente(idInputValido));
 								
 					break;
-				case 2: 
+				case 2:
+					
+					listarProdutos();
+					int idProdutoValido;
+					boolean produtoJaCadastrado = false;
+					do {
+						produtoJaCadastrado = false;
+						System.out.println(" ♦ Informe o id do novo produto a ser incluido(0 para cancelar) ♦ ");
+						System.out.print("▸ ");
+						int id = Util.validarInteiro(in.nextLine());
+						
+						if(id == 0||1 == produtos.getProdutos()
+						   .stream()
+						   .filter(prod -> id == prod.getIdProduto())
+						   .count()) {
+							
+							
+							for (ProdutoVendido pv: ped.getProdutos()) {
+								if (id == pv.getIdProduto()) {
+									produtoJaCadastrado = true;
+									break;
+								}
+							}
+							
+							if (!produtoJaCadastrado) {
+								idProdutoValido = id;
+								break;								
+							} else {
+								System.out.println(" ♦ Este produto já está cadastrado neste pedido, vá para alterar produtos ♦");
+							}
+							
+						} else {
+							System.out.println(" ♦ Informe um ID valido!! ♦ ");
+						}
+					} while(true);
+					
+					if(idProdutoValido == 0) break;
+					
+					Produto prod = produtos.localizarProduto(idProdutoValido);
+					
+					
+					ResultSet tabela = pdao.buscarEstoqueIdProduto(idProdutoValido);
+					int estoqueAtual;
+					try {
+						tabela.next();
+					
+						estoqueAtual = tabela.getInt("estoque");
+					} catch (SQLException e) {
+						e.printStackTrace();
+						estoqueAtual = -1;
+					}
+					
+					int novaQtdVendida;
+					do {
+						System.out.println(" ♦ Informe quantidade deste item a ser vendida ♦ ");
+						novaQtdVendida = Util.validarInteiro(in.nextLine());
+						
+						if(novaQtdVendida <= 0) {
+							System.out.println(" ♦ A nova quantidade vendida deve ser maior que zero ♦ ");
+						}
+						
+						if(novaQtdVendida > estoqueAtual) {
+							System.out.println(" ♦ Insira um valor menor que o estoque atual desse produto ("+estoqueAtual+") ♦ ");
+						}
+					} while(novaQtdVendida <= 0 || novaQtdVendida > estoqueAtual);
+					
+					
+					ProdutoVendido p = new ProdutoVendido (prod, novaQtdVendida);
+					
+					peprodao.incluirProdutoUnico(p , ped.getIdPedido());
+					
+					ped.adicionarProdutoLista(p);
+					
+					ped.calcularQtdItens();
+					ped.calcularTotal();
+					
+					p.setEstoque(estoqueAtual - novaQtdVendida);
+					
+					pdao.alterarProdutoEstoque(p);
+					break;
+				case 3: 
 					for (ProdutoVendido pv : ped.getProdutos()) {
 
 						System.out.println(	
@@ -1047,11 +1134,11 @@ public class Principal {
 						System.out.println("\n ♦ Informe o id do produto que deve ser alterado(0 para cancelar) ♦ ");
 						int id = Util.validarInteiro(in.nextLine());
 						
-						if(id == 0||1 == pedidos.getListaPedido()
+						if(id == 0||1 == ped.getProdutos()
 						   .stream()
-						   .filter(pd -> id == pd.getIdPedido())
+						   .filter(prodList -> id == prodList.getIdProduto())
 						   .count()) {
-							
+									
 							idInputValido = id;
 							break;
 						}
@@ -1061,26 +1148,25 @@ public class Principal {
 					
 					if(idInputValido == 0) break;
 					
-					ProdutoVendido p = ped.localizarProduto(idInputValido);
+					ProdutoVendido produtoVendido = ped.localizarProduto(idInputValido);
 					
-					ped = menuAlterarProdutosPedido(ped, p);
+					ped = menuAlterarProdutosPedido(ped, produtoVendido);
 					
 					ped.calcularQtdItens();
 					ped.calcularTotal();
 					
-					pedao.alterarPedido(ped);
-					peprodao.alterarPedidoProduto(ped, p);
+					peprodao.alterarPedidoProduto(ped, produtoVendido);
 					
 					pedidos.atualizarListaPedido();
 					produtos.atualizarListaProduto();
 					
 					break;
-				case 3:
+				case 4:
 					System.out.println("═════════════════════════════════════════════════════════════════════════════");
 					ped.setData(Util.validarData(" ♦ Informe a nova data deste pedido(dd/MM/yyyy) ♦ \n▸ "));
 					
 					break;								
-				case 4: imprimirMenu = false; break;
+				case 5: imprimirMenu = false; break;
 				default: System.out.println(" ♦ Opção inválida ♦ ");
 			}
 		
@@ -1156,13 +1242,16 @@ public class Principal {
 						break;
 					case 2:
 						
-						System.out.println("sflkdsdfsdfsdfsdfsfdjfslkdfjlsdlkfj");
 						Produto produto = ped.getProdutos().get(indice);
 						
 						produto.setEstoque(estoqueTotal);
 						pdao.alterarProdutoEstoque(produto);
+						
 						peprodao.excluirPedidoProduto(ped, ped.getProdutos().get(indice).getIdProduto());
 						
+						
+						ped.getProdutos().get(indice).setQtdVendida(0);
+						ped.getProdutos().get(indice).setTotal(0);
 						
 						imprimirMenu = false;
 						break;
