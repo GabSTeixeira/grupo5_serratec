@@ -25,26 +25,6 @@ import dao.ProdutoDAO;
 
 public class Principal {
 	
-	
-
-	// id = size+1 muito ruim, trocar todos, já foi trocado em cadastrar pedido.
-	
-	
-	
-	// excluir pedido tem que devolver os produtos do pedido para o estoque da tabela produto? sim
-	// FAZER ESTA MERDA URGENTE!!!!!
-	
-	
-	
-	// vai executar o codigo no cmd como jar ou no eclipse? vai executar pelo eclipse
-	// fazer a consulta do relatorio usando join, ou baixar os dados do relatorio e fazer a consulta como
-	// arrayList no java?
-
-	// não entedemos o relatorio. por favor explicar.
-
-	// perguntar se o menu esta legal, porque a versão dele estava confuso para mexer.
-	//Gabriel Garcia passou por aqui >:)
-	
 	public static Conexao con;
 	public static DadosConexao dadosCon = new DadosConexao();
 	
@@ -294,7 +274,7 @@ public class Principal {
 		c.setEndereco(s);
 		
 		System.out.println("════════════════════════════════════════════════════════════════════════════════════════════════════════════════════");
-		c.setDataNascimento(Util.validarData(" ♦ Informe a data de nascimento (dd/MM/yyyy) ♦\n▸ "));
+		c.setDataNascimento(Util.validarDataNascimento(" ♦ Informe a data de nascimento (dd/MM/yyyy) ♦\n▸ "));
 		
 		System.out.println("════════════════════════════════════════════════════════════════════════════════════════════════════════════════════");
 		System.out.println(" ♦ Informe o CPF ♦ ");
@@ -820,6 +800,7 @@ public class Principal {
 		}		
 		System.out.printf("═╩═════════════════╩══════════════════════╩═════════════════╩═════════════════╩═%n");
 	}	
+	
 	public static void localizarProduto() {
 		@SuppressWarnings("resource")
 		Scanner in = new Scanner(System.in);
@@ -1363,7 +1344,6 @@ public class Principal {
 		pedao.excluirPedido(ped);
 		pedidos.atualizarListaPedido();
 	}
-
 
 	public static void listarPedidos() {	
 		

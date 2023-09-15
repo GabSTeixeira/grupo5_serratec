@@ -48,6 +48,39 @@ public class Util {
 		return null;
 	}
 	
+	public static LocalDate validarDataNascimento(String mensagem) {
+		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+		LocalDate dataConvertida = null;
+		String sData; 
+		
+		LocalDate dataPermitida = LocalDate.parse("01/01/2009", dtf);
+		
+		boolean dataValidada = false;
+		
+		do {
+			System.out.print(mensagem);
+			sData = in.nextLine();
+			
+			try {
+				dataConvertida = LocalDate.parse(sData, dtf);
+				
+				if (dataConvertida.isBefore(dataPermitida)) {
+					dataValidada = true;
+					return dataConvertida;
+				}
+				
+				
+				System.out.println(" ♦ Só permitimos Clientes com 14 anos ou mais!! ♦ \n");
+				
+			} catch (Exception e) {
+				System.out.println(" ♦ Data invalida!! ♦ \n");
+			}
+		} while (!dataValidada);
+		
+		return null;
+	}
+	
+	
 	public static int validarInteiro(String StringNumero) {
 		int numero = 0;
 		boolean validado = false;	

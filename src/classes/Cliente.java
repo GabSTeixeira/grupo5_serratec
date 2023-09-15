@@ -60,14 +60,15 @@ public class Cliente {
 	public void setCpf (String cpf) {
 		@SuppressWarnings("resource")
 		Scanner sc = new Scanner(System.in);
-		String opcao = cpf;
+		String opcao = cpf.replaceAll("\\D", "");
 		
 		while(!validarCpf(opcao)) {
 			System.out.println("\n ♦ Erro - Digite um CPF válido ♦ ");
 			System.out.print("▸ ");
 			opcao = sc.nextLine();
+			opcao = opcao.replaceAll("\\D", "");
 		}
-		this.cpf = opcao.replaceAll("\\D", "");
+		this.cpf = opcao;
 	}
 	private boolean validarCpf (String cpf) {
 		if(cpf.length() <= 11 && !cpf.isBlank()) {
