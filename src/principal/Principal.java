@@ -1443,23 +1443,55 @@ public class Principal {
 			return;
 		}
 		
+		
+		int idInputValido = -1;
+		
+		boolean pesquisaPorData = false;
 		@SuppressWarnings("resource")
-		Scanner in = new Scanner(System.in);
+		Scanner sc = new Scanner(System.in);
+		String data;
+		do {
+			System.out.println(" ♦ Informe o id ou a data (dd/mm/yyyy) para localizar o pedido!(0 para cancelar) ♦ ");
+			data = sc.nextLine();
+			
+			if(Util.isInteger(data)) {
+				pesquisaPorData = true;
+				break;
+			}
+			
+		
+			int id = Util.validarInteiro(data);
+			
+			if(id == 0||1 == pedidos.getListaPedido()
+			   .stream()
+			   .filter(pd -> id == pd.getIdPedido())
+			   .count()) {
+				
+				idInputValido = id;
+				break;
+			}
+			
+			System.out.println(" ♦ Informe um ID valido!! ♦ ");
+		} while(true);
+		
+		if(idInputValido == 0) return;
+		
 		ArrayList <Pedido> localizado = new ArrayList<>();
 		
-		System.out.println("Informe o id ou a data (dd/mm/yyyy) para localizar o pedido!");
-		System.out.print("▸ ");
-		String s = in.nextLine();
-		
-		if(Util.isInteger(s)) {	
-			int id = Integer.parseInt(s);
-			localizado.add(pedidos.localizarPedido(id));			
+		if(!pesquisaPorData) {	
 			
-		}else if(s.length() > 1){	
-			if(Util.isDateValid(s)) {
+			localizado.add(pedidos.localizarPedido(idInputValido));	
+			
+		}else if(data.length() > 1){	
+			if(Util.isDateValid(data)) {
 				DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-				LocalDate dt = LocalDate.parse(s, dtf);
+				LocalDate dt = LocalDate.parse(data, dtf);
 				localizado = pedidos.localizarPedido(dt);
+				
+				
+				if (localizado.size() <= 1) {
+					System.out.println(" ♦ Nenhum produto Encontrado com esta data! ♦ ");
+				}
 			}
 		}else {	
 			System.out.println("Erro");
