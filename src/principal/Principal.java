@@ -208,7 +208,7 @@ public class Principal {
 					" 5) Localizar produto\n"+
 					" 6) voltar Menu Principal\n"+
 					"═════════════════════════════════════════════════════════════════════════════\n"+
-					" ♦ Informe uma opção ♦ \n▸ "
+					" ♦ Informe uma opção ♦"
 					);
 			System.out.print("▸ ");
 			
@@ -220,13 +220,12 @@ public class Principal {
 				case 2: alterarProduto(); break;
 				case 3: excluirProduto(); break;
 				case 4: listarProdutos(); break;
-				case 5: break;
+				case 5: localizarProduto(); break;
 				case 6: imprimirMenu = false; break;
 				default: System.out.println(" ♦ Opção inválida ♦ ");
 			}
 		
-		} while (imprimirMenu);
-		
+		} while (imprimirMenu);	
 		
 	}
 	
@@ -578,6 +577,27 @@ public class Principal {
 		}else {	
 			System.out.println("Erro");
 			return;
+		}	
+		
+		pedidos.atualizarListaPedido();
+		
+		for(Cliente cl : localizado) {
+			System.out.printf("════════════════════════════════════════════════════════════════════════════════════════════════════════════════════%n");
+			System.out.printf("                                           ♣ Lista de clientes ♣ %n");
+			System.out.printf("════════════════════════════════════════════════════════════════════════════════════════════════════════════════════%n");
+			System.out.printf("═╦═════════════════╦══════════════════════╦═%n");
+			System.out.printf(" ║ %-15s ║ %-20s ║%n","IdCliente" ,"Nome do Cliente");	
+			System.out.printf(" ║ %15d ║ %20s ║%n",cl.getIdCliente(),cl.getNome());						
+			System.out.printf("═╩═════════════════╩══════════════════════╩═%n");
+		
+			for(Pedido pd : pedidos.getListaPedido()) {
+				if(cl.getIdCliente() == pd.getCliente().getIdCliente()) {									
+					System.out.printf("═╦═════════════════╦══════════════════════╦═%n");
+					System.out.printf(" ║ %-15s ║ %-20s ║%n","IdPedido" ,"Data do Pedido");	
+					System.out.printf(" ║ %15d ║ %20s ║%n",pd.getIdPedido(),pd.getData());						
+					System.out.printf("═╩═════════════════╩══════════════════════╩═%n");
+				}
+			}	
 		}		
 	}
 	//--------------------------------metodos-Produto-------------------------------
@@ -808,7 +828,49 @@ public class Principal {
 	}
 	
 	public static void localizarProduto() {
+		@SuppressWarnings("resource")
+		Scanner in = new Scanner(System.in);
+		Produto pr;
 		
+		System.out.println("Informe o id ou nome para localizar o produto!");
+		System.out.print("▸ ");
+		String s = in.nextLine();
+		
+		if(Util.isInteger(s)) {	
+			int id = Integer.parseInt(s);
+			pr = produtos.localizarProduto(id);			
+			
+		}else if(s.length() > 1){			
+			pr = produtos.localizarProduto(s);
+		}else {	
+			System.out.println("Erro");
+			return;
+		}
+		
+		pedidos.atualizarListaPedido();
+		
+		System.out.printf("════════════════════════════════════════════════════════════════════════════════════════════════════════════════════%n");
+		System.out.printf("                                           ♣ Lista de produtos ♣ %n");
+		System.out.printf("════════════════════════════════════════════════════════════════════════════════════════════════════════════════════%n");
+		System.out.printf("═╦═════════════════╦══════════════════════╦═%n");
+		System.out.printf(" ║ %-15s ║ %-20s ║%n","IdProduto" ,"Nome do Produto");	
+		System.out.printf(" ║ %15d ║ %20s ║%n",pr.getIdProduto(),pr.getNomeProduto());						
+		System.out.printf("═╩═════════════════╩══════════════════════╩═%n");
+				
+		for(Pedido pd : pedidos.getListaPedido()) {
+			for(Produto pro : pd.getProdutos()) {
+				if(pd.getProdutos()
+				   .stream()
+				   .anyMatch(prod -> pr.getIdProduto() == pro.getIdProduto())) 
+				{
+				
+					System.out.printf("═╦═════════════════╦══════════════════════╦═%n");
+					System.out.printf(" ║ %-15s ║ %-20s ║%n","IdPedido" ,"Data do Pedido");	
+					System.out.printf(" ║ %15d ║ %20s ║%n",pd.getIdPedido(),pd.getData());						
+					System.out.printf("═╩═════════════════╩══════════════════════╩═%n");
+				}
+			}	
+		}				
 	}
 	//--------------------------------metodos-Pedido--------------------------------
 	public static void cadastrarPedido() {

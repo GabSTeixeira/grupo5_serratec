@@ -99,7 +99,6 @@ public class ListaPedido {
 		}
 	}
 	
-	
 	private ArrayList<ProdutoVendido> carregarProdutos(int id) {
 		ResultSet tabelaProdutos;
 		PedidoProdutoDAO peprodao = new PedidoProdutoDAO(con, schema);
