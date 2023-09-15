@@ -529,6 +529,7 @@ public class Principal {
 			return;
 			
 		}
+		
 			System.out.printf("════════════════════════════════════════════════════════════════════════════════════════════════════════════════════%n");
 			System.out.printf("                                           ♣ Lista de Clientes ♣ %n");
 			System.out.printf("════════════════════════════════════════════════════════════════════════════════════════════════════════════════════%n");
@@ -550,23 +551,56 @@ public class Principal {
 			return;
 		}
 		
-		@SuppressWarnings("resource")
-		Scanner in = new Scanner(System.in);
 		ArrayList <Cliente> localizado;
+		@SuppressWarnings("resource")
+		Scanner sc = new Scanner(System.in);
 		
-		System.out.println(" ♦ Informe o id ou nome para localizar o cliente! ♦ ");
-		System.out.print("▸ ");
-		String s = in.nextLine();
+		boolean pesquisaPorNome = false;
+		int idInputValido = -1;
+		String s;
 		
-		if(Util.isInteger(s)) {	
+		do {
+			System.out.println(" ♦ Informe o id ou nome para localizar o cliente (0 para voltar) ♦ ");
+			System.out.print("▸ ");
+			s = sc.nextLine();
+			
+			
+			if (!Util.isInteger(s)) {
+				pesquisaPorNome = true;
+				break;
+			}
+			
+			int id = Util.validarInteiro(s);
+				
+			if(id == 0||1 == clientes.getListaClientes()
+			   .stream()
+			   .filter(c -> id == c.getIdCliente())
+			   .count()) {
+				
+				idInputValido = id;
+				break;
+			
+			}
+		
+			System.out.println(" ♦ Informe um ID valido!! ♦ ");
+			
+		} while(true);
+		
+		if(idInputValido == 0) return;
+		
+		if(!pesquisaPorNome) {	
 			localizado = new ArrayList<>();
 			Cliente c;
-			int id = Integer.parseInt(s);
-			c = clientes.localizarCliente(id);		
+			c = clientes.localizarCliente(idInputValido);	
 			localizado.add(c);	
 			
 		}else if(s.length() > 1){			
 			localizado = clientes.localizarCliente(s);
+			
+			if (localizado.size() <= 0) {
+				System.out.println("♦ Nenhum cliente com esse nome encontrado ♦");
+				return;
+			}
 		}else {	
 			System.out.println(" ♦ Erro ♦ ");
 			return;
