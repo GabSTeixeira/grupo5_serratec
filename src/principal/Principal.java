@@ -43,7 +43,7 @@ public class Principal {
 	// não entedemos o relatorio. por favor explicar.
 
 	// perguntar se o menu esta legal, porque a versão dele estava confuso para mexer.
-	
+	//Gabriel Garcia passou por aqui >:)
 	
 	public static Conexao con;
 	public static DadosConexao dadosCon = new DadosConexao();
@@ -205,9 +205,10 @@ public class Principal {
 					" 2) Alterar\n"+
 					" 3) Excluir\n"+
 					" 4) Listar\n"+
-					" 5) voltar Menu Principal\n"+
-					"════════════════════════════════════════════════════════════════════════════════════════════════════════════════════\n"+
-					" ♦ Informe uma opção ♦"
+					" 5) Localizar produto\n"+
+					" 6) voltar Menu Principal\n"+
+					"═════════════════════════════════════════════════════════════════════════════\n"+
+					" ♦ Informe uma opção ♦ \n▸ "
 					);
 			System.out.print("▸ ");
 			
@@ -219,7 +220,8 @@ public class Principal {
 				case 2: alterarProduto(); break;
 				case 3: excluirProduto(); break;
 				case 4: listarProdutos(); break;
-				case 5: imprimirMenu = false; break;
+				case 5: break;
+				case 6: imprimirMenu = false; break;
 				default: System.out.println(" ♦ Opção inválida ♦ ");
 			}
 		
@@ -601,8 +603,7 @@ public class Principal {
 		//listarProduto();
 		System.out.println(" ♦ Informe o preço ♦ ");
 		System.out.print("▸ ");
-		double d = in.nextDouble();
-		in.nextLine();
+		String d = in.nextLine();
 		p.setPreco(d);
 		
 		System.out.println(" ♦ Informe a descrição do produto ♦ ");
@@ -612,8 +613,7 @@ public class Principal {
 		
 		System.out.println(" ♦ Informe o estoque ♦ ");
 		System.out.print("▸ ");
-		int e = in.nextInt();
-		in.nextLine();
+		String e  = in.nextLine();
 		p.setEstoque(e);
 		
 		pdao.incluirProduto(p);
@@ -696,7 +696,7 @@ public class Principal {
 				case 2: 
 					System.out.println(" ♦ Informe o novo Preço ♦ ");
 					System.out.print("▸ ");
-					pd.setPreco(in.nextDouble());
+					pd.setPreco(in.nextLine());
 					break;
 				case 3: 
 					System.out.println(" ♦ Informe o novo Descrição ♦ ");
@@ -706,7 +706,7 @@ public class Principal {
 				case 4:
 					System.out.println(" ♦ Informe o novo estoque ♦ ");
 					System.out.print("▸ ");
-					pd.setEstoque(in.nextInt());
+					pd.setEstoque(in.nextLine());
 					break;								
 				case 5:	
 					System.out.println("════════════════════════════════════════════════════════════════════════════════════════════════════════════════════");
@@ -721,9 +721,8 @@ public class Principal {
 
 			        System.out.println(" ♦ Preço ♦ ");
 			        System.out.print("▸ ");
-			        double pr;
-			        pr = in.nextDouble();
-			        in.nextLine();
+			        String pr;
+			        pr = in.nextLine();
 
 			        if (!s.isEmpty() && !s.isBlank() && s != null)
 			        	pd.setPreco(pr);
@@ -737,9 +736,8 @@ public class Principal {
 
 			        System.out.println(" ♦ Estoque ♦ ");
 			        System.out.print("▸ ");
-			        int est;
-			        est = in.nextInt();
-			        in.nextLine();
+			        String est;
+			        est = in.nextLine();
 			        
 			        if (!s.isEmpty() && !s.isBlank() && s != null)
 			        	pd.setEstoque(est);
@@ -807,6 +805,10 @@ public class Principal {
 				
 		}		
 		System.out.printf("═╩═════════════════╩══════════════════════╩═════════════════╩═════════════════╩═%n");
+	}
+	
+	public static void localizarProduto() {
+		
 	}
 	//--------------------------------metodos-Pedido--------------------------------
 	public static void cadastrarPedido() {
@@ -884,8 +886,8 @@ public class Principal {
 			
 			if (idInputValido > 0) {
 				Produto produto = produtos.localizarProduto(idInputValido);
-				
-					
+								
+
 				if (produto.getEstoque() <= 0) { 
 					System.out.println(" ♦ Selecione produtos com estoque ♦ ");
 					System.out.print("▸ ");
@@ -895,7 +897,7 @@ public class Principal {
 							+ "\n ♦ Informe a quantidade a ser vendida ♦ ");
 					int qtdVendida = in.nextInt();
 					in.nextLine();
-					
+
 					if (qtdVendida <= produto.getEstoque()) {
 						
 						pd = new ProdutoVendido (produto, qtdVendida);
@@ -1240,7 +1242,6 @@ public class Principal {
 			}
 			System.out.printf("═╩═════════════════╩═════════════════╩══════════════════════╩═════════════════╩═════════════════╩═════════════════╩═%n");	
 	}	
-
 }
 	
 	

@@ -75,6 +75,18 @@ public class ListaProduto {
         return localizado;
     }
 	
+	public ArrayList <Produto> localizarProduto(String nomeProduto) {
+		 ArrayList <Produto> produtosEncontrados = new ArrayList<>();
+
+        for (Produto p : produtos) {
+            if (p.getNomeProduto().equals(nomeProduto)) {
+                produtosEncontrados.add(p);
+            }
+        }
+        return produtosEncontrados;
+	        
+	}
+	
 	private Produto dadosProduto(ResultSet tabela) { 
 		Produto prod = new Produto();
 		

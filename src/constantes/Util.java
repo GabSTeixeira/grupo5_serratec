@@ -16,14 +16,7 @@ public class Util {
 		EXCLUIR,
 		IMPRIMIR
 	}
-	public static boolean isInteger(String str) {
-        try {
-            Integer.parseInt(str);
-            return true;
-        } catch (NumberFormatException e) {
-            return false;
-        }
-    }
+
 	public static void br() {
 		System.out.println("");
 	}
@@ -72,9 +65,18 @@ public class Util {
 		
 		return numero;
 	}
- 	
 	
-	public static double validarDouble() {
+	public static boolean isInteger(String str) {
+		try {
+	        Integer.parseInt(str);
+	        return true;
+	    } catch (NumberFormatException e) {
+	        return false;
+	    }
+	}
+	
+	/*
+	public static double validarDouble(String StringNumero) {
 		String s;
 		double numero = 0.0;
 		boolean validado = false;
@@ -94,4 +96,14 @@ public class Util {
 		
 		return numero;
 	}
+	*/
+	
+	public static boolean isDouble(String str) {
+        try {
+            Double.parseDouble(str);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
+    }
 }
