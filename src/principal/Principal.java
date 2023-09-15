@@ -1156,14 +1156,11 @@ public class Principal {
 						break;
 					case 2:
 						
-						
+						System.out.println("sflkdjfslkdfjlsdlkfj");
 						Produto produto = ped.getProdutos().get(indice);
 						
 						produto.setEstoque(estoqueTotal);
-						
 						pdao.alterarProdutoEstoque(produto);
-						System.out.println(ped.getIdPedido());
-						
 						peprodao.excluirPedidoProduto(ped, ped.getProdutos().get(indice).getIdProduto());
 						
 						
@@ -1193,7 +1190,7 @@ public class Principal {
 		listarPedidos();
 		
 		do {
-			System.out.println("\n ♦ Informe o id do pedido que deve ser excluido(0 para voltar) ♦ ");
+			System.out.println("\n ♦ Informe o id do pedido que deve ser excluido(0 para voltar) ♦");
 			System.out.print("▸ ");
 			int id = Util.validarInteiro(sc.nextLine());
 			
@@ -1237,7 +1234,7 @@ public class Principal {
 			for (Pedido p : pedidos.getListaPedido()) {
 
 
-					System.out.printf(" ║ %15d ║ %15d ║ %15s ║ %15d ║ %15f ║ %15s ║ %n",p.getIdPedido(),p.getCliente().getIdCliente(),
+					System.out.printf(" ║ %15d ║ %15d ║ %20s ║ %15d ║ %15f ║ %15s ║ %n",p.getIdPedido(),p.getCliente().getIdCliente(),
 					p.getCliente().getNome(),p.getQtdItens(),p.getTotal(),p.getData());
 		
 			}
