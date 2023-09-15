@@ -1,11 +1,23 @@
+<<<<<<< HEAD
+=======
+/principal/
+<<<<<<< HEAD
+/constantes/
+>>>>>>> master
 /classes/
 <<<<<<< HEAD
 /conexao/
 /constantes/
 /dao/
+<<<<<<< HEAD
 /principal/
 
 .gitignore
 =======
 /principal/
+=======
+=======
+/classes/
+/constantes/
+>>>>>>> master
 >>>>>>> Garcia

@@ -893,10 +893,10 @@ public class Principal {
 					System.out.print("▸ ");
 				} else {
 				
-					System.out.println(" ♦ Este Produto possui Estoque Disponivel de ("+produto.getEstoque()+") ♦ "
-							+ "\n ♦ Informe a quantidade a ser vendida ♦ ");
-					int qtdVendida = in.nextInt();
-					in.nextLine();
+					System.out.println("Este Produto possui Estoque Disponivel de ("+produto.getEstoque()+")"
+							+ "\nInforme a quantidade a ser vendida:");				
+					String st = in.nextLine();
+					int qtdVendida = Util.validarInteiro(st);
 
 					if (qtdVendida <= produto.getEstoque()) {
 						
@@ -1224,7 +1224,8 @@ public class Principal {
 		pedao.excluirPedido(ped);
 		pedidos.atualizarListaPedido();
 	}
-	
+
+
 	public static void listarPedidos() {	
 		
 		System.out.printf("════════════════════════════════════════════════════════════════════════════════════════════════════════════════════%n");

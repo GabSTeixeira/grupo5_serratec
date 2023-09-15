@@ -49,6 +49,7 @@ public class Cliente {
 	}		
 	private boolean validarNome (String nome) {
 		if(nome.length() <= 100 && !nome.isBlank()) {
+
 			return true;
 		}
 		return false;
@@ -70,6 +71,7 @@ public class Cliente {
 	}
 	private boolean validarCpf (String cpf) {
 		if(cpf.length() <= 11 && !cpf.isBlank()) {
+
 			return true;
 		}
 		return false;
@@ -93,8 +95,8 @@ public class Cliente {
 		this.telefone = opcao;
 	}	
 	private boolean validarTelefone (String telefone) {
-
 		if(telefone.length() == 11 && !telefone.isBlank()) {
+
 			return true;
 			
 		}
@@ -136,6 +138,7 @@ public class Cliente {
 				return true;	
 			}
 		}
+
 		return false;
 	}
 	public char getSexo() {
