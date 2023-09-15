@@ -306,6 +306,12 @@ public class Principal {
 
 	public static void alterarCliente() {
 		
+		if (clientes.getListaClientes().size() <= 0) {
+			System.out.println(" ♦ Não há clientes cadastrados ♦ ");
+			return;
+			
+		}
+		
 		Cliente cl = new Cliente();
 		ClienteDAO cdao = new ClienteDAO(con, SCHEMA);
 		
@@ -463,6 +469,13 @@ public class Principal {
 	}
 
 	public static void excluirCliente() {
+		
+		if (clientes.getListaClientes().size() <= 0) {
+			System.out.println(" ♦ Não há clientes cadastrados ♦ ");
+			return;
+			
+		}
+		
 		Cliente cl = new Cliente();
 		ClienteDAO cdao = new ClienteDAO(con, SCHEMA);
 		
@@ -522,7 +535,9 @@ public class Principal {
 	public static void listarClientes() {
 		if (clientes.getListaClientes().size() <= 0) {
 			System.out.println(" ♦ Não há clientes cadastrados ♦ ");
-		}else {
+			return;
+			
+		}
 			System.out.printf("════════════════════════════════════════════════════════════════════════════════════════════════════════════════════%n");
 			System.out.printf("                                           ♣ Lista de Clientes ♣ %n");
 			System.out.printf("════════════════════════════════════════════════════════════════════════════════════════════════════════════════════%n");
@@ -533,10 +548,16 @@ public class Principal {
 				System.out.printf(" ║ %15d ║ %20s ║ %15s ║ %15s ║%n",c.getIdCliente(),c.getNome(),c.getSexo(),c.getTelefone());
 			}
 			System.out.printf("═╩═════════════════╩══════════════════════╩═════════════════╩═════════════════╩═%n");	
-		}
+		
 	}
 	
 	public static void localizarCliente() {
+		
+		if (clientes.getListaClientes().size() <= 0) {
+			System.out.println(" ♦ Não há clientes cadastrados! ♦ ");
+			
+			return;
+		}
 		
 		@SuppressWarnings("resource")
 		Scanner in = new Scanner(System.in);
@@ -635,6 +656,7 @@ public class Principal {
 		
 		do {
 			System.out.println("\n ♦ Informe o id do produto que deve ser alterado(0 para cancelar) ♦ ");
+			System.out.print("▸ ");
 			int id = Util.validarInteiro(sc.nextLine());
 			
 			if(id == 0||1 == produtos.getProdutos()
@@ -675,7 +697,6 @@ public class Principal {
 				" 4) Estoque\n"+
 				" 5) Alterar Tudo\n"+
 				" 6) Voltar e salvar\n"+
-
 				"════════════════════════════════════════════════════════════════════════════════════════════════════════════════════\n"+
 				" ♦ Informe uma opção ♦"
 				);
@@ -761,10 +782,6 @@ public class Principal {
 		@SuppressWarnings("resource")
 		Scanner sc = new Scanner(System.in);
 		int idInputValido;
-		
-		System.out.println("════════════════════════════════════════════════════════════════════════════════════════════════════════════════════");
-		System.out.println("                                           ♣ Deletar produto ♣ ");
-		System.out.println("════════════════════════════════════════════════════════════════════════════════════════════════════════════════════");
 		
 		listarProdutos();	
 		
