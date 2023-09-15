@@ -553,6 +553,7 @@ public class Principal {
 			System.out.printf("═╩═════════════════╩══════════════════════╩═════════════════╩═════════════════╩═%n");	
 		}
 	}
+	
 	public static void localizarCliente() {
 		
 		@SuppressWarnings("resource")
