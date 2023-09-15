@@ -521,7 +521,7 @@ public class Principal {
 
 	public static void listarClientes() {
 		if (clientes.getListaClientes().size() <= 0) {
-			System.out.println(" ♦ Tem cliente não mano ♦ ");
+			System.out.println(" ♦ Não há clientes cadastrados ♦ ");
 		}else {
 			System.out.printf("════════════════════════════════════════════════════════════════════════════════════════════════════════════════════%n");
 			System.out.printf("                                           ♣ Lista de Clientes ♣ %n");
