@@ -830,22 +830,22 @@ public class Principal {
 		System.out.printf("════════════════════════════════════════════════════════════════════════════════════════════════════════════════════%n");
 		System.out.printf("                                           ♣ Lista de produtos ♣ %n");
 		System.out.printf("════════════════════════════════════════════════════════════════════════════════════════════════════════════════════%n");
-		System.out.printf("═╦═════════════════╦══════════════════════╦═════════════════╦═════════════════╦═%n");
-		System.out.printf(" ║ %-15s ║ %-20s%n","IdProduto" ,"Nome do Produto");	
+		System.out.printf("═╦═════════════════╦══════════════════════╦═%n");
+		System.out.printf(" ║ %-15s ║ %-20s ║%n","IdProduto" ,"Nome do Produto");	
 		System.out.printf(" ║ %15d ║ %20s ║%n",pr.getIdProduto(),pr.getNomeProduto());						
-		System.out.printf("═╩═════════════════╩══════════════════════╩═════════════════╩═════════════════╩═%n");
+		System.out.printf("═╩═════════════════╩══════════════════════╩═%n");
 				
 		for(Pedido pd : pedidos.getListaPedido()) {
-			for(@SuppressWarnings("unused") Produto pro : pd.getProdutos()) {
-				if(1 == pd.getProdutos()
+			for(Produto pro : pd.getProdutos()) {
+				if(pd.getProdutos()
 				   .stream()
-				   .filter(prod -> pr.getIdProduto() == prod.getIdProduto())
-				   .count()) {
+				   .anyMatch(prod -> pr.getIdProduto() == pro.getIdProduto())) 
+				{
 				
-					System.out.printf("═╦═════════════════╦══════════════════════╦═════════════════╦═════════════════╦═%n");
-					System.out.printf(" ║ %-15s ║ %-20s%n","IdPedido" ,"Data do Pedido");	
+					System.out.printf("═╦═════════════════╦══════════════════════╦═%n");
+					System.out.printf(" ║ %-15s ║ %-20s ║%n","IdPedido" ,"Data do Pedido");	
 					System.out.printf(" ║ %15d ║ %20s ║%n",pd.getIdPedido(),pd.getData());						
-					System.out.printf("═╩═════════════════╩══════════════════════╩═════════════════╩═════════════════╩═%n");
+					System.out.printf("═╩═════════════════╩══════════════════════╩═%n");
 				}
 			}	
 		}				
