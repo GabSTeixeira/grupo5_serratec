@@ -306,12 +306,6 @@ public class Principal {
 
 	public static void alterarCliente() {
 		
-		if (clientes.getListaClientes().size() <= 0) {
-			System.out.println(" ♦ Não há clientes cadastrados ♦ ");
-			return;
-			
-		}
-		
 		Cliente cl = new Cliente();
 		ClienteDAO cdao = new ClienteDAO(con, SCHEMA);
 		
@@ -319,6 +313,11 @@ public class Principal {
 		Scanner sc = new Scanner(System.in);
 		int idInputValido;
 		
+
+		System.out.println("════════════════════════════════════════════════════════════════════════════════════════════════════════════════════");
+		System.out.println("                                           ♣ Alterar cliente ♣");
+		System.out.println("════════════════════════════════════════════════════════════════════════════════════════════════════════════════════\n");
+	
 		listarClientes();
 		
 		do {
@@ -464,13 +463,6 @@ public class Principal {
 	}
 
 	public static void excluirCliente() {
-		
-		if (clientes.getListaClientes().size() <= 0) {
-			System.out.println(" ♦ Não há clientes cadastrados ♦ ");
-			return;
-			
-		}
-		
 		Cliente cl = new Cliente();
 		ClienteDAO cdao = new ClienteDAO(con, SCHEMA);
 		
@@ -478,6 +470,10 @@ public class Principal {
 		Scanner sc = new Scanner(System.in);
 		int idInputValido;
 		boolean encontrado = false;
+		
+		System.out.println("════════════════════════════════════════════════════════════════════════════════════════════════════════════════════");
+		System.out.println("                                           ♣ Deletar cliente ♣ ");
+		System.out.println("════════════════════════════════════════════════════════════════════════════════════════════════════════════════════");
 		
 		listarClientes();	
 		
@@ -526,10 +522,7 @@ public class Principal {
 	public static void listarClientes() {
 		if (clientes.getListaClientes().size() <= 0) {
 			System.out.println(" ♦ Não há clientes cadastrados ♦ ");
-			return;
-			
-		}
-		
+		}else {
 			System.out.printf("════════════════════════════════════════════════════════════════════════════════════════════════════════════════════%n");
 			System.out.printf("                                           ♣ Lista de Clientes ♣ %n");
 			System.out.printf("════════════════════════════════════════════════════════════════════════════════════════════════════════════════════%n");
@@ -540,67 +533,28 @@ public class Principal {
 				System.out.printf(" ║ %15d ║ %20s ║ %15s ║ %15s ║%n",c.getIdCliente(),c.getNome(),c.getSexo(),c.getTelefone());
 			}
 			System.out.printf("═╩═════════════════╩══════════════════════╩═════════════════╩═════════════════╩═%n");	
-		
+		}
 	}
 	
 	public static void localizarCliente() {
 		
-		if (clientes.getListaClientes().size() <= 0) {
-			System.out.println(" ♦ Não há clientes cadastrados! ♦ ");
-			
-			return;
-		}
-		
-		ArrayList <Cliente> localizado;
 		@SuppressWarnings("resource")
-		Scanner sc = new Scanner(System.in);
+		Scanner in = new Scanner(System.in);
+		ArrayList <Cliente> localizado;
 		
-		boolean pesquisaPorNome = false;
-		int idInputValido = -1;
-		String s;
+		System.out.println(" ♦ Informe o id ou nome para localizar o cliente! ♦ ");
+		System.out.print("▸ ");
+		String s = in.nextLine();
 		
-		do {
-			System.out.println(" ♦ Informe o id ou nome para localizar o cliente (0 para voltar) ♦ ");
-			System.out.print("▸ ");
-			s = sc.nextLine();
-			
-			
-			if (!Util.isInteger(s)) {
-				pesquisaPorNome = true;
-				break;
-			}
-			
-			int id = Util.validarInteiro(s);
-				
-			if(id == 0||1 == clientes.getListaClientes()
-			   .stream()
-			   .filter(c -> id == c.getIdCliente())
-			   .count()) {
-				
-				idInputValido = id;
-				break;
-			
-			}
-		
-			System.out.println(" ♦ Informe um ID valido!! ♦ ");
-			
-		} while(true);
-		
-		if(idInputValido == 0) return;
-		
-		if(!pesquisaPorNome) {	
+		if(Util.isInteger(s)) {	
 			localizado = new ArrayList<>();
 			Cliente c;
-			c = clientes.localizarCliente(idInputValido);	
+			int id = Integer.parseInt(s);
+			c = clientes.localizarCliente(id);		
 			localizado.add(c);	
 			
 		}else if(s.length() > 1){			
 			localizado = clientes.localizarCliente(s);
-			
-			if (localizado.size() <= 0) {
-				System.out.println("♦ Nenhum cliente com esse nome encontrado ♦");
-				return;
-			}
 		}else {	
 			System.out.println(" ♦ Erro ♦ ");
 			return;
@@ -681,7 +635,6 @@ public class Principal {
 		
 		do {
 			System.out.println("\n ♦ Informe o id do produto que deve ser alterado(0 para cancelar) ♦ ");
-			System.out.print("▸ ");
 			int id = Util.validarInteiro(sc.nextLine());
 			
 			if(id == 0||1 == produtos.getProdutos()
@@ -722,6 +675,7 @@ public class Principal {
 				" 4) Estoque\n"+
 				" 5) Alterar Tudo\n"+
 				" 6) Voltar e salvar\n"+
+
 				"════════════════════════════════════════════════════════════════════════════════════════════════════════════════════\n"+
 				" ♦ Informe uma opção ♦"
 				);
@@ -808,6 +762,10 @@ public class Principal {
 		Scanner sc = new Scanner(System.in);
 		int idInputValido;
 		
+		System.out.println("════════════════════════════════════════════════════════════════════════════════════════════════════════════════════");
+		System.out.println("                                           ♣ Deletar produto ♣ ");
+		System.out.println("════════════════════════════════════════════════════════════════════════════════════════════════════════════════════");
+		
 		listarProdutos();	
 		
 		do {
@@ -866,23 +824,53 @@ public class Principal {
 		@SuppressWarnings("resource")
 		Scanner in = new Scanner(System.in);
 		Produto pr;
-
 		
-		System.out.println(" ♦ Informe o id ou nome para localizar o produto! ♦ ");
-		System.out.print("▸ ");
-		String s = in.nextLine();
+		boolean pesquisaPorNome = false;
+		int idInputValido = -1;
+		String s;
 		
-		if(Util.isInteger(s)) {	
+		do {
+			System.out.println(" ♦ Informe o id ou nome para localizar o produto (0 para voltar) ♦ ");
+			System.out.print("▸ ");
+			s = in.nextLine();
+			
+			
+			if (!Util.isInteger(s)) {
+				pesquisaPorNome = true;
+				break;
+			}
+			
+			int id = Util.validarInteiro(s);
+				
+			if(id == 0||1 == produtos.getProdutos()
+			   .stream()
+			   .filter(p -> id == p.getIdProduto())
+			   .count()) {
+				
+				idInputValido = id;
+				break;
+			
+			}
+		
+			System.out.println(" ♦ Informe um ID valido!! ♦ ");
+			
+		} while(true);
+		
+		if(idInputValido == 0) return;
+		
+		if(!pesquisaPorNome) {	
 			int id = Integer.parseInt(s);
 			pr = produtos.localizarProduto(id);			
-			
 		}else if(s.length() > 1){			
-			pr = produtos.localizarProduto(s);
+			pr = produtos.localizarProduto(s);	
+			if (pr == null) {
+				System.out.println("♦ Nenhum produto com esse nome encontrado ♦");
+				return;
+			}
 		}else {	
 			System.out.println(" ♦ Erro ♦ ");
 			return;
-		}
-		
+		}	
 		pedidos.atualizarListaPedido();
 		
 		System.out.printf("════════════════════════════════════════════════════════════════════════════════════════════════════════════════════%n");
