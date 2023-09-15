@@ -2,6 +2,7 @@ package constantes;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
 public class Util {
@@ -47,6 +48,17 @@ public class Util {
 		
 		return null;
 	}
+	
+	public static boolean isDateValid(String date) {
+		try {
+		    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+		    @SuppressWarnings("unused")
+		    LocalDate d = LocalDate.parse(date, formatter);    
+		    return true;
+		} catch (DateTimeParseException e) {
+		    return false;
+		}   
+   }
 	
 	public static int validarInteiro(String StringNumero) {
 		int numero = 0;

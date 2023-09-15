@@ -3,6 +3,7 @@ package principal;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -130,7 +131,7 @@ public class Principal {
 			
 			System.out.println(
 					"════════════════════════════════════════════════════════════════════════════════════════════════════════════════════\n"+
-					"                                           ♣ Menu Principal ♣\n"+
+					"                                           ♣ Menu Principal ♣       GroupFive LTDA\n"+
 					"════════════════════════════════════════════════════════════════════════════════════════════════════════════════════\n"+
 					" 1) Menu Cliente\n"+			
 					" 2) Menu Produto\n"+
@@ -207,7 +208,7 @@ public class Principal {
 					" 4) Listar\n"+
 					" 5) Localizar produto\n"+
 					" 6) voltar Menu Principal\n"+
-					"═════════════════════════════════════════════════════════════════════════════\n"+
+					"════════════════════════════════════════════════════════════════════════════════════════════════════════════════════\n"+
 					" ♦ Informe uma opção ♦ \n▸ "
 					);
 			System.out.print("▸ ");
@@ -246,7 +247,8 @@ public class Principal {
 						" 2) Alterar\n"+
 						" 3) Excluir\n"+
 						" 4) Listar\n"+
-						" 5) voltar Menu Principal\n"+
+						" 5) Localizar pedido\n"+
+						" 6) voltar Menu Principal\n"+
 						"════════════════════════════════════════════════════════════════════════════════════════════════════════════════════\n"+
 						" ♦ Informe uma opção ♦"
 						);
@@ -260,7 +262,8 @@ public class Principal {
 					case 2: alterarPedido(); break;
 					case 3: excluirPedido(); break;
 					case 4: listarPedidos(); break;
-					case 5: imprimirMenu = false; break;
+					case 5: localizarPedido(); break;
+					case 6: imprimirMenu = false; break;
 					default: System.out.println(" ♦ Opção inválida ♦ ");
 				}
 			
@@ -1010,13 +1013,11 @@ public class Principal {
 		
 			@SuppressWarnings("resource")
 			Scanner sc = new Scanner(System.in);
-			int idInputValido;
+			int idInputValido;			
 			
-			
-			
-			System.out.println("═════════════════════════════════════════════════════════════════════════════");
-			System.out.println("                        ♣ Alterar Pedido ♣ ");
-			System.out.println("═════════════════════════════════════════════════════════════════════════════");
+			System.out.println("════════════════════════════════════════════════════════════════════════════════════════════════════════════════════");
+			System.out.println("                                            ♣ Alterar pedido ♣ ");
+			System.out.println("════════════════════════════════════════════════════════════════════════════════════════════════════════════════════");
 			
 			listarPedidos();
 			
@@ -1299,12 +1300,71 @@ public class Principal {
 			for (Pedido p : pedidos.getListaPedido()) {
 
 
-					System.out.printf(" ║ %15d ║ %15d ║ %15s ║ %15d ║ %15f ║ %15s ║ %n",p.getIdPedido(),p.getCliente().getIdCliente(),
+					System.out.printf(" ║ %15d ║ %15d ║ %20s ║ %15d ║ %15.2f ║ %15s ║ %n",p.getIdPedido(),p.getCliente().getIdCliente(),
 					p.getCliente().getNome(),p.getQtdItens(),p.getTotal(),p.getData());
 		
 			}
 			System.out.printf("═╩═════════════════╩═════════════════╩══════════════════════╩═════════════════╩═════════════════╩═════════════════╩═%n");	
 	}	
+	
+	public static void localizarPedido() {
+		@SuppressWarnings("resource")
+		Scanner in = new Scanner(System.in);
+		ArrayList <Pedido> localizado = new ArrayList<>();
+		
+		System.out.println("Informe o id ou a data (dd/mm/yyyy) para localizar o pedido!");
+		System.out.print("▸ ");
+		String s = in.nextLine();
+		
+		if(Util.isInteger(s)) {	
+			int id = Integer.parseInt(s);
+			localizado.add(pedidos.localizarPedido(id));			
+			
+		}else if(s.length() > 1){	
+			if(Util.isDateValid(s)) {
+				DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+				LocalDate dt = LocalDate.parse(s, dtf);
+				localizado = pedidos.localizarPedido(dt);
+			}
+		}else {	
+			System.out.println("Erro");
+			return;
+		}
+		
+		pedidos.atualizarListaPedido();
+		
+		for(Pedido p : localizado) {
+			System.out.printf("════════════════════════════════════════════════════════════════════════════════════════════════════════════════════%n");
+			System.out.printf("                                           ♣ Lista de pedidos ♣ %n");
+			System.out.printf("════════════════════════════════════════════════════════════════════════════════════════════════════════════════════%n");
+			System.out.printf("═╦═════════════════╦══════════════════════╦═%n");
+			System.out.printf(" ║ %-15s ║ %-20s ║%n","IdPedido" ,"Data do Pedido");	
+			System.out.printf(" ║ %15d ║ %20s ║%n", p.getIdPedido(), p.getData());						
+			System.out.printf("═╩═════════════════╩══════════════════════╩═%n");
+		
+			Cliente c = p.getCliente();	
+			System.out.printf("═╦═════════════════╦══════════════════════╦═%n");
+			System.out.printf(" ║ %-15s ║ %-20s ║%n","IdCliente" ,"Nome do Cliente");	
+			System.out.printf(" ║ %15d ║ %20s ║%n",c.getIdCliente(),c.getNome());						
+			System.out.printf("═╩═════════════════╩══════════════════════╩═%n");
+			
+		
+			for(ProdutoVendido pv : p.getProdutos()) {		
+				System.out.printf("═╦═════════════════╦══════════════════════╦═════════════════╦═════════════════╦═════════════════╦═%n");
+				System.out.printf(" ║ %-15s ║ %-20s ║ %-15s ║ %-15s ║ %-15s ║%n","IdProduto" ,"Nome do Produto","Valor: R$","Quantidade: ", "Total: R$");				
+				System.out.printf(" ║ %15d ║ %20s ║ %15.2f ║ %15s ║ %15s ║%n",pv.getIdProduto(),pv.getNomeProduto(),pv.getPreco(),
+					pv.getQtdVendida(),pv.getTotal());							
+				System.out.printf("═╩═════════════════╩══════════════════════╩═════════════════╩═════════════════╩═════════════════╩═%n");
+			}	
+		
+			System.out.printf("═╦══════════════════╦%n");
+			System.out.printf(" ║ %-15s ║%n","Total pedido: R$");	
+			System.out.printf(" ║ %16.2f ║%n",p.getTotal());						
+			System.out.printf("═╩══════════════════╩%n");
+		}
+		
+		System.out.println("Produtos vendidos por: GroupFive LTDA CNPJ: 34.126.361/0003-62 Rua Não sei oque, nº 2");						
+	}
 }
 	
 	

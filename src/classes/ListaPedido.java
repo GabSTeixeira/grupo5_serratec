@@ -48,6 +48,17 @@ public class ListaPedido {
 		return localizado;
 	}
 	
+	public ArrayList <Pedido> localizarPedido(LocalDate dataPedido) {	
+		ArrayList <Pedido> pedidosEcontrados = new ArrayList<>();
+		
+		for (Pedido p : pedidos) {
+			if (p.getData().equals(dataPedido)){
+				pedidosEcontrados.add(p);
+			}
+		}			
+		return pedidosEcontrados;
+	}
+	
 	public void atualizarListaPedido() {
 		carregarListaPedido();
 		carregarProdutosPedido();
