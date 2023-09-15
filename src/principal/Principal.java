@@ -1000,7 +1000,7 @@ public class Principal {
 		do {
 			System.out.println(
 				"═════════════════════════════════════════════════════════════════════════════\n"+
-				"                       ♣ Menu de Alteração de Pedido ♣  "+ ped.getIdPedido()+
+				"                       ♣ Menu de Alteração de Pedido ♣ id:"+ ped.getIdPedido()+
 				"\n═════════════════════════════════════════════════════════════════════════════\n"+
 				" 1) Cliente\n"+
 				" 2) Incluir Produto\n"+
