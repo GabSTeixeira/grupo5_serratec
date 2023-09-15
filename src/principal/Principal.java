@@ -199,7 +199,8 @@ public class Principal {
 					" 2) Alterar\n"+
 					" 3) Excluir\n"+
 					" 4) Listar\n"+
-					" 5) voltar Menu Principal\n"+
+					" 5) Localizar produto\n"+
+					" 6) voltar Menu Principal\n"+
 					"═════════════════════════════════════════════════════════════════════════════\n"+
 					" ♦ Informe uma opção ♦ \n▸ "
 					);
@@ -212,7 +213,8 @@ public class Principal {
 				case 2: alterarProduto(); break;
 				case 3: excluirProduto(); break;
 				case 4: listarProdutos(); break;
-				case 5: imprimirMenu = false; break;
+				case 5: break;
+				case 6: imprimirMenu = false; break;
 				default: System.out.println(" ♦ Opção inválida ♦ ");
 			}
 		
@@ -731,6 +733,10 @@ public class Principal {
 					" "+prod.getEstoque()+" ♦"+
 					" "+prod.getDesc()+" ♦");
 		}		
+	}
+	
+	public static void localizarProduto() {
+		
 	}
 	//--------------------------------metodos-Pedido--------------------------------
 	public static void cadastrarPedido() {
