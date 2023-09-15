@@ -319,11 +319,6 @@ public class Principal {
 		Scanner sc = new Scanner(System.in);
 		int idInputValido;
 		
-
-		System.out.println("════════════════════════════════════════════════════════════════════════════════════════════════════════════════════");
-		System.out.println("                                           ♣ Alterar cliente ♣");
-		System.out.println("════════════════════════════════════════════════════════════════════════════════════════════════════════════════════\n");
-	
 		listarClientes();
 		
 		do {
@@ -483,10 +478,6 @@ public class Principal {
 		Scanner sc = new Scanner(System.in);
 		int idInputValido;
 		boolean encontrado = false;
-		
-		System.out.println("════════════════════════════════════════════════════════════════════════════════════════════════════════════════════");
-		System.out.println("                                           ♣ Deletar cliente ♣ ");
-		System.out.println("════════════════════════════════════════════════════════════════════════════════════════════════════════════════════");
 		
 		listarClientes();	
 		
