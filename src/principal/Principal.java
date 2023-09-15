@@ -295,7 +295,7 @@ public class Principal {
 		c.setEndereco(s);
 		
 		System.out.println("════════════════════════════════════════════════════════════════════════════════════════════════════════════════════");
-		c.setDataNascimento(Util.validarData(" ♦ Informe a data de nascimento (dd/MM/yyyy) ♦  \n▸ "));
+		c.setDataNascimento(Util.validarData(" ♦ Informe a data de nascimento (dd/MM/yyyy) ♦\n▸ "));
 		
 		System.out.println("════════════════════════════════════════════════════════════════════════════════════════════════════════════════════");
 		System.out.println(" ♦ Informe o CPF ♦ ");
