@@ -52,14 +52,6 @@ public class Pedido {
 		this.produtos.add(produtos);
 	}
 	public ProdutoVendido localizarProduto (int id) {
-		/* 
-		List<ProdutoVendido> produto = this.produtos.stream().filter(p -> id == p.getIdProduto())
-				.collect(Collectors.toList());
-		 
-		if (produto.size() == 0) return null;
-		 
-		return produto.get(0);
-		*/
 		ProdutoVendido localizado = null;
 		
 		for (ProdutoVendido p : produtos) {

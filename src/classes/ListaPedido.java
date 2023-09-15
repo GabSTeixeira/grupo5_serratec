@@ -48,6 +48,17 @@ public class ListaPedido {
 		return localizado;
 	}
 	
+	public ArrayList <Pedido> localizarPedido(LocalDate dataPedido) {	
+		ArrayList <Pedido> pedidosEcontrados = new ArrayList<>();
+		
+		for (Pedido p : pedidos) {
+			if (p.getData().equals(dataPedido)){
+				pedidosEcontrados.add(p);
+			}
+		}			
+		return pedidosEcontrados;
+	}
+	
 	public void atualizarListaPedido() {
 		carregarListaPedido();
 		carregarProdutosPedido();
@@ -111,7 +122,6 @@ public class ListaPedido {
 			while (tabelaProdutos.next()) {
 				produtos.add(
 						new ProdutoVendido(
-								//prodao.buscarProduto(tabelaProdutos.getInt("idproduto")),
 								principal.Principal.produtos.localizarProduto(tabelaProdutos.getInt("idproduto")),
 								tabelaProdutos.getInt("qtdvendida")
 								));
